@@ -1,0 +1,160 @@
+
+* {
+  margin: 0 auto;
+}
+
+div{
+  border:solid 3px;
+  border-color: white;
+}
+.divHeader{
+  height: 20vh;
+  text-align: center;
+}
+.divNav{
+  height: 20vh;
+  text-align: center;
+}
+.divMain{
+  height: auto;
+  text-align: center;
+
+}
+
+.divFoot{
+  height: 10vh;
+  text-align: center;
+}
+.divLogin{
+  height: 5vh;
+  width: 15vw;
+  margin-right: 2%;
+  text-align: center;
+}
+.App {
+
+}
+.question{
+  width: 60vw;
+}
+.divQuestions{
+  height: auto;
+  text-align: center;
+}
+.divAnswer{
+  width: 28.5vw;
+  display: inline-block;
+  margin-left: -0.25em;
+}
+.spanQuestion{
+  background-color: #e4f5ff;
+  border-radius: 7px;
+  word-break:break-all;
+  color: black;
+  width: 53vw;
+  min-height: 15vh;
+  padding: 5vh 3vw;
+  text-align: justify;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.labelAnswer{
+  border-radius: 7px;
+  color: black;
+  width: 26vw;
+  height: 4vh;
+  padding: 1vh 1vw;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: left;
+  font-size: 16px;
+  display: block;
+}
+.divAnswerFull{
+  background-color: gainsboro;
+  border-radius: 7px;
+  word-break:break-all;
+  color: black;
+  width: 54.5vw;;
+  padding: 1vh 1vw;
+  text-align: left;
+  font-size: 16px;
+}
+
+.imgHead{
+  margin-top: 3%;
+  min-height: 7vh ;
+  min-width: 7vh ;
+}
+.butLogin{
+  background-color: #4caf50;
+  border: solid 1px;
+  border-radius: 5px;
+  color: white;
+  padding: 7px 20px;
+  margin-right: 5%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+.butLogin:hover {
+  background-color: #282c34; /* Green */
+  color: white;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  /*min-height: 100vh;*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*align-items: center;*/
+  /*justify-content: center;*/
+  /*font-size: calc(10px + 2vmin);*/
+  color: white;
+}
+
+#gallery .question .divQuestions{
+  display: none;
+}
+
+#gallery .question .divQuestions:first-child{
+  display: block;
+}
+#gallery {
+  width: 66.5vw;
+}
+.buttons{
+  display: flex;
+}
+.buttons button{
+  margin-top: 20px;
+  background-color: white;
+  opacity: .3;
+  border: none;
+  outline: none;
+}
+.buttons button:hover{
+  margin-top: 20px;
+  background-color: #dfe2e2;
+  opacity: .6;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+.divButtonsCurrent{
+ height: 0.4vh;
+
+}
+.buttonNumber {
+  background-color: #d3d5d9;
+  border-radius: 10px;
+  width: 2.1vw;
+  outline: none;
+  border: none;
+}
