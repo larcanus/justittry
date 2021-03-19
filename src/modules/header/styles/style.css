@@ -1,0 +1,48 @@
+.divNavbar {
+    text-align:center;
+    width:90%;
+   /* border:2px solid floralwhite;*/
+   /* background: #eee5e5;*/
+   /* box-shadow:0 0 10pt #c4c3c3;*/
+    padding:10pt;
+}
+.logoBtnNavbar{
+    display: inline-block;
+
+
+}
+.logoBtnNavbar:hover{
+    box-shadow:0 5px 0 #c4c3c3;
+}
+
+[id^=radio-] {
+    display: none;
+}
+
+[id^=radio-] + label {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 50px;
+    color: #555;
+    cursor: pointer;
+}
+
+[id^=radio-]:checked + label {
+    height: 20px;
+    background-color: #ffffff;
+    cursor: text;
+}
+
+.logInTrue{
+    display: flex;
+}
+
+.formBtnShare{
+    display: block;
+    margin-top: 50px;
+}
+
+.vk_share_button{
+    background-color: white;
+    border: none;
+}
