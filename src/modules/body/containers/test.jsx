@@ -11,6 +11,7 @@ import {startTestConfigTimer} from '../actions/startTest';
 const Test = (props) => {
 
     const {testConfig, result, timerID, startTestConfigTimer} = props;
+
     const diffical = testConfig.optionTest.diffical;
     const questions = testConfig.optionTest.questions;
 
@@ -92,11 +93,33 @@ const Test = (props) => {
                 <Carousel slides={questions} diff={diffical}/>
             </div>
             <div className='carousel-result' hidden={true}>
-                <DivResult result={result} timerID={timerID}/>
+                <DivResult result={result} timerID={timerID} test={testConfig.nameTest}/>
             </div>
         </div>
     );
 }
+
+const mapStateToProps = (store) => {
+    return {
+        testConfig: store.testConfig.startTestConfig,
+        test: store.test,
+        result: store.result.resultTest,
+        timerID: store.testConfig.startTestConfigTimerID,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        startTestConfigTimer: (timerID) => {
+            dispatch(startTestConfigTimer(timerID));
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Test);
+
+
+
 
 class DivResult extends Component {
 
@@ -110,12 +133,13 @@ class DivResult extends Component {
 
     render() {
 
-        const {result, timerID} = this.props;
+        const {result, timerID, test} = this.props;
+
+        const nameTest = test.substring(21);
         let diff = '';
         let countAnswerTrue = 0;
         let countAllQuestion = 0;
         let resultTestToShowDiv = null;
-
 
         if (result !== null) {
 
@@ -148,7 +172,7 @@ class DivResult extends Component {
                 return (
                     <div className='divResult'>
                         <img src={win} alt='Congratulations!'/>
-                        <p><b>========Тест на знание {result.test} успешно пройден!=========</b></p>
+                        <p><b>========Тест на знание {nameTest} успешно пройден!=========</b></p>
                         <p>Сложность: {diff}</p>
                         <p>Результат: {proportion}</p>
                         <button className='btnOpenAnswers' onClick={event => this.showDivCarousel(event)}>
@@ -162,7 +186,7 @@ class DivResult extends Component {
                     <div className='divResult'>
                         <img src={fail} alt='Failed!'/>
                         <br/>
-                        <p><b>========Тест на знание {result.test} не пройден.=========</b></p>
+                        <p><b>========Тест на знание {nameTest} не пройден.=========</b></p>
                         <p>Сложность: {diff}</p>
                         <p>Результат: {proportion}</p>
                         <button className='btnOpenAnswers' onClick={event => this.showDivCarousel(event)}>
@@ -184,23 +208,4 @@ class DivResult extends Component {
         }
     }
 }
-
-const mapStateToProps = (store) => {
-    return {
-        testConfig: store.testConfig.startTestConfig,
-        test: store.test,
-        result: store.result.resultTest,
-        timerID: store.testConfig.startTestConfigTimerID,
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        startTestConfigTimer: (timerID) => {
-            dispatch(startTestConfigTimer(timerID));
-        }
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Test);
 

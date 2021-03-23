@@ -7,16 +7,17 @@ import {useHistory} from 'react-router-dom';
 
 const Configtest = (props) => {
 
-    const {test, choiceTestConfig,timerID} = props;
+    const {test, choiceTestConfig, timerID} = props;
     const option = {};
     let history = useHistory();
 
     // останавливаем таймер если есть (например поднялись вверх по history)
-    if(timerID !== null){
+    if (timerID !== null) {
         clearInterval(timerID.timerID);
     }
     // очищаем событие на скроллинг
     window.onscroll = null;
+
 
     /**
      * Переключатель видимости предупрежнений
@@ -88,7 +89,7 @@ const Configtest = (props) => {
         while (numReserve.length < 20) {
             let randomNumber = Math.ceil(Math.random() * doneTest.length - 1);
             let found = false;
-            
+
             for (let i = 0; i < numReserve.length; i++) {
                 if (numReserve[i] === randomNumber) {
                     found = true;
@@ -117,7 +118,7 @@ const Configtest = (props) => {
 
         option.diffical = checkConfig(option, radioDiffList, test.testNow);
         option.timer = document.getElementById('without-timer').checked;
-        option.allDiff = document.getElementById('all-diff').checked;
+        // option.allDiff = document.getElementById('all-diff').checked;
         option.questions = generateRandomNums(option);
 
         // option.exclude = document.getElementById('exclude-questions').checked
@@ -149,18 +150,29 @@ const Configtest = (props) => {
 
             <div className='configDescTest'>
                     <span>
-                        <p>Тесты созданы для личной проверки знаний.
-                        Вы можете выбрать сложность - определив уровень квалификации.
-                        Для успешного прохождения допустимо совершить 5 ошибок.
-                        На данный момент составлен только тест по JavaScript на сложности Student.
-                        Удачи!
+                        <p>
+                            Тесты созданы для личной проверки знаний.
+                        </p>
+                        <p>
+                            Вы можете выбрать сложность - определив уровень квалификации.
+                        </p>
+                        <p>
+                           Для успешного прохождения допустимо совершить <b>5</b> ошибок на сложности - 'Student'
+                        </p>
+                        <p>
+                           и <b>3</b> ошибки на - 'Developer'.
+                        </p>
+                        <p>
+                            Время на выполние - <b>20</b> минут.
+                        </p>
+                        <p>
+                           На данный момент составлены только тесты по JavaScript. Удачи!
                         </p>
                     </span>
                 <br/>
                 <a className='startTest' onClick={e => startTest(e)}>Начать!</a>
                 <p id='p-AlarmDif' hidden={true} style={{color: 'red'}}>Выберите сложность!</p>
                 <p id='p-AlarmTest' hidden={true} style={{color: 'red'}}>Выберите тест!</p>
-
             </div>
 
             <div className='configSubOptionTest'>
@@ -168,10 +180,10 @@ const Configtest = (props) => {
                     <input type='checkbox' className='switch' id='without-timer'/>
                     <label htmlFor='without-timer'>Без таймера</label>
                 </form>
-                <form className='formCheckbox'>
-                    <input type='checkbox' className='switch' id='all-diff'/>
-                    <label htmlFor='all-diff'>Включить в тест все уровни сложности</label>
-                </form>
+                {/*<form className='formCheckbox'>*/}
+                {/*    <input type='checkbox' className='switch' id='all-diff'/>*/}
+                {/*    <label htmlFor='all-diff'>Включить в тест все уровни сложности</label>*/}
+                {/*</form>*/}
 
                 {/*<form className='formCheckbox'>    // TODO пока нет смысла в исключении вопросов */}
                 {/*    <input type='checkbox' className='switch' id='exclude-questions'/>*/}
