@@ -258,7 +258,7 @@ class Carousel extends Component {
         e.preventDefault();
 
         const {slides, testName, dispatchResultTest, diff} = this.props;
-
+console.log(this.props)
         const result = {
             test: testName,
             diffical: diff,
