@@ -65,27 +65,8 @@ const Test = (props) => {
         timer();
     }, []);
 
-
-    // центруем сцену на середину тэста в начале рендеринга и при каждом скроле юзера
+    // центруем сцену на середину теста в начале рендеринга
     window.scrollTo(0, 218);
-    
-    let timeout = false;
-    window.onscroll = () => {
-        if (timeout !== false) {
-            clearTimeout(timeout);
-        }
-
-        timeout = setTimeout(() => {
-            const anchor = document.getElementById('carousel');
-
-            if (anchor !== null) {
-                anchor.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }, 2300);
-    };
 
     return (
         <div className='testDiv' style={style}>
@@ -143,8 +124,9 @@ class DivResult extends Component {
 
         if (result !== null) {
 
-            // очищаем событие на скроллинг
+            // очищаем события на скроллинг и на клавишы
             window.onscroll = null;
+            window.onkeyup = null;
 
             for (let i in result.answers) {
                 countAllQuestion += 1;

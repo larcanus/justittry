@@ -168,20 +168,54 @@ class Carousel extends Component {
             correctAnswer: false,
             hiddenBtn: true,
         };
+        this.addListener();
     }
 
-    // componentDidUpdate() {
-    //     // this.window.onkeydown = this.handle;
-    //     this.handleBtnFinal()
-    //     console.log( 'sdfsdfsdf')
-    // }
-    //
-    // // TODO надо сделать переключение слайдов по кнопкам с клавы
-    // handle(e) {
-    //     if (e.code === 'KeyC') {
-    //         Carousel.goToNextSlide()
-    //     }
-    // }
+    /**
+     * Метод добавления наблюдателей
+     */
+    addListener() {
+        window.onkeyup = (e) => {
+            switch (e.key) {
+                case 'ArrowLeft' :
+                    this.goToPrevSlide(e);
+                    break;
+                case 'ArrowRight' :
+                    this.goToNextSlide(e);
+                    break;
+                case 'a' :
+                    this.goToPrevSlide(e);
+                    break;
+                case 'd' :
+                    this.goToNextSlide(e);
+                    break;
+                case 'ф' :
+                    this.goToPrevSlide(e);
+                    break;
+                case 'в' :
+                    this.goToNextSlide(e);
+                    break;
+            }
+        };
+
+        let timeout = false;
+        window.onscroll = () => {
+            if (timeout !== false) {
+                clearTimeout(timeout);
+            }
+
+            timeout = setTimeout(() => {
+                const anchor = document.getElementById('carousel');
+
+                if (anchor !== null) {
+                    anchor.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }, 2300);
+        };
+    }
 
     /**
      * Метод открытия кнопки 'Закночить!'
@@ -250,6 +284,7 @@ class Carousel extends Component {
         });
     }
 
+
     /**
      * Обработчик кнопки 'Закончить тест'
      * @param {event} e
@@ -258,7 +293,7 @@ class Carousel extends Component {
         e.preventDefault();
 
         const {slides, testName, dispatchResultTest, diff} = this.props;
-console.log(this.props)
+
         const result = {
             test: testName,
             diffical: diff,
