@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 
 
 const Maincomp = ({test}) => {
-
+  
     return (
         <div className='divMain'>
             <p><b>{test.testNow}.</b></p>
@@ -19,6 +19,5 @@ const mapStateToProps = (store) => {
         testConfig: store.testConfig.startTestConfig
     }
 };
-
 
 export default connect(mapStateToProps)(Maincomp);

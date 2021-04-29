@@ -15,23 +15,19 @@ const Test = (props) => {
     const diffical = testConfig.optionTest.diffical;
     const questions = testConfig.optionTest.questions;
 
-    const timer = () => {
+    const timerRun = () => {
 
         // если тест с таймером, убираем скрытие, ставим интервал
         if (!testConfig.optionTest.timer) {
             document.getElementsByClassName('timer')['0'].removeAttribute('hidden');
 
-            let startTimer = () => {
+            let timer = setInterval(() => {
 
                 let my_timer = document.getElementById('timer');
                 let time = my_timer.innerHTML;
                 let arr = time.split(':');
                 let m = arr[0];
                 let s = arr[1];
-
-                if (result !== null) {
-                    clearInterval(timer);
-                }
 
                 if (Number(s) === 0) {
                     if (Number(m) === 0) {
@@ -50,19 +46,18 @@ const Test = (props) => {
                     s = `0${s}`;
                 }
                 document.getElementById('timer').innerHTML = `${m}:${s}`;
-            }
 
-            let timer = setInterval(startTimer, 1000);
+            }, 1000);
 
             startTestConfigTimer({
                 timerID: timer,
             });
         }
     }
-    
+
     // аналог дидмаунта, грузим тимер при рендеринге
     React.useEffect(() => {
-        timer();
+        timerRun();
     }, []);
 
     // центруем сцену на середину теста в начале рендеринга
@@ -100,94 +95,96 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Test);
 
 
-
-
-class DivResult extends Component {
+const DivResult = (props) => {
 
     /**
      * Показать ответы
      */
-    showDivCarousel(e) {
+    const showDivCarousel = (e) => {
         document.querySelector(`div[class='carousel-div']`).removeAttribute('hidden');
         e.target.setAttribute('hidden', 'true');
     }
 
-    render() {
+    const {result, timerID, test} = props;
+    const nameTest = test.substring(21);
+    let diff = '';
+    let countAnswerTrue = 0;
+    let countAllQuestion = 0;
+    let resultTestToShowDiv = null;
 
-        const {result, timerID, test} = this.props;
+    if (result !== null) {
 
-        const nameTest = test.substring(21);
-        let diff = '';
-        let countAnswerTrue = 0;
-        let countAllQuestion = 0;
-        let resultTestToShowDiv = null;
+        // очищаем события на скроллинг и на клавишы
+        window.onscroll = null;
+        window.onkeyup = null;
 
-        if (result !== null) {
-
-            // очищаем события на скроллинг и на клавишы
-            window.onscroll = null;
-            window.onkeyup = null;
-
-            for (let i in result.answers) {
-                countAllQuestion += 1;
-                if (result.answers[i]) {
-                    countAnswerTrue += 1;
-                }
+        for (let i in result.answers) {
+            countAllQuestion += 1;
+            if (result.answers[i]) {
+                countAnswerTrue += 1;
             }
-            // проверяем допустимое количество ошибок
-            switch (true) {
-                case result.diffical.includes('jun') :
-                    diff = 'Student';
-                    resultTestToShowDiv = countAllQuestion - countAnswerTrue <= 5;
-                    break;
-                case result.diffical.includes('mid') :
-                    diff = 'Developer';
-                    resultTestToShowDiv = countAllQuestion - countAnswerTrue <= 3;
-                    break;
-            }
+        }
+        // проверяем допустимое количество ошибок
+        switch (true) {
+            case result.diffical.includes('jun') :
+                diff = 'Student';
+                resultTestToShowDiv = countAllQuestion - countAnswerTrue <= 5;
+                break;
+            case result.diffical.includes('mid') :
+                diff = 'Developer';
+                resultTestToShowDiv = countAllQuestion - countAnswerTrue <= 3;
+                break;
+        }
 
-            //останавливаем таймер
-            clearInterval(timerID?.timerID);
+        //останавливаем таймер
+        clearInterval(timerID?.timerID);
 
-            let proportion = `${countAnswerTrue} / ${countAllQuestion}`;
-            if (resultTestToShowDiv) {
-                return (
-                    <div className='divResult'>
-                        <img src={win} alt='Congratulations!'/>
-                        <p><b>========Тест на знание {nameTest} успешно пройден!=========</b></p>
-                        <p>Сложность: {diff}</p>
-                        <p>Результат: {proportion}</p>
-                        <button className='btnOpenAnswers' onClick={event => this.showDivCarousel(event)}>
-                            Посмотреть ответы
-                        </button>
-                    </div>
-                )
-            } else {
+        let proportion = `${countAnswerTrue} / ${countAllQuestion}`;
 
-                return (
-                    <div className='divResult'>
-                        <img src={fail} alt='Failed!'/>
-                        <br/>
-                        <p><b>========Тест на знание {nameTest} не пройден.=========</b></p>
-                        <p>Сложность: {diff}</p>
-                        <p>Результат: {proportion}</p>
-                        <button className='btnOpenAnswers' onClick={event => this.showDivCarousel(event)}>
-                            Посмотреть ответы
-                        </button>
-                        <button className='btnNewTest' onClick={() => window.location.reload()}>
-                            Попробывать еще раз
-                        </button>
-                        <Share/>
-                        <div id='ya-share2' data-shape='round'
-                             data-services='vkontakte,facebook,telegram,twitter,whatsapp,linkedin'/>
-                    </div>
-                )
-            }
-        } else {
+        if (resultTestToShowDiv) {
             return (
-                <div/>
+                <div className='divResult'>
+                    <img src={win} alt='Congratulations!'/>
+                    <p><b>========Тест на знание {nameTest} успешно пройден!=========</b></p>
+                    <p>Сложность: {diff}</p>
+                    <p>Результат: {proportion}</p>
+                    <button className='btnOpenAnswers' onClick={event => showDivCarousel(event)}>
+                        Посмотреть ответы
+                    </button>
+                    <button className='btnNewTest' onClick={() => {
+                        window.location.replace('https://justittry.ru/');
+                    }}>
+                        Попробывать еще раз
+                    </button>
+                </div>
+            )
+        } else {
+
+            return (
+                <div className='divResult'>
+                    <img src={fail} alt='Failed!'/>
+                    <br/>
+                    <p><b>========Тест на знание {nameTest} не пройден.=========</b></p>
+                    <p>Сложность: {diff}</p>
+                    <p>Результат: {proportion}</p>
+                    <button className='btnOpenAnswers' onClick={event => showDivCarousel(event)}>
+                        Посмотреть ответы
+                    </button>
+                    <button className='btnNewTest' onClick={() => {
+                        window.location.replace('https://justittry.ru/');
+                    }}>
+                        Попробывать еще раз
+                    </button>
+
+                    <Share/>
+                    <div id='ya-share2' data-shape='round'
+                         data-services='vkontakte,facebook,telegram,twitter,whatsapp,linkedin'/>
+                </div>
             )
         }
+    } else {
+        return (
+            <div/>
+        )
     }
 }
-
