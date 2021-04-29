@@ -13,7 +13,8 @@ const Configtest = (props) => {
 
     // останавливаем таймер если есть (например поднялись вверх по history)
     if (timerID !== null) {
-        clearInterval(timerID.timerID);
+        clearInterval(timerID?.timerID);
+        console.log(timerID )
     }
     // очищаем событие на скроллинг
     window.onscroll = null;

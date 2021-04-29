@@ -168,13 +168,13 @@ class Carousel extends Component {
             correctAnswer: false,
             hiddenBtn: true,
         };
-        this.addListener();
+        this.addListeners();
     }
 
     /**
      * Метод добавления наблюдателей
      */
-    addListener() {
+    addListeners() {
         window.onkeyup = (e) => {
             switch (e.key) {
                 case 'ArrowLeft' :
