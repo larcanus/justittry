@@ -9,20 +9,16 @@ import {startTestConfigTimer} from '../actions/startTest';
 
 
 const Test = (props) => {
-
     const {testConfig, result, timerID, startTestConfigTimer} = props;
-
     const diffical = testConfig.optionTest.diffical;
     const questions = testConfig.optionTest.questions;
 
     const timerRun = () => {
-
         // если тест с таймером, убираем скрытие, ставим интервал
         if (!testConfig.optionTest.timer) {
             document.getElementsByClassName('timer')['0'].removeAttribute('hidden');
 
-            let timer = setInterval(() => {
-
+            const timer = setInterval(() => {
                 let my_timer = document.getElementById('timer');
                 let time = my_timer.innerHTML;
                 let arr = time.split(':');
@@ -96,7 +92,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Test);
 
 
 const DivResult = (props) => {
-
     /**
      * Показать ответы
      */
@@ -113,7 +108,6 @@ const DivResult = (props) => {
     let resultTestToShowDiv = null;
 
     if (result !== null) {
-
         // очищаем события на скроллинг и на клавишы
         window.onscroll = null;
         window.onkeyup = null;
@@ -134,12 +128,16 @@ const DivResult = (props) => {
                 diff = 'Developer';
                 resultTestToShowDiv = countAllQuestion - countAnswerTrue <= 3;
                 break;
+            default :
+                diff = 'Student';
+                resultTestToShowDiv = countAllQuestion - countAnswerTrue <= 5;
+                break;
         }
 
         //останавливаем таймер
         clearInterval(timerID?.timerID);
 
-        let proportion = `${countAnswerTrue} / ${countAllQuestion}`;
+        const proportion = `${countAnswerTrue} / ${countAllQuestion}`;
 
         if (resultTestToShowDiv) {
             return (
@@ -157,9 +155,8 @@ const DivResult = (props) => {
                         Попробывать еще раз
                     </button>
                 </div>
-            )
+            );
         } else {
-
             return (
                 <div className='divResult'>
                     <img src={fail} alt='Failed!'/>
@@ -180,11 +177,11 @@ const DivResult = (props) => {
                     <div id='ya-share2' data-shape='round'
                          data-services='vkontakte,facebook,telegram,twitter,whatsapp,linkedin'/>
                 </div>
-            )
+            );
         }
     } else {
         return (
             <div/>
-        )
+        );
     }
 }

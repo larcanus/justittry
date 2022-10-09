@@ -46,6 +46,6 @@ export function handleLogout() {
                     payload: new Error('Ошибка'),
                 });
             }
-        },)
+        },);
     }
 }

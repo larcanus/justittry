@@ -8,7 +8,6 @@ import arrR from '../../../common/images/arrow2.png';
 
 
 const CarouselLeftArrow = (props) => {
-
     const {activeIndex} = props;
     const btnLeftElem = document.getElementsByClassName('carousel__arrow carousel__arrow--left')['0'];
 
@@ -27,7 +26,6 @@ const CarouselLeftArrow = (props) => {
 }
 
 const CarouselRightArrow = (props) => {
-
     const {index, activeIndex} = props;
     const btnLeftElem = document.getElementsByClassName('carousel__arrow carousel__arrow--right')['0'];
 
@@ -218,7 +216,7 @@ class Carousel extends Component {
     }
 
     /**
-     * Метод открытия кнопки 'Закночить!'
+     * Метод открытия кнопки 'Закончить!'
      */
     handleBtnFinal() {
         let {slides} = this.props;
@@ -357,7 +355,6 @@ class Carousel extends Component {
     render() {
         return (
             <div className='carousel' id='carousel'>
-
                 <ul className='carousel__indicators'>
                     {this.props.slides.map((slide, index) =>
                         <CarouselIndicator
@@ -407,7 +404,7 @@ class Carousel extends Component {
                 )}
 
                 <button id='btnFinal' className='btnFinal' hidden={this.state.hiddenBtn}
-                        onClick={e => this.final(e)}>Закночить тест!
+                        onClick={e => this.final(e)}>Закончить тест!
                 </button>
             </div>
         );

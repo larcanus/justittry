@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Login = (props) => {
-
    const renderTemplate = () => {
         const {login, error, isFetching, handleLogInAction, handleLogOutAction} = props;
 
@@ -11,11 +10,11 @@ const Login = (props) => {
                     Во время запроса произошла ошибка, обновите
                     страницу
                 </p>
-            )
+            );
         }
 
         if (isFetching) {
-            return <p>Загружаю...</p>
+            return <p>Загружаю...</p>;
         }
 
         if (login.access) {
@@ -32,7 +31,7 @@ const Login = (props) => {
                 <button className="butLogin" onClick={handleLogInAction}>
                     Log in
                 </button>
-            )
+            );
         }
     }
 
@@ -40,7 +39,7 @@ const Login = (props) => {
         <div className='divLogin'>
             <div className="ib user">{renderTemplate()}</div>
         </div>
-    )
+    );
 };
 
 export default Login;

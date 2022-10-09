@@ -6,7 +6,6 @@ import Tests from '../../../store/qustions';
 import {useHistory} from 'react-router-dom';
 
 const Configtest = (props) => {
-
     const {test, choiceTestConfig, timerID} = props;
     const option = {};
     let history = useHistory();
@@ -18,7 +17,6 @@ const Configtest = (props) => {
     }
     // очищаем событие на скроллинг
     window.onscroll = null;
-
 
     /**
      * Переключатель видимости предупрежнений
@@ -41,10 +39,9 @@ const Configtest = (props) => {
      * @param {object} option - состояние корректности настроек
      * @param {object} checkDiff - коллекция с радио-инпутами слжности
      * @param {string} testName - имя теста
-     * @return {string} checkedDiff - выбранная сложность
+     * @return {string|null} checkedDiff - выбранная сложность
      */
     const checkConfig = (option, checkDiff, testName) => {
-
         let checkedDiff = null;
         for (let i = 0; i < checkDiff.length; i++) {
             if (checkDiff[i].checked) {
@@ -104,7 +101,7 @@ const Configtest = (props) => {
         // составляем массив с вопросами
         numReserve.forEach(num => {
             questions.push(doneTest[num]);
-        })
+        });
 
         return questions;
     }
@@ -114,7 +111,6 @@ const Configtest = (props) => {
      * @param {object} e - объект события с кнопки 'начать'
      */
     const startTest = (e) => {
-
         const radioDiffList = document.querySelectorAll(`input[name='radio2']`);
 
         option.diffical = checkConfig(option, radioDiffList, test.testNow);
@@ -137,7 +133,6 @@ const Configtest = (props) => {
 
     return (
         <div className='configTestDiv' style={style}>
-
             <div className='configDiffTest'>
                 <form className='form cf'>
                     <section className='plan cf'>
