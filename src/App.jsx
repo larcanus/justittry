@@ -10,7 +10,6 @@ import {Switch, Route} from 'react-router-dom';
 import React from 'react';
 
 function App() {
-
     return checkUserAgent() ? (
         <div className='App'>
             <header className='App-header'>
