@@ -1,7 +1,6 @@
 import {CHOICE_TEST,REMOVE_TEST} from '../../../common/constants';
 
 export default function newValue(test) {
-
     switch (test) {
         case 'js-test-logo'  : test =  'Тест на знание языка JavaScript';
             break;

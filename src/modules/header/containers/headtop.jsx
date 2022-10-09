@@ -6,7 +6,6 @@ import {handleLogin,handleLogout} from '../actions/handleLogin';
 import {Link} from 'react-router-dom';
 
 class Headtop extends Component {
-
     render() {
         const {
             login,

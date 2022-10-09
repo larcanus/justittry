@@ -8,7 +8,7 @@ export default function(state = initialState, action) {
     switch (action.type) {
         case CHOICE_TEST :
             return {...state, testNow: action.payload }
-        default:return state
+        default:return state;
     }
 };
 

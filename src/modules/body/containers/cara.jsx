@@ -8,7 +8,6 @@ import arrR from '../../../common/images/arrow2.png';
 
 
 const CarouselLeftArrow = (props) => {
-
     const {activeIndex} = props;
     const btnLeftElem = document.getElementsByClassName('carousel__arrow carousel__arrow--left')['0'];
 
@@ -27,7 +26,6 @@ const CarouselLeftArrow = (props) => {
 }
 
 const CarouselRightArrow = (props) => {
-
     const {index, activeIndex} = props;
     const btnLeftElem = document.getElementsByClassName('carousel__arrow carousel__arrow--right')['0'];
 
@@ -357,7 +355,6 @@ class Carousel extends Component {
     render() {
         return (
             <div className='carousel' id='carousel'>
-
                 <ul className='carousel__indicators'>
                     {this.props.slides.map((slide, index) =>
                         <CarouselIndicator

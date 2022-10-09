@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 class Share extends Component {
-
     componentDidMount() {
         window.Ya.share2('ya', {
             theme: {
@@ -36,7 +35,7 @@ class Share extends Component {
                 <p>Поделиться:</p>
                 <div id='ya' />
             </form>
-        )
+        );
     }
 }
 

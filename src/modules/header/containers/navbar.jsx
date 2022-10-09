@@ -10,7 +10,6 @@ import php from '../../../common/images/php-logo.png';
 
 
 class Navbar extends Component {
-
     componentDidMount() {
         this.props.choiceTestAction(REMOVE_TEST);
     }
@@ -24,7 +23,6 @@ class Navbar extends Component {
 
         return (
             <div className='divNavbar' style={style}>
-
                 <input type='radio' id='radio-1' name='radio1'/>
                 <label htmlFor='radio-1'>
                     <img className='logoBtnNavbar' id='js-test-logo' src={js} onClick={choiceTest} alt='js-test'/>
@@ -44,7 +42,6 @@ class Navbar extends Component {
                 <label htmlFor='radio-4'>
                     <img className='logoBtnNavbar' id='php-test-logo' src={php} onClick={choiceTest} alt='php-test'/>
                 </label>
-
             </div>
         );
     }
