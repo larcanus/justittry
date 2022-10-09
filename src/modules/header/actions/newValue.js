@@ -6,7 +6,7 @@ export default function newValue(test) {
             break;
         case 'html-test-logo' : test = 'Тест на знание языка HTML';
             break;
-        case 'css-test-logo' : test = 'Тест на знание языка CSS';
+        case 'dart-test-logo' : test = 'Тест на знание языка DART';
             break;
         case 'php-test-logo' : test = 'Тест на знание языка PHP';
             break;

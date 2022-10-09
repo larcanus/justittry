@@ -10,6 +10,6 @@ const StubMobile = () => {
                 </p>
             </div>
         </div>
-    );
+    )
 }
 export default StubMobile;

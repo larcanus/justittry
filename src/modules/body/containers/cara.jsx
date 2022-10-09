@@ -216,7 +216,7 @@ class Carousel extends Component {
     }
 
     /**
-     * Метод открытия кнопки 'Закночить!'
+     * Метод открытия кнопки 'Закончить!'
      */
     handleBtnFinal() {
         let {slides} = this.props;
@@ -404,7 +404,7 @@ class Carousel extends Component {
                 )}
 
                 <button id='btnFinal' className='btnFinal' hidden={this.state.hiddenBtn}
-                        onClick={e => this.final(e)}>Закночить тест!
+                        onClick={e => this.final(e)}>Закончить тест!
                 </button>
             </div>
         );

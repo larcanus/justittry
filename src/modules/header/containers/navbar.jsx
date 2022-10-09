@@ -4,7 +4,7 @@ import {REMOVE_TEST} from '../../../common/constants';
 import style from '../styles/style.css';
 import newValue from '../actions/newValue';
 import js from '../../../common/images/js-logo.png';
-import css from '../../../common/images/css-logo.png';
+import dart from '../../../common/images/dart-logo.png';
 import html from '../../../common/images/html-logo.png';
 import php from '../../../common/images/php-logo.png';
 
@@ -35,7 +35,7 @@ class Navbar extends Component {
 
                 <input type='radio' id='radio-3' name='radio1'/>
                 <label htmlFor='radio-3'>
-                    <img className='logoBtnNavbar' id='css-test-logo' src={css} onClick={choiceTest} alt='css-test'/>
+                    <img className='logoBtnNavbar' id='dart-test-logo' src={dart} onClick={choiceTest} alt='dart-test'/>
                 </label>
 
                 <input type='radio' id='radio-4' name='radio1'/>
