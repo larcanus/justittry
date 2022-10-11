@@ -1356,42 +1356,39 @@ const Tests = {
                 num: '#15',
             },
             {
-                question: 'Что выведет getName при вызове через setTimeout?\n\n' +
-                    'let fruit = "Яблоко";\n' +
-                    '\n' +
-                    'const getName = () => {\n' +
-                    '  console.log(fruit);\n' +
-                    '}\n' +
-                    '\n' +
-                    'setTimeout( () => {\n' +
-                    '  let fruit = "Банан";\n' +
-                    '  getName();\n' +
-                    '}, 2000);',
-
+                question: '\n Какой варианты создания коллекции вызовет ошибку?\n\n' +
+                    '1. var numberList = [ 1, 2, 3, if( null == null) 4]\n' +
+                    '2. var numberList = [ 1, 2, for( var i in infinityList) 4]\n' +
+                    '3. var numberList = [ 1, 2, 3, while( number_list.length < 0 ) 4]\n' +
+                    '4. var numberList = [ 1, 2, 3, if( double.infinity == double.infinity ) 4]\n',
                 option: {
-                    a1: 'Банан',
-                    a2: 'undefined',
-                    a3: 'Яблоко',
-                    a4: 'null',
+                    a1: '1',
+                    a2: '2',
+                    a3: '3',
+                    a4: '4',
                 },
                 answerOption: 'a3',
-                answer: 'У переменных, объявленных с помощью директивы let, блочная область видимости \n',
+                answer: 'Dart имеет коллекции if и for, которые можно использовать для создания коллекций \n с использованием условий ( if ) и повторения ( for ). \n',
                 num: '#16',
             },
             {
-                question: 'Чему равно значение переменной res?\n\n' +
-                    `const arr = [ '0' || -1, 1 || 0 && 3, 2 ** -1 ]\n` +
+                question: '\nЧто выведет print()?\n\n' +
+                    '\nList anotherList = [ 1, 1 ];' +
+                    '\nList simpleList = [ \n' +
+                    '       1, if( double.nan == double.infinity) 2, 3,\n' +
+                    '       for( var i in anotherList) 4, 5 ' +
+                    '\n ];\n' +
                     '\n' +
-                    'const res = arr[arr.length-2]',
+                    'print( simpleList )',
 
                 option: {
-                    a1: '3',
-                    a2: '1',
-                    a3: '0',
-                    a4: '2',
+                    a1: '[1, 3, 4, 4, 5]',
+                    a2: '[1, 2, 3, 5]',
+                    a3: '[1, 2, 3, 4, 5]',
+                    a4: '[1, 3, 4, 5]',
                 },
-                answerOption: 'a2',
-                answer: 'res = arr[1]. Приоритет оператора && больше, чем ||',
+                answerOption: 'a1',
+                answer: 'При верном условии if, определяется указаное за ним значение.\n Коллекция for() определяет указанное после неё значение\n количеством ее итераций',
                 num: '#17',
             },
             {
