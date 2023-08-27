@@ -484,7 +484,7 @@ const Tests = {
                     'function functionFoo(){\n' +
                     '    console.log(\'I am working.\')\n' +
                     '}\n' +
-                    'var functionBar = function(){\n' +
+                    'const functionBar = function(){\n' +
                     '    console.log(\'I work too!\')\n' +
                     '}?',
 
@@ -866,7 +866,7 @@ const Tests = {
                     '}\n\n' +
                     'console.log( obj?.getName?.() )',
                 option: {
-                    a1: 'в консоль выведет - \'objectName\'',
+                    a1: 'ReferenceError',
                     a2: 'в консоль выведет - \'object\'',
                     a3: 'TypeError',
                     a4: 'В коде ошибка',
