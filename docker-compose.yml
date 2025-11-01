@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  react-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"          # localhost:3000 → контейнер:3000
+    volumes:
+      - .:/app               # Монтируем текущую папку в /app
+      - /app/node_modules    # Защищаем node_modules внутри контейнера
+    environment:
+      - CHOKIDAR_USEPOLLING=true  # Критично для Windows/WSL!
+    stdin_open: true         # Нужно для работы npm scripts
+    tty: true                # Нужно для интерактивности

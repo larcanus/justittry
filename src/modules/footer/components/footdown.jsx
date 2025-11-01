@@ -1,6 +1,5 @@
 import React from 'react';
-import style from '../styles/style.css'
-import * as dataPackage from '../../../../package.json';
+import dataPackage from '../../../../package.json';
 
 const Footdown = () => {
     const versionApp = dataPackage.version;

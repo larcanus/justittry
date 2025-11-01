@@ -1,0 +1,14 @@
+# Dockerfile.dev
+FROM node:alpine
+
+WORKDIR /app
+
+# Копируем package.json И package-lock.json
+COPY package*.json ./
+
+# Устанавливаем зависимости СТРОГО по package-lock.json
+RUN npm install
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
