@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Login from '../components/login';
 import Just from '../../../common/images/Justistry.png';
 import {connect} from 'react-redux';
 import {handleLogin,handleLogout} from '../actions/handleLogin';
@@ -23,7 +22,6 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // 'приклеили' в this.props.handleLoginAction функцию, которая умеет диспатчить handleLogin
         handleLogInAction: () => dispatch(handleLogin()),
         handleLogOutAction: () => dispatch(handleLogout()),
     }
