@@ -13,7 +13,7 @@ const Configtest = (props) => {
     // останавливаем таймер если есть (например поднялись вверх по history)
     if (timerID !== null) {
         clearInterval(timerID?.timerID);
-        console.log(timerID )
+        console.log(timerID)
     }
     // очищаем событие на скроллинг
     window.onscroll = null;
@@ -133,63 +133,62 @@ const Configtest = (props) => {
 
     return (
         <div className='configTestDiv' style={style}>
-            <div className='configDiffTest'>
-                <form className='form cf'>
-                    <section className='plan cf'>
-                        <input type='radio' name='radio2' id='jun' value='jun'/>
-                        <label className='jun four col' htmlFor='jun'>Student</label>
-                        <input type='radio' name='radio2' id='mid' value='mid'/>
-                        <label className='mid four col' htmlFor='mid'>Developer</label>
-                    </section>
-                </form>
-            </div>
-
             <div className='configDescTest'>
-                    <span>
-                        <p>
-                            Тесты созданы для личной проверки знаний.
-                        </p>
-                        <p>
-                            Вы можете выбрать сложность - определив уровень квалификации.
-                        </p>
-                        <p>
-                           Для успешного прохождения допустимо совершить <b>5</b> ошибок на сложности - 'Student'
-                        </p>
-                        <p>
-                           и <b>3</b> ошибки на - 'Developer'.
-                        </p>
-                        <p>
-                            Время на выполние - <b>20</b> минут.
-                        </p>
-                        <p>
-                           На данный момент составлены только тесты по JavaScript. Удачи!
-                        </p>
-                    </span>
+                <span>
+                    <p>
+                        Тесты созданы для личной проверки знаний.
+                    </p>
+                    <p>
+                        Вы можете выбрать сложность - определив уровень квалификации.
+                    </p>
+                    <p>
+                       Для успешного прохождения допустимо совершить <b>5</b> ошибок на сложности - 'Student'
+                    </p>
+                    <p>
+                       и <b>3</b> ошибки на - 'Developer'.
+                    </p>
+                    <p>
+                        Время на выполние - <b>20</b> минут.
+                    </p>
+                    <p>
+                       На данный момент составлены только тесты по JavaScript. Удачи!
+                    </p>
+                </span>
                 <br/>
-                <a className='startTest' onClick={e => startTest(e)}>Начать!</a>
                 <p id='p-AlarmDif' hidden={true} style={{color: 'red'}}>Выберите сложность!</p>
                 <p id='p-AlarmTest' hidden={true} style={{color: 'red'}}>Выберите тест!</p>
             </div>
 
-            <div className='configSubOptionTest'>
-                <form className='formCheckbox'>
-                    <input type='checkbox' className='switch' id='without-timer'/>
-                    <label htmlFor='without-timer'>Без таймера</label>
-                </form>
-                {/*<form className='formCheckbox'>*/}
-                {/*    <input type='checkbox' className='switch' id='all-diff'/>*/}
-                {/*    <label htmlFor='all-diff'>Включить в тест все уровни сложности</label>*/}
-                {/*</form>*/}
+            <div className='configRightPanel'>
+                <div className='configTestSelect'>
+                    <p><b>{test.testNow}.</b></p>
+                </div>
 
-                {/*<form className='formCheckbox'>    // TODO пока нет смысла в исключении вопросов */}
-                {/*    <input type='checkbox' className='switch' id='exclude-questions'/>*/}
-                {/*    <label htmlFor='exclude-questions'>Исключить вопросы (опционально теста)</label>*/}
-                {/*</form>*/}
+                <div className='configDiffTest'>
+                    <form className='form cf'>
+                        <section className='plan cf'>
+                            <input type='radio' name='radio2' id='jun' value='jun'/>
+                            <label className='jun four col' htmlFor='jun'>Student</label>
+                            <input type='radio' name='radio2' id='mid' value='mid'/>
+                            <label className='mid four col' htmlFor='mid'>Developer</label>
+                        </section>
+                    </form>
+                </div>
+
+                <div className='configActions'>
+                    <button className='startTest' onClick={e => startTest(e)}>Начать!</button>
+                </div>
+
+                <div className='configSubOptionTest'>
+                    <form className='formCheckbox'>
+                        <input type='checkbox' className='switch' id='without-timer'/>
+                        <label htmlFor='without-timer'>Без таймера</label>
+                    </form>
+                </div>
             </div>
         </div>
     );
 }
-
 
 const mapStateToProps = (store) => {
     return {

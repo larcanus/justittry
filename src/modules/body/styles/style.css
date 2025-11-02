@@ -18,135 +18,153 @@
 /*    align-items: center;*/
 /*    background: #F6F8FF;*/
 /*}*/
+
 .configTestDiv {
-    display: table;
-}
-
-.btnDifIn {
-    box-shadow: inset -7em -1em 3px #68b43c
-}
-
-.startTest {
-    background-color: #4caf50;
-    border: solid 1px;
-    border-radius: 5px;
-    color: white;
-    padding: 9px 26px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-}
-
-.startTest:hover {
-    background-color: #282c34; /* Green */
-    color: white;
+    display: flex;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    flex-wrap: wrap;
 }
 
 .configDescTest {
-    display: table-cell;
-    width: 700px;
-    height: 300px;
-    justify-content: center;
-    line-height: 30px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
     padding: 25px;
+    line-height: 30px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.configSubOptionTest {
-    display: table-cell;
-    width: 500px;
-    height: 300px;
-    text-align: left;
+.configRightPanel {
+    flex: 0 0 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.alarmConfig {
-    color: red;
-    display: none;
+.configTestSelect {
+    text-align: center;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* CONTAINERS diff RADIO SECTION */
+.configTestSelect p {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
 
 .configDiffTest {
-    max-width: 850px;
-    min-width: 500px;
-    height: 300px;
-
+    width: 100%;
 }
 
-.four {
-    width: 32.26%;
-    max-width: 32.26%;
+.configActions {
+    text-align: center;
 }
 
-/* COLUMNS */
-
-.col {
-    display: block;
-    float: left;
-    margin: 6% 0 1% 1.6%;
-}
-
-.col:first-of-type {
-    margin-left: 0;
-}
-
-/* CLEARFIX */
-
-.cf:before, .cf:after {
-    content: " ";
-    display: table;
-}
-
-.cf:after {
-    clear: both;
-}
-
-/* FORM */
-
-.form .plan input,
-.form .payment-plan input,
-.form .payment-type input {
+/* Скрываем системные radio-кнопки */
+.form .plan input[type="radio"] {
     display: none;
 }
 
-.form label {
+/* Обновленные стили для кнопок сложности */
+.form .plan label {
     position: relative;
     color: #fff;
     background-color: #aaa;
-    font-size: 26px;
+    font-size: 16px;
     text-align: center;
-    height: 150px;
-    line-height: 150px;
+    height: 60px;
+    line-height: 60px;
     display: block;
     cursor: pointer;
     border: 3px solid transparent;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
 }
 
-.form .plan input:checked + label,
-.form .payment-plan input:checked + label,
-.form .payment-type input:checked + label {
+.form .plan input:checked + label {
     border: 3px solid #333;
     background-color: #2fcc71;
 }
 
-.form .plan input:checked + label:after,
-form .payment-plan input:checked + label:after,
-.form .payment-type input:checked + label:after {
+.form .plan input:checked + label:after {
     content: "\2713";
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
     border-radius: 100%;
     border: 2px solid #333333;
     background-color: #2fcc71;
     z-index: 999;
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: -5px;
+    right: -5px;
+    font-size: 12px;
+}
+
+/* Стили для кнопки "Начать" */
+.startTest {
+    background-color: #4caf50;
+    border: solid 1px #45a049;
+    border-radius: 5px;
+    color: white;
+    padding: 12px 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    display: block;
+}
+
+.startTest:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.startTest:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .configTestDiv {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .configRightPanel {
+        flex: 1;
+        width: 100%;
+    }
+
+    .configDescTest {
+        max-width: 100%;
+    }
+
+    .form .plan label {
+        font-size: 14px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .startTest {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
 }
 
 
@@ -391,7 +409,7 @@ ul {
     position: relative;
 }
 
-.p-number-question{
+.p-number-question {
     position: absolute;
     right: 10px;
     bottom: 0;
@@ -557,15 +575,16 @@ ul {
     margin-top: 30px;
 }
 
-.formBtnShare{
+.formBtnShare {
     padding-bottom: 25px;
 }
 
-.inputAnswer{
- margin-right: 15px;
+.inputAnswer {
+    margin-right: 15px;
 }
-.labelAnswer{
+
+.labelAnswer {
     word-break: break-word;
-    word-wrap: break-spaces;
+    word-wrap: break-word;
 }
 
