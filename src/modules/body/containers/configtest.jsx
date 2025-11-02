@@ -134,29 +134,28 @@ const Configtest = (props) => {
     return (
         <div className='configTestDiv' style={style}>
             <div className='configDescTest'>
-                <span>
+                <div className='descContent'>
+                    <h3>Информация о тестировании</h3>
                     <p>
-                        Тесты созданы для личной проверки знаний.
+                        Тесты предназначены для самостоятельной проверки знаний JavaScript.
                     </p>
                     <p>
-                        Вы можете выбрать сложность - определив уровень квалификации.
+                        <strong>Выберите уровень сложности:</strong>
+                    </p>
+                    <ul>
+                        <li><strong>Student</strong> - допускается до <strong>5 ошибок</strong></li>
+                        <li><strong>Developer</strong> - допускается до <strong>3 ошибок</strong></li>
+                    </ul>
+                    <p>
+                        <strong>Время выполнения:</strong> <strong>20 минут</strong>
                     </p>
                     <p>
-                       Для успешного прохождения допустимо совершить <b>5</b> ошибок на сложности - 'Student'
+                        Каждый тест содержит <strong>20 случайных вопросов</strong> из базы данных.
                     </p>
-                    <p>
-                       и <b>3</b> ошибки на - 'Developer'.
+                    <p className='goodLuck'>
+                        Удачи в прохождении!
                     </p>
-                    <p>
-                        Время на выполние - <b>20</b> минут.
-                    </p>
-                    <p>
-                       На данный момент составлены только тесты по JavaScript. Удачи!
-                    </p>
-                </span>
-                <br/>
-                <p id='p-AlarmDif' hidden={true} style={{color: 'red'}}>Выберите сложность!</p>
-                <p id='p-AlarmTest' hidden={true} style={{color: 'red'}}>Выберите тест!</p>
+                </div>
             </div>
 
             <div className='configRightPanel'>
@@ -177,6 +176,11 @@ const Configtest = (props) => {
 
                 <div className='configActions'>
                     <button className='startTest' onClick={e => startTest(e)}>Начать!</button>
+
+                    <div className='configErrors'>
+                        <p id='p-AlarmDif' hidden={true} style={{color: 'red', margin: '10px 0 0 0'}}>Выберите сложность!</p>
+                        <p id='p-AlarmTest' hidden={true} style={{color: 'red', margin: '5px 0 0 0'}}>Выберите тест!</p>
+                    </div>
                 </div>
 
                 <div className='configSubOptionTest'>
