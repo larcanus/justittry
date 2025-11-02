@@ -7,20 +7,9 @@ import {Link} from 'react-router-dom';
 
 class Headtop extends Component {
     render() {
-        const {
-            login,
-            handleLogInAction,
-            handleLogOutAction,
-        } = this.props;
-
         return (
             <div className='divHeader'>
                 <Link to='/'><img className='imgHead' src={Just} alt='Justitry'/></Link>
-                <Login handleLogInAction={handleLogInAction}
-                       handleLogOutAction={handleLogOutAction}
-                       login={login}
-                       error={login.error}
-                       isFetching={login.isFetching}/>
             </div>
         );
     }
