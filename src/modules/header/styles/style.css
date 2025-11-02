@@ -4,7 +4,7 @@
     /* border:2px solid floralwhite;*/
     /* background: #eee5e5;*/
     /* box-shadow:0 0 10pt #c4c3c3;*/
-    padding: 10pt;
+    padding: 15pt;
 }
 
 .logoBtnNavbar {
@@ -28,7 +28,7 @@
 }
 
 [id^=radio-]:checked + label {
-    height: 20px;
+    height: 100px;
     background-color: #ffffff;
     cursor: text;
 }
