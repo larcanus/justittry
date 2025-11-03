@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useRef} from 'react';
 import {connect} from 'react-redux';
 import dispatchResult from '../../body/actions/actionResult';
 import Prism from 'prismjs';
@@ -90,10 +90,49 @@ class CarouselSlide extends Component {
 }
 
 const CarouselAnswers = (props) => {
-    // Determine if this is a single-line answer for styling
-    const isSingleLine = (text) => {
-        return text && text.length < 50 && !text.includes('\n');
+    const answerRefs = useRef([]);
+    const rowRefs = useRef([]);
+
+    // Функция для определения класса в зависимости от длины текста
+    const getTextLengthClass = (text) => {
+        if (!text) return 'single-line';
+        const textLength = text.length;
+
+        if (textLength > 200) return 'very-long-text';
+        if (textLength > 80) return 'long-text';
+        if (textLength < 50) return 'single-line';
+        return '';
     };
+
+    // Эффект для выравнивания высоты вариантов в одной строке
+    useEffect(() => {
+        if (props.index === props.activeIndex) {
+            // Даем время на рендеринг DOM
+            setTimeout(() => {
+                // Выравниваем высоту вариантов в каждой строке
+                const rows = document.querySelectorAll('.divAnswer');
+                rows.forEach((row, rowIndex) => {
+                    const labels = row.querySelectorAll('.labelAnswer');
+                    let maxHeight = 0;
+
+                    // Находим максимальную высоту в строке
+                    labels.forEach(label => {
+                        // Сбрасываем высоту для пересчета
+                        label.style.minHeight = '';
+                        const height = label.offsetHeight;
+                        if (height > maxHeight) maxHeight = height;
+                    });
+
+                    // Устанавливаем максимальную высоту для всех элементов в строке
+                    if (maxHeight > 0) {
+                        labels.forEach(label => {
+                            label.style.minHeight = `${maxHeight}px`;
+                        });
+                    }
+                });
+            }, 50);
+        }
+    }, [props.activeIndex, props.index]);
 
     return (
         <li
@@ -104,23 +143,35 @@ const CarouselAnswers = (props) => {
             }
         >
             <section className='sectionAnswers' id={props.index}>
-                <div className='divAnswer'>
-                    <label className={`labelAnswer ${isSingleLine(props.slide.option.a1) ? 'single-line' : ''}`}>
+                <div className='divAnswer' ref={el => rowRefs.current[0] = el}>
+                    <label
+                        className={`labelAnswer ${getTextLengthClass(props.slide.option.a1)}`}
+                        ref={el => answerRefs.current[0] = el}
+                    >
                         <input className='inputAnswer' id={props.index + 'a1'} type='checkbox' value='a1'/>
                         <span className='answerText'>{props.slide.option.a1}</span>
                     </label>
-                    <label className={`labelAnswer ${isSingleLine(props.slide.option.a2) ? 'single-line' : ''}`}>
+                    <label
+                        className={`labelAnswer ${getTextLengthClass(props.slide.option.a2)}`}
+                        ref={el => answerRefs.current[1] = el}
+                    >
                         <input className='inputAnswer' id={props.index + 'a2'} type='checkbox' value='a2'/>
                         <span className='answerText'>{props.slide.option.a2}</span>
                     </label>
                 </div>
 
-                <div className='divAnswer'>
-                    <label className={`labelAnswer ${isSingleLine(props.slide.option.a3) ? 'single-line' : ''}`}>
+                <div className='divAnswer' ref={el => rowRefs.current[1] = el}>
+                    <label
+                        className={`labelAnswer ${getTextLengthClass(props.slide.option.a3)}`}
+                        ref={el => answerRefs.current[2] = el}
+                    >
                         <input className='inputAnswer' id={props.index + 'a3'} type='checkbox' value='a3'/>
                         <span className='answerText'>{props.slide.option.a3}</span>
                     </label>
-                    <label className={`labelAnswer ${isSingleLine(props.slide.option.a4) ? 'single-line' : ''}`}>
+                    <label
+                        className={`labelAnswer ${getTextLengthClass(props.slide.option.a4)}`}
+                        ref={el => answerRefs.current[3] = el}
+                    >
                         <input className='inputAnswer' id={props.index + 'a4'} type='checkbox' value='a4'/>
                         <span className='answerText'>{props.slide.option.a4}</span>
                     </label>
@@ -200,6 +251,8 @@ class Carousel extends Component {
             }
         };
 
+        window.addEventListener('resize', this.handleResize);
+
         let timeout = false;
         window.onscroll = () => {
             if (timeout !== false) {
@@ -217,6 +270,38 @@ class Carousel extends Component {
                 }
             }, 2300);
         };
+    }
+
+    /**
+     * Обработчик изменения размера окна
+     */
+    handleResize() {
+        // При изменении размера окна пересчитываем высоту вариантов ответов
+        setTimeout(() => {
+            const rows = document.querySelectorAll('.divAnswer');
+            rows.forEach(row => {
+                const labels = row.querySelectorAll('.labelAnswer');
+                let maxHeight = 0;
+
+                // Сбрасываем высоту
+                labels.forEach(label => {
+                    label.style.minHeight = '';
+                    const height = label.offsetHeight;
+                    if (height > maxHeight) maxHeight = height;
+                });
+
+                // Устанавливаем новую высоту
+                if (maxHeight > 0) {
+                    labels.forEach(label => {
+                        label.style.minHeight = `${maxHeight}px`;
+                    });
+                }
+            });
+        }, 100);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize);
     }
 
     /**

@@ -501,6 +501,7 @@
     gap: 10px;
     margin: 10px 0;
     width: 100%;
+    align-items: stretch; /* Растягиваем элементы по высоте */
 }
 
 .labelAnswer {
@@ -514,42 +515,68 @@
     text-align: left;
     font-size: 16px;
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Изменено с center на flex-start для длинного текста */
     justify-content: flex-start;
     word-break: break-word;
     background-color: #d6dfe8;
     box-sizing: border-box;
     transition: all 0.3s ease;
     cursor: pointer;
-}
-
-.labelAnswer:hover {
-    background-color: #c8d4e0;
-    transform: translateY(-2px);
-}
-
-.inputAnswer {
-    margin-right: 12px;
-    transform: scale(1.2);
-    flex-shrink: 0;
+    height: auto; /* Автоматическая высота */
 }
 
 .answerText {
     flex: 1;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100%;
+    line-height: 1.4; /* Улучшаем читаемость */
+    overflow-wrap: break-word; /* Перенос длинных слов */
+    word-break: break-word; /* Разрыв длинных слов */
+    hyphens: auto; /* Автоматическая расстановка переносов */
 }
 
-/* For single-line answers */
+/* Для очень длинного текста */
+.labelAnswer.long-text {
+    min-height: 90px; /* Увеличиваем минимальную высоту */
+}
+
+.labelAnswer.long-text .answerText {
+    max-height: none; /* Убираем ограничение по высоте */
+}
+
+/* Для однострочного текста */
 .labelAnswer.single-line {
     min-height: 50px;
+    align-items: center; /* Центрируем по вертикали для короткого текста */
 }
 
 .labelAnswer.single-line .answerText {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    align-items: center;
+}
+
+/* Стили для скролла при очень длинном тексте */
+.labelAnswer.very-long-text .answerText {
+    max-height: 150px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* Скрываем скроллбар для лучшего вида */
+.labelAnswer.very-long-text .answerText::-webkit-scrollbar {
+    width: 4px;
+}
+
+.labelAnswer.very-long-text .answerText::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 2px;
+}
+
+.labelAnswer.very-long-text .answerText::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 .divAnswerFull {
