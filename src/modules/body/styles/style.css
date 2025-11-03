@@ -529,7 +529,7 @@
     margin-right: 12px; /* Добавляем отступ между чекбоксом и текстом */
     transform: scale(1.2); /* Увеличиваем чекбокс для лучшей видимости */
     flex-shrink: 0; /* Запрещаем сжатие чекбокса */
-    margin-top: 0.2em
+    margin-top: 0.25em;
 }
 
 .answerText {
@@ -541,32 +541,29 @@
     overflow-wrap: break-word; /* Перенос длинных слов */
     word-break: break-word; /* Разрыв длинных слов */
     hyphens: auto; /* Автоматическая расстановка переносов */
+    white-space: normal; /* Разрешаем перенос строк */
 }
 
 /* Для очень длинного текста */
-.labelAnswer.long-text {
+.labelAnswer.very-long-text {
     min-height: 90px; /* Увеличиваем минимальную высоту */
-    /*align-items: flex-start; !* Для длинного текста выравниваем по верху *!*/
     padding-top: 12px; /* Добавляем отступ сверху */
 }
 
-.labelAnswer.long-text .answerText {
+.labelAnswer.very-long-text .answerText {
     max-height: none; /* Убираем ограничение по высоте */
     align-items: flex-start; /* Для длинного текста выравниваем по верху */
 }
 
-/* Для однострочного текста */
-.labelAnswer.single-line {
-    min-height: 50px;
-    align-items: center; /* Центрируем по вертикали для короткого текста */
+/* Для длинного текста */
+.labelAnswer.long-text {
+    min-height: 80px;
+    padding-top: 12px;
 }
 
-.labelAnswer.single-line .answerText {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    align-items: center;
-}
+
+/* Убираем класс single-line - он обрезает текст */
+/* Вместо этого используем нормальное поведение для короткого текста */
 
 /* Стили для скролла при очень длинном тексте */
 .labelAnswer.very-long-text .answerText {

@@ -95,12 +95,14 @@ const CarouselAnswers = (props) => {
 
     // Функция для определения класса в зависимости от длины текста
     const getTextLengthClass = (text) => {
-        if (!text) return 'single-line';
+        if (!text) return '';
         const textLength = text.length;
 
+        // Для очень длинного текста
         if (textLength > 200) return 'very-long-text';
+        // Для длинного текста
         if (textLength > 80) return 'long-text';
-        if (textLength < 50) return 'single-line';
+        // Для короткого текста (не используем single-line, чтобы не обрезать)
         return '';
     };
 
