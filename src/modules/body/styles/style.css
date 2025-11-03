@@ -446,7 +446,6 @@
     list-style-type: none;
     text-align: center;
     min-height: 200px;
-    margin: 20px auto;
     box-sizing: border-box;
 }
 
@@ -589,9 +588,10 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 5px;
-    margin: 20px 0;
+    gap: 10px;
+    margin: 0 0 0 0;
     padding: 0 10px;
+    list-style-type: none;
 }
 
 .carousel__indicator {
