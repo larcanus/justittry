@@ -572,6 +572,7 @@
 .labelAnswer.very-long-text .answerText {
     max-height: none; /* Убираем ограничение по высоте */
     align-items: flex-start; /* Для длинного текста выравниваем по верху */
+    line-height: 1.5; /* Увеличиваем межстрочный интервал для лучшей читаемости */
 }
 
 /* Для длинного текста */
@@ -579,17 +580,10 @@
     min-height: 80px;
     padding-top: 12px;
 }
-
-
-/* Убираем класс single-line - он обрезает текст */
-/* Вместо этого используем нормальное поведение для короткого текста */
-
-/* Стили для скролла при очень длинном тексте */
-.labelAnswer.very-long-text .answerText {
-    max-height: 150px;
-    overflow-y: auto;
-    padding-right: 5px;
+.labelAnswer.long-text .answerText {
+    line-height: 1.5; /* Увеличиваем межстрочный интервал */
 }
+
 
 /* Скрываем скроллбар для лучшего вида */
 .labelAnswer.very-long-text .answerText::-webkit-scrollbar {

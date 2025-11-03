@@ -90,97 +90,111 @@ class CarouselSlide extends Component {
 }
 
 const CarouselAnswers = (props) => {
-    const answerRefs = useRef([]);
-    const rowRefs = useRef([]);
+	const answerRefs = useRef([]);
+	const rowRefs = useRef([]);
 
-    // Функция для определения класса в зависимости от длины текста
-    const getTextLengthClass = (text) => {
-        if (!text) return '';
-        const textLength = text.length;
+	// Функция для определения класса в зависимости от длины текста
+	const getTextLengthClass = (text) => {
+		if (!text) return '';
+		const textLength = text.length;
 
-        // Для очень длинного текста
-        if (textLength > 200) return 'very-long-text';
-        // Для длинного текста
-        if (textLength > 80) return 'long-text';
-        // Для короткого текста (не используем single-line, чтобы не обрезать)
-        return '';
-    };
+		// Для очень длинного текста
+		if (textLength > 200) return 'very-long-text';
+		// Для длинного текста
+		if (textLength > 80) return 'long-text';
+		// Для короткого текста (не используем single-line, чтобы не обрезать)
+		return '';
+	};
 
-    // Эффект для выравнивания высоты вариантов в одной строке
-    useEffect(() => {
-        if (props.index === props.activeIndex) {
-            // Даем время на рендеринг DOM
-            setTimeout(() => {
-                // Выравниваем высоту вариантов в каждой строке
-                const rows = document.querySelectorAll('.divAnswer');
-                rows.forEach((row, rowIndex) => {
-                    const labels = row.querySelectorAll('.labelAnswer');
-                    let maxHeight = 0;
+	// Функция для форматирования текста с переносами строк
+	const formatAnswerText = (text) => {
+		if (!text) return '';
 
-                    // Находим максимальную высоту в строке
-                    labels.forEach(label => {
-                        // Сбрасываем высоту для пересчета
-                        label.style.minHeight = '';
-                        const height = label.offsetHeight;
-                        if (height > maxHeight) maxHeight = height;
-                    });
+		// Разбиваем текст по \n и создаем массив элементов
+		const lines = text.split('\n');
+		return lines.map((line, index) => (
+			<React.Fragment key={index}>
+				{line}
+				{index < lines.length - 1 && <br />}
+			</React.Fragment>
+		));
+	};
 
-                    // Устанавливаем максимальную высоту для всех элементов в строке
-                    if (maxHeight > 0) {
-                        labels.forEach(label => {
-                            label.style.minHeight = `${maxHeight}px`;
-                        });
-                    }
-                });
-            }, 50);
-        }
-    }, [props.activeIndex, props.index]);
+	// Эффект для выравнивания высоты вариантов в одной строке
+	useEffect(() => {
+		if (props.index === props.activeIndex) {
+			// Даем время на рендеринг DOM
+			setTimeout(() => {
+				// Выравниваем высоту вариантов в каждой строке
+				const rows = document.querySelectorAll('.divAnswer');
+				rows.forEach((row, rowIndex) => {
+					const labels = row.querySelectorAll('.labelAnswer');
+					let maxHeight = 0;
 
-    return (
-        <li
-            className={
-                props.index === props.activeIndex
-                    ? 'carousel__slide_answers carousel__slide_answers--active'
-                    : 'carousel__slide_answers'
-            }
-        >
-            <section className='sectionAnswers' id={props.index}>
-                <div className='divAnswer' ref={el => rowRefs.current[0] = el}>
-                    <label
-                        className={`labelAnswer ${getTextLengthClass(props.slide.option.a1)}`}
-                        ref={el => answerRefs.current[0] = el}
-                    >
-                        <input className='inputAnswer' id={props.index + 'a1'} type='checkbox' value='a1'/>
-                        <span className='answerText'>{props.slide.option.a1}</span>
-                    </label>
-                    <label
-                        className={`labelAnswer ${getTextLengthClass(props.slide.option.a2)}`}
-                        ref={el => answerRefs.current[1] = el}
-                    >
-                        <input className='inputAnswer' id={props.index + 'a2'} type='checkbox' value='a2'/>
-                        <span className='answerText'>{props.slide.option.a2}</span>
-                    </label>
-                </div>
+					// Находим максимальную высоту в строке
+					labels.forEach(label => {
+						// Сбрасываем высоту для пересчета
+						label.style.minHeight = '';
+						const height = label.offsetHeight;
+						if (height > maxHeight) maxHeight = height;
+					});
 
-                <div className='divAnswer' ref={el => rowRefs.current[1] = el}>
-                    <label
-                        className={`labelAnswer ${getTextLengthClass(props.slide.option.a3)}`}
-                        ref={el => answerRefs.current[2] = el}
-                    >
-                        <input className='inputAnswer' id={props.index + 'a3'} type='checkbox' value='a3'/>
-                        <span className='answerText'>{props.slide.option.a3}</span>
-                    </label>
-                    <label
-                        className={`labelAnswer ${getTextLengthClass(props.slide.option.a4)}`}
-                        ref={el => answerRefs.current[3] = el}
-                    >
-                        <input className='inputAnswer' id={props.index + 'a4'} type='checkbox' value='a4'/>
-                        <span className='answerText'>{props.slide.option.a4}</span>
-                    </label>
-                </div>
-            </section>
-        </li>
-    );
+					// Устанавливаем максимальную высоту для всех элементов в строке
+					if (maxHeight > 0) {
+						labels.forEach(label => {
+							label.style.minHeight = `${maxHeight}px`;
+						});
+					}
+				});
+			}, 50);
+		}
+	}, [props.activeIndex, props.index]);
+
+	return (
+		<li
+			className={
+				props.index === props.activeIndex
+					? 'carousel__slide_answers carousel__slide_answers--active'
+					: 'carousel__slide_answers'
+			}
+		>
+			<section className='sectionAnswers' id={props.index}>
+				<div className='divAnswer' ref={el => rowRefs.current[0] = el}>
+					<label
+						className={`labelAnswer ${getTextLengthClass(props.slide.option.a1)}`}
+						ref={el => answerRefs.current[0] = el}
+					>
+						<input className='inputAnswer' id={props.index + 'a1'} type='checkbox' value='a1'/>
+						<span className='answerText'>{formatAnswerText(props.slide.option.a1)}</span>
+					</label>
+					<label
+						className={`labelAnswer ${getTextLengthClass(props.slide.option.a2)}`}
+						ref={el => answerRefs.current[1] = el}
+					>
+						<input className='inputAnswer' id={props.index + 'a2'} type='checkbox' value='a2'/>
+						<span className='answerText'>{formatAnswerText(props.slide.option.a2)}</span>
+					</label>
+				</div>
+
+				<div className='divAnswer' ref={el => rowRefs.current[1] = el}>
+					<label
+						className={`labelAnswer ${getTextLengthClass(props.slide.option.a3)}`}
+						ref={el => answerRefs.current[2] = el}
+					>
+						<input className='inputAnswer' id={props.index + 'a3'} type='checkbox' value='a3'/>
+						<span className='answerText'>{formatAnswerText(props.slide.option.a3)}</span>
+					</label>
+					<label
+						className={`labelAnswer ${getTextLengthClass(props.slide.option.a4)}`}
+						ref={el => answerRefs.current[3] = el}
+					>
+						<input className='inputAnswer' id={props.index + 'a4'} type='checkbox' value='a4'/>
+						<span className='answerText'>{formatAnswerText(props.slide.option.a4)}</span>
+					</label>
+				</div>
+			</section>
+		</li>
+	);
 }
 
 const CarouselCorrectAnswer = (props) => {
