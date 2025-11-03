@@ -515,7 +515,7 @@
     text-align: left;
     font-size: 16px;
     display: flex;
-    align-items: flex-start; /* Изменено с center на flex-start для длинного текста */
+    align-items: center; /* Центрируем по вертикали */
     justify-content: flex-start;
     word-break: break-word;
     background-color: #d6dfe8;
@@ -525,10 +525,17 @@
     height: auto; /* Автоматическая высота */
 }
 
+.inputAnswer {
+    margin-right: 12px; /* Добавляем отступ между чекбоксом и текстом */
+    transform: scale(1.2); /* Увеличиваем чекбокс для лучшей видимости */
+    flex-shrink: 0; /* Запрещаем сжатие чекбокса */
+    margin-top: 0.2em
+}
+
 .answerText {
     flex: 1;
     display: flex;
-    align-items: flex-start;
+    align-items: center; /* Центрируем текст по вертикали */
     min-height: 100%;
     line-height: 1.4; /* Улучшаем читаемость */
     overflow-wrap: break-word; /* Перенос длинных слов */
@@ -539,10 +546,13 @@
 /* Для очень длинного текста */
 .labelAnswer.long-text {
     min-height: 90px; /* Увеличиваем минимальную высоту */
+    /*align-items: flex-start; !* Для длинного текста выравниваем по верху *!*/
+    padding-top: 12px; /* Добавляем отступ сверху */
 }
 
 .labelAnswer.long-text .answerText {
     max-height: none; /* Убираем ограничение по высоте */
+    align-items: flex-start; /* Для длинного текста выравниваем по верху */
 }
 
 /* Для однострочного текста */
