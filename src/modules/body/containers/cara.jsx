@@ -81,8 +81,8 @@ class CarouselSlide extends Component {
                         <code className='language-JavaScript'>
                         {this.props.slide.question}
                         </code>
-                        <p className='p-number-question'>{this.props.slide.num}</p>
                     </pre>
+                    <p className='p-number-question'>{this.props.slide.num}</p>
                 </div>
             </li>
         );
