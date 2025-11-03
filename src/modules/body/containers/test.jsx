@@ -54,18 +54,28 @@ const Test = (props) => {
     // аналог дидмаунта, грузим тимер при рендеринге
     React.useEffect(() => {
         timerRun();
+
+        // Ensure proper viewport scaling for mobile
+        const viewport = document.querySelector("meta[name=viewport]");
+        if (viewport) {
+            viewport.setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no");
+        }
+
+        // Scroll to top when test starts
+        window.scrollTo(0, 0);
     }, []);
 
-    // центруем сцену на середину теста в начале рендеринга
-    window.scrollTo(0, 218);
-
     return (
-        <div className='testDiv' style={style}>
-            <div className='carousel-div'>
-                <Carousel slides={questions} diff={diffical}/>
-            </div>
-            <div className='carousel-result' hidden={true}>
-                <DivResult result={result} timerID={timerID} test={testConfig.nameTest}/>
+        <div className='test-container'>
+            <div className='test-content'>
+                <div className='testDiv' style={style}>
+                    <div className='carousel-div'>
+                        <Carousel slides={questions} diff={diffical}/>
+                    </div>
+                    <div className='carousel-result' hidden={true}>
+                        <DivResult result={result} timerID={timerID} test={testConfig.nameTest}/>
+                    </div>
+                </div>
             </div>
         </div>
     );
@@ -142,7 +152,7 @@ const DivResult = (props) => {
         if (resultTestToShowDiv) {
             return (
                 <div className='divResult'>
-                    <img src={win} alt='Congratulations!'/>
+                    <img src={win} alt='Congratulations!' style={{maxWidth: '100%', height: 'auto'}}/>
                     <p><b>========Тест на знание {nameTest} успешно пройден!=========</b></p>
                     <p>Сложность: {diff}</p>
                     <p>Результат: {proportion}</p>
@@ -159,7 +169,7 @@ const DivResult = (props) => {
         } else {
             return (
                 <div className='divResult'>
-                    <img src={fail} alt='Failed!'/>
+                    <img src={fail} alt='Failed!' style={{maxWidth: '100%', height: 'auto'}}/>
                     <br/>
                     <p><b>========Тест на знание {nameTest} не пройден.=========</b></p>
                     <p>Сложность: {diff}</p>
