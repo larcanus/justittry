@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useRef} from 'react';
 import {connect} from 'react-redux';
 import style from '../styles/style.css';
 import win from '../../../common/images/Congratulations.png';
@@ -7,19 +7,30 @@ import Carousel from './cara';
 import Share from '../components/share';
 import {startTestConfigTimer} from '../actions/startTest';
 
-
 const Test = (props) => {
     const {testConfig, result, timerID, startTestConfigTimer} = props;
     const diffical = testConfig.optionTest.diffical;
     const questions = testConfig.optionTest.questions;
+    const timerRef = useRef(null);
 
     const timerRun = () => {
+        // Clear any existing timer first
+        if (timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+        }
+
         // если тест с таймером, убираем скрытие, ставим интервал
         if (!testConfig.optionTest.timer) {
-            document.getElementsByClassName('timer')['0'].removeAttribute('hidden');
+            const timerElement = document.getElementsByClassName('timer')['0'];
+            if (timerElement) {
+                timerElement.removeAttribute('hidden');
+            }
 
             const timer = setInterval(() => {
                 let my_timer = document.getElementById('timer');
+                if (!my_timer) return;
+
                 let time = my_timer.innerHTML;
                 let arr = time.split(':');
                 let m = arr[0];
@@ -28,7 +39,10 @@ const Test = (props) => {
                 if (Number(s) === 0) {
                     if (Number(m) === 0) {
                         clearInterval(timer);
-                        document.getElementsByClassName('btnFinal')['0'].click();
+                        const finishButton = document.getElementsByClassName('btnFinal')['0'];
+                        if (finishButton) {
+                            finishButton.click();
+                        }
                         return;
                     }
                     m--;
@@ -45,14 +59,38 @@ const Test = (props) => {
 
             }, 1000);
 
+            timerRef.current = timer;
             startTestConfigTimer({
                 timerID: timer,
             });
         }
     }
 
+    // Cleanup function
+    const cleanupTimer = () => {
+        if (timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+        }
+        if (timerID?.timerID) {
+            clearInterval(timerID.timerID);
+        }
+
+        // Reset timer display
+        const timerElement = document.getElementById('timer');
+        if (timerElement) {
+            timerElement.innerHTML = '20:00';
+        }
+
+        // Hide timer
+        const timerContainer = document.getElementsByClassName('timer')['0'];
+        if (timerContainer) {
+            timerContainer.setAttribute('hidden', 'true');
+        }
+    }
+
     // аналог дидмаунта, грузим тимер при рендеринге
-    React.useEffect(() => {
+    useEffect(() => {
         timerRun();
 
         // Ensure proper viewport scaling for mobile
@@ -63,6 +101,11 @@ const Test = (props) => {
 
         // Scroll to top when test starts
         window.scrollTo(0, 0);
+
+        // Cleanup on unmount
+        return () => {
+            cleanupTimer();
+        };
     }, []);
 
     return (
@@ -73,7 +116,7 @@ const Test = (props) => {
                         <Carousel slides={questions} diff={diffical}/>
                     </div>
                     <div className='carousel-result' hidden={true}>
-                        <DivResult result={result} timerID={timerID} test={testConfig.nameTest}/>
+                        <DivResult result={result} timerID={timerID} test={testConfig.nameTest} cleanupTimer={cleanupTimer}/>
                     </div>
                 </div>
             </div>
@@ -100,7 +143,6 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Test);
 
-
 const DivResult = (props) => {
     /**
      * Показать ответы
@@ -110,18 +152,30 @@ const DivResult = (props) => {
         e.target.setAttribute('hidden', 'true');
     }
 
-    const {result, timerID, test} = props;
+    const {result, timerID, test, cleanupTimer} = props;
     const nameTest = test.substring(21);
     let diff = '';
     let countAnswerTrue = 0;
     let countAllQuestion = 0;
     let resultTestToShowDiv = null;
 
-    if (result !== null) {
+    // Cleanup timer when component mounts
+    React.useEffect(() => {
+        if (cleanupTimer) {
+            cleanupTimer();
+        }
+
         // очищаем события на скроллинг и на клавишы
         window.onscroll = null;
         window.onkeyup = null;
 
+        //останавливаем таймер
+        if (timerID?.timerID) {
+            clearInterval(timerID.timerID);
+        }
+    }, []);
+
+    if (result !== null) {
         for (let i in result.answers) {
             countAllQuestion += 1;
             if (result.answers[i]) {
@@ -143,9 +197,6 @@ const DivResult = (props) => {
                 resultTestToShowDiv = countAllQuestion - countAnswerTrue <= 5;
                 break;
         }
-
-        //останавливаем таймер
-        clearInterval(timerID?.timerID);
 
         const proportion = `${countAnswerTrue} / ${countAllQuestion}`;
 

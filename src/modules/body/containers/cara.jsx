@@ -90,6 +90,10 @@ class CarouselSlide extends Component {
 }
 
 const CarouselAnswers = (props) => {
+    // Determine if this is a single-line answer for styling
+    const isSingleLine = (text) => {
+        return text && text.length < 50 && !text.includes('\n');
+    };
 
     return (
         <li
@@ -101,24 +105,24 @@ const CarouselAnswers = (props) => {
         >
             <section className='sectionAnswers' id={props.index}>
                 <div className='divAnswer'>
-                    <label className='labelAnswer'>
+                    <label className={`labelAnswer ${isSingleLine(props.slide.option.a1) ? 'single-line' : ''}`}>
                         <input className='inputAnswer' id={props.index + 'a1'} type='checkbox' value='a1'/>
-                        {props.slide.option.a1}
+                        <span className='answerText'>{props.slide.option.a1}</span>
                     </label>
-                    <label className='labelAnswer'>
+                    <label className={`labelAnswer ${isSingleLine(props.slide.option.a2) ? 'single-line' : ''}`}>
                         <input className='inputAnswer' id={props.index + 'a2'} type='checkbox' value='a2'/>
-                        {props.slide.option.a2}
+                        <span className='answerText'>{props.slide.option.a2}</span>
                     </label>
                 </div>
 
                 <div className='divAnswer'>
-                    <label className='labelAnswer'>
+                    <label className={`labelAnswer ${isSingleLine(props.slide.option.a3) ? 'single-line' : ''}`}>
                         <input className='inputAnswer' id={props.index + 'a3'} type='checkbox' value='a3'/>
-                        {props.slide.option.a3}
+                        <span className='answerText'>{props.slide.option.a3}</span>
                     </label>
-                    <label className='labelAnswer'>
+                    <label className={`labelAnswer ${isSingleLine(props.slide.option.a4) ? 'single-line' : ''}`}>
                         <input className='inputAnswer' id={props.index + 'a4'} type='checkbox' value='a4'/>
-                        {props.slide.option.a4}
+                        <span className='answerText'>{props.slide.option.a4}</span>
                     </label>
                 </div>
             </section>

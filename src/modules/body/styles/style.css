@@ -487,7 +487,7 @@
     z-index: 100;
 }
 
-/* Responsive answer options */
+/* Improved answer options with better alignment */
 .sectionAnswers {
     width: 100%;
     max-width: 800px;
@@ -515,10 +515,12 @@
     font-size: 16px;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     word-break: break-word;
     background-color: #d6dfe8;
     box-sizing: border-box;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .labelAnswer:hover {
@@ -527,8 +529,27 @@
 }
 
 .inputAnswer {
-    margin-right: 10px;
+    margin-right: 12px;
     transform: scale(1.2);
+    flex-shrink: 0;
+}
+
+.answerText {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-height: 100%;
+}
+
+/* For single-line answers */
+.labelAnswer.single-line {
+    min-height: 50px;
+}
+
+.labelAnswer.single-line .answerText {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .divAnswerFull {
@@ -693,32 +714,9 @@
         margin: 3px 0;
     }
 
-    .divAnswer {
-        gap: 5px;
-        margin: 5px 0;
-    }
-
-    .carousel__indicators {
-        gap: 3px;
-        margin: 15px 0;
-    }
-
-    .carousel__indicator {
-        width: 20px;
-        height: 2px;
-    }
-
-    .btnFinal {
-        margin: 30px auto;
-        padding: 10px 20px;
-        font-size: 16px;
-        max-width: 250px;
-    }
-
-    .p-number-question {
-        font-size: 12px;
-        right: 5px;
-        bottom: -5px;
+    .inputAnswer {
+        margin-right: 10px;
+        transform: scale(1.1);
     }
 }
 
@@ -761,15 +759,9 @@
         font-size: 13px;
     }
 
-    .btnFinal {
-        margin: 20px auto;
-        padding: 8px 16px;
-        font-size: 14px;
-        max-width: 200px;
-    }
-
-    .carousel__indicators {
-        margin: 10px 0;
+    .inputAnswer {
+        margin-right: 8px;
+        transform: scale(1);
     }
 }
 
