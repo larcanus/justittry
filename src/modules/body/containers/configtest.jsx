@@ -2,11 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import style from '../styles/style.css';
 import {startTestConfig} from '../actions/startTest';
+import { dispatchResetResult } from '../actions/actionResult';
 import Tests from '../../../store/qustions';
 import {useHistory} from 'react-router-dom';
 
 const Configtest = (props) => {
-    const {test, choiceTestConfig, timerID} = props;
+    const {test, choiceTestConfig, timerID, dispatchResetResult} = props;
 
     const option = {};
     let history = useHistory();
@@ -118,8 +119,9 @@ const Configtest = (props) => {
         // option.allDiff = document.getElementById('all-diff').checked;
         option.questions = generateRandomNums(option);
 
-        // option.exclude = document.getElementById('exclude-questions').checked
+        dispatchResetResult();
 
+        // option.exclude = document.getElementById('exclude-questions').checked
         choiceTestConfig({
             nameTest: test.testNow?.substring(21) ?? test.testNow,
             descTest: test.testNow,
@@ -208,6 +210,9 @@ const mapDispatchToProps = (dispatch) => {
         choiceTestConfig: (testConfig) => {
             dispatch(startTestConfig(testConfig));
         },
+        dispatchResetResult: () => {
+            dispatch(dispatchResetResult());
+        }
     }
 };
 

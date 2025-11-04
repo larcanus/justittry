@@ -1,6 +1,6 @@
 import React, {Component, useEffect, useRef} from 'react';
 import {connect} from 'react-redux';
-import dispatchResult from '../../body/actions/actionResult';
+import dispatchResult from '../actions/actionResult';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-markup-templating';
 import 'prismjs/components/prism-javascript';

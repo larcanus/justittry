@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import style from '../styles/style.css';
 import win from '../../../common/images/Congratulations.png';
@@ -75,6 +75,7 @@ const Test = (props) =>
                 // Сохраняем затраченное время
                 const elapsedMinutes = 20 - parseInt(m);
                 const elapsedSeconds = 60 - parseInt(s);
+
                 setElapsedTime(`${elapsedMinutes}:${elapsedSeconds < 10 ? '0' + elapsedSeconds : elapsedSeconds}`);
 
             }, 1000);
@@ -194,11 +195,7 @@ const DivResult = (props) => {
     let resultTestToShowDiv = null;
 
     // Cleanup timer when component mounts
-    React.useEffect(() => {
-        if (cleanupTimer) {
-            cleanupTimer();
-        }
-
+    useEffect(() => {
         // очищаем события на скроллинг и на клавишы
         window.onscroll = null;
         window.onkeyup = null;
@@ -206,12 +203,6 @@ const DivResult = (props) => {
         //останавливаем таймер
         if (timerID?.timerID) {
             clearInterval(timerID.timerID);
-        }
-
-        // Меняем цвет таймера на серый, показывая завершение
-        const timerElement = document.getElementsByClassName('timer')['0'];
-        if (timerElement) {
-            timerElement.style.color = '#666';
         }
     }, []);
 
@@ -222,6 +213,11 @@ const DivResult = (props) => {
                 countAnswerTrue += 1;
             }
         }
+
+        if (cleanupTimer) {
+            cleanupTimer();
+        }
+
         // проверяем допустимое количество ошибок
         switch (true) {
             case result.diffical.includes('jun') :

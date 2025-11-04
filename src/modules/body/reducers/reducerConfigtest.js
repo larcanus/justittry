@@ -1,3 +1,5 @@
+import { START_TEST_CONFIG, START_TEST_ID_TIMER } from "../../../common/constants";
+
 export const initialState = {
     startTestConfig: null,
     startTestConfigTimerID : null,
@@ -6,10 +8,10 @@ export const initialState = {
 export default function(state = initialState, action) {
     switch (action.type) {
 
-        case 'START_TEST_CONFIG' :
+        case START_TEST_CONFIG :
             return {...state, startTestConfig: action.payload };
 
-        case 'START_TEST_ID_TIMER' :
+        case START_TEST_ID_TIMER :
             return { ...state, startTestConfigTimerID: action.payload };
 
         default:return state;
