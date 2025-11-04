@@ -613,6 +613,10 @@
     box-sizing: border-box;
 }
 
+.carousel__slides {
+    padding-inline-start: 0;
+}
+
 /* Navigation arrows */
 .carousel__arrow {
     position: fixed;
