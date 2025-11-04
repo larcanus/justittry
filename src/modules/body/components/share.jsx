@@ -2,28 +2,47 @@ import React, {Component} from 'react';
 
 class Share extends Component {
     componentDidMount() {
+        const { testName, result, difficulty } = this.props;
+
+        const shareText = result ?
+            `Я прошел тест "${testName}" на ${result} (${difficulty}) на Just IT Try!` :
+            `Проверь свои знания в тесте "${testName}" на Just IT Try!`;
+
         window.Ya.share2('ya', {
             theme: {
                 services: 'vkontakte,facebook,twitter,linkedin,telegram,whatsapp',
-                lang: 'en',
+                lang: 'ru',
                 size: 'm',
                 bare: false,
                 shape: 'round',
             },
             content: {
                 url: 'https://justittry.ru',
-                title: 'Just it try. Tests for IT developers',
-                description: 'Tests to test your knowledge',
+                title: `Тест ${testName} - Just IT Try`,
+                description: shareText,
+                image: 'https://justittry.ru/logo.png', // Добавьте путь к логотипу
             },
             contentByService: {
                 twitter: {
                     url: 'https://justittry.ru',
-                    title: 'Just it try. Tests for IT developers',
-                    hashtags: 'Just it try,share'
+                    title: `Тест ${testName} - Just IT Try`,
+                    description: shareText,
+                    hashtags: 'ITтесты,программирование,JavaScript,тестирование'
                 },
                 facebook: {
                     url: 'https://justittry.ru',
-                    title: 'Just it try. Tests for IT developers',
+                    title: `Тест ${testName} - Just IT Try`,
+                    description: shareText,
+                },
+                vkontakte: {
+                    url: 'https://justittry.ru',
+                    title: `Тест ${testName} - Just IT Try`,
+                    description: shareText,
+                },
+                telegram: {
+                    url: 'https://justittry.ru',
+                    title: `Тест ${testName} - Just IT Try`,
+                    description: shareText,
                 }
             },
         });
@@ -32,7 +51,6 @@ class Share extends Component {
     render() {
         return (
             <form className='formBtnShare'>
-                <p>Поделиться:</p>
                 <div id='ya' />
             </form>
         );

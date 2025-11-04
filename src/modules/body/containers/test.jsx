@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useRef} from 'react';
+import React, {Component, useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import style from '../styles/style.css';
 import win from '../../../common/images/Congratulations.png';
@@ -13,6 +13,7 @@ const Test = (props) =>
     const diffical = testConfig.optionTest.diffical;
     const questions = testConfig.optionTest.questions;
     const timerRef = useRef(null);
+    const [elapsedTime, setElapsedTime] = useState('20:00');
 
     const timerRun = () =>
     {
@@ -32,6 +33,7 @@ const Test = (props) =>
                 timerElement.removeAttribute('hidden');
             }
 
+            const startTime = Date.now();
             const timer = setInterval(() =>
             {
                 let my_timer = document.getElementById('timer');
@@ -66,7 +68,14 @@ const Test = (props) =>
                 {
                     s = `0${ s }`;
                 }
-                document.getElementById('timer').innerHTML = `${ m }:${ s }`;
+
+                const currentTime = `${ m }:${ s }`;
+                document.getElementById('timer').innerHTML = currentTime;
+
+                // Сохраняем затраченное время
+                const elapsedMinutes = 20 - parseInt(m);
+                const elapsedSeconds = 60 - parseInt(s);
+                setElapsedTime(`${elapsedMinutes}:${elapsedSeconds < 10 ? '0' + elapsedSeconds : elapsedSeconds}`);
 
             }, 1000);
 
@@ -136,7 +145,7 @@ const Test = (props) =>
                     </div>
                     <div className='carousel-result' hidden={ true }>
                         <DivResult result={ result } timerID={ timerID } test={ testConfig.descTest }
-                                   cleanupTimer={ cleanupTimer }/>
+                                   cleanupTimer={ cleanupTimer } elapsedTime={elapsedTime}/>
                     </div>
                 </div>
             </div>
@@ -170,9 +179,14 @@ const DivResult = (props) => {
     const showDivCarousel = (e) => {
         document.querySelector(`div[class='carousel-div']`).removeAttribute('hidden');
         e.target.setAttribute('hidden', 'true');
+
+        // Останавливаем таймер при просмотре ответов
+        if (props.cleanupTimer) {
+            props.cleanupTimer();
+        }
     }
 
-    const {result, timerID, test, cleanupTimer} = props;
+    const {result, timerID, test, cleanupTimer, elapsedTime} = props;
     const nameTest = test.substring(21);
     let diff = '';
     let countAnswerTrue = 0;
@@ -192,6 +206,12 @@ const DivResult = (props) => {
         //останавливаем таймер
         if (timerID?.timerID) {
             clearInterval(timerID.timerID);
+        }
+
+        // Меняем цвет таймера на серый, показывая завершение
+        const timerElement = document.getElementsByClassName('timer')['0'];
+        if (timerElement) {
+            timerElement.style.color = '#666';
         }
     }, []);
 
@@ -219,50 +239,102 @@ const DivResult = (props) => {
         }
 
         const proportion = `${countAnswerTrue} / ${countAllQuestion}`;
+        const percentage = Math.round((countAnswerTrue / countAllQuestion) * 100);
 
         if (resultTestToShowDiv) {
             return (
                 <div className='divResult'>
-                    <img src={win} alt='Congratulations!' style={{maxWidth: '100%', height: 'auto'}}/>
-                    <p><b>========Тест на знание {nameTest} успешно пройден!=========</b></p>
-                    <p>Сложность: {diff}</p>
-                    <p>Результат: {proportion}</p>
-                    <button className='btnOpenAnswers' onClick={event => showDivCarousel(event)}>
-                        Посмотреть ответы
-                    </button>
-                    <button className='btnNewTest' onClick={() => {
-                        window.location.replace('https://justittry.ru/');
-                    }}>
-                        Попробывать еще раз
-                    </button>
+                    <div className='result-header success'>
+                        <img src={win} alt='Congratulations!' className='result-image'/>
+                        <h2 className='result-title'>Поздравляем! 🎉</h2>
+                    </div>
+
+                    <div className='result-stats'>
+                        <div className='stat-item'>
+                            <span className='stat-label'>Тест:</span>
+                            <span className='stat-value'>{nameTest}</span>
+                        </div>
+                        <div className='stat-item'>
+                            <span className='stat-label'>Сложность:</span>
+                            <span className='stat-value'>{diff}</span>
+                        </div>
+                        <div className='stat-item'>
+                            <span className='stat-label'>Результат:</span>
+                            <span className='stat-value highlight'>{proportion} ({percentage}%)</span>
+                        </div>
+                        <div className='stat-item'>
+                            <span className='stat-label'>Затраченное время:</span>
+                            <span className='stat-value'>{elapsedTime}</span>
+                        </div>
+                    </div>
+
+                    <div className='result-actions'>
+                        <button className='btn btn-secondary' onClick={event => showDivCarousel(event)}>
+                            📖 Посмотреть ответы
+                        </button>
+                        <button className='btn btn-primary' onClick={() => {
+                            window.location.replace('https://justittry.ru/');
+                        }}>
+                            🔄 Пройти еще раз
+                        </button>
+                    </div>
+
+                    <div className='result-share'>
+                        <p className='share-text'>Поделиться результатом:</p>
+                        <Share testName={nameTest} result={`${percentage}%`} difficulty={diff}/>
+                    </div>
                 </div>
             );
         } else {
             return (
                 <div className='divResult'>
-                    <img src={fail} alt='Failed!' style={{maxWidth: '100%', height: 'auto'}}/>
-                    <br/>
-                    <p><b>========Тест на знание {nameTest} не пройден.=========</b></p>
-                    <p>Сложность: {diff}</p>
-                    <p>Результат: {proportion}</p>
-                    <button className='btnOpenAnswers' onClick={event => showDivCarousel(event)}>
-                        Посмотреть ответы
-                    </button>
-                    <button className='btnNewTest' onClick={() => {
-                        window.location.replace('https://justittry.ru/');
-                    }}>
-                        Попробывать еще раз
-                    </button>
+                    <div className='result-header failed'>
+                        <img src={fail} alt='Failed!' className='result-image'/>
+                        <h2 className='result-title'>Попробуйте еще раз! 💪</h2>
+                    </div>
 
-                    <Share/>
-                    <div id='ya-share2' data-shape='round'
-                         data-services='vkontakte,facebook,telegram,twitter,whatsapp,linkedin'/>
+                    <div className='result-stats'>
+                        <div className='stat-item'>
+                            <span className='stat-label'>Тест:</span>
+                            <span className='stat-value'>{nameTest}</span>
+                        </div>
+                        <div className='stat-item'>
+                            <span className='stat-label'>Сложность:</span>
+                            <span className='stat-value'>{diff}</span>
+                        </div>
+                        <div className='stat-item'>
+                            <span className='stat-label'>Результат:</span>
+                            <span className='stat-value highlight'>{proportion} ({percentage}%)</span>
+                        </div>
+                        <div className='stat-item'>
+                            <span className='stat-label'>Затраченное время:</span>
+                            <span className='stat-value'>{elapsedTime}</span>
+                        </div>
+                    </div>
+
+                    <div className='result-actions'>
+                        <button className='btn btn-secondary' onClick={event => showDivCarousel(event)}>
+                            📖 Посмотреть ответы
+                        </button>
+                        <button className='btn btn-primary' onClick={() => {
+                            window.location.replace('https://justittry.ru/');
+                        }}>
+                            🔄 Пройти еще раз
+                        </button>
+                    </div>
+
+                    <div className='result-share'>
+                        <p className='share-text'>Поделиться тестом:</p>
+                        <Share testName={nameTest} result={`${percentage}%`} difficulty={diff}/>
+                    </div>
                 </div>
             );
         }
     } else {
         return (
-            <div/>
+            <div className='loading-result'>
+                <p>Загрузка результатов...</p>
+            </div>
         );
     }
 }
