@@ -6,6 +6,7 @@ import fail from '../../../common/images/failed.png';
 import Carousel from './cara';
 import Share from '../components/share';
 import {startTestConfigTimer} from '../actions/startTest';
+import { useHistory } from "react-router-dom";
 
 const Test = (props) =>
 {
@@ -14,6 +15,7 @@ const Test = (props) =>
     const questions = testConfig.optionTest.questions;
     const timerRef = useRef(null);
     const [elapsedTime, setElapsedTime] = useState('20:00');
+    const history = useHistory();
 
     const timerRun = () =>
     {
@@ -146,7 +148,7 @@ const Test = (props) =>
                     </div>
                     <div className='carousel-result' hidden={ true }>
                         <DivResult result={ result } timerID={ timerID } test={ testConfig.descTest }
-                                   cleanupTimer={ cleanupTimer } elapsedTime={elapsedTime}/>
+                                   cleanupTimer={ cleanupTimer } elapsedTime={elapsedTime} history={history}/>
                     </div>
                 </div>
             </div>
@@ -187,7 +189,7 @@ const DivResult = (props) => {
         }
     }
 
-    const {result, timerID, test, cleanupTimer, elapsedTime} = props;
+    const {result, timerID, test, cleanupTimer, elapsedTime, history} = props;
     const nameTest = test.substring(21);
     let diff = '';
     let countAnswerTrue = 0;
@@ -269,7 +271,7 @@ const DivResult = (props) => {
                             📖 Посмотреть ответы
                         </button>
                         <button className='btn btn-primary' onClick={() => {
-                            window.location.replace('https://justittry.ru/');
+                            history.push('/');
                         }}>
                             🔄 Пройти еще раз
                         </button>
@@ -313,7 +315,7 @@ const DivResult = (props) => {
                             📖 Посмотреть ответы
                         </button>
                         <button className='btn btn-primary' onClick={() => {
-                            window.location.replace('https://justittry.ru/');
+                            history.push('/');
                         }}>
                             🔄 Пройти еще раз
                         </button>
