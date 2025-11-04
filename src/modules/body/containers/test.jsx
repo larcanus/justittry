@@ -7,27 +7,34 @@ import Carousel from './cara';
 import Share from '../components/share';
 import {startTestConfigTimer} from '../actions/startTest';
 
-const Test = (props) => {
-    const {testConfig, result, timerID, startTestConfigTimer} = props;
+const Test = (props) =>
+{
+    console.log('propsprops',props)
+    const { testConfig, result, timerID, startTestConfigTimer } = props;
     const diffical = testConfig.optionTest.diffical;
     const questions = testConfig.optionTest.questions;
     const timerRef = useRef(null);
 
-    const timerRun = () => {
+    const timerRun = () =>
+    {
         // Clear any existing timer first
-        if (timerRef.current) {
+        if (timerRef.current)
+        {
             clearInterval(timerRef.current);
             timerRef.current = null;
         }
 
         // если тест с таймером, убираем скрытие, ставим интервал
-        if (!testConfig.optionTest.timer) {
+        if (!testConfig.optionTest.timer)
+        {
             const timerElement = document.getElementsByClassName('timer')['0'];
-            if (timerElement) {
+            if (timerElement)
+            {
                 timerElement.removeAttribute('hidden');
             }
 
-            const timer = setInterval(() => {
+            const timer = setInterval(() =>
+            {
                 let my_timer = document.getElementById('timer');
                 if (!my_timer) return;
 
@@ -36,26 +43,31 @@ const Test = (props) => {
                 let m = arr[0];
                 let s = arr[1];
 
-                if (Number(s) === 0) {
-                    if (Number(m) === 0) {
+                if (Number(s) === 0)
+                {
+                    if (Number(m) === 0)
+                    {
                         clearInterval(timer);
                         const finishButton = document.getElementsByClassName('btnFinal')['0'];
-                        if (finishButton) {
+                        if (finishButton)
+                        {
                             finishButton.click();
                         }
                         return;
                     }
                     m--;
-                    if (m < 10) m = `0${m}`;
+                    if (m < 10) m = `0${ m }`;
                     s = 59;
-                } else {
+                } else
+                {
                     s--;
                 }
 
-                if (s < 10) {
-                    s = `0${s}`;
+                if (s < 10)
+                {
+                    s = `0${ s }`;
                 }
-                document.getElementById('timer').innerHTML = `${m}:${s}`;
+                document.getElementById('timer').innerHTML = `${ m }:${ s }`;
 
             }, 1000);
 
@@ -67,35 +79,42 @@ const Test = (props) => {
     }
 
     // Cleanup function
-    const cleanupTimer = () => {
-        if (timerRef.current) {
+    const cleanupTimer = () =>
+    {
+        if (timerRef.current)
+        {
             clearInterval(timerRef.current);
             timerRef.current = null;
         }
-        if (timerID?.timerID) {
+        if (timerID?.timerID)
+        {
             clearInterval(timerID.timerID);
         }
 
         // Reset timer display
         const timerElement = document.getElementById('timer');
-        if (timerElement) {
+        if (timerElement)
+        {
             timerElement.innerHTML = '20:00';
         }
 
         // Hide timer
         const timerContainer = document.getElementsByClassName('timer')['0'];
-        if (timerContainer) {
+        if (timerContainer)
+        {
             timerContainer.setAttribute('hidden', 'true');
         }
     }
 
     // аналог дидмаунта, грузим тимер при рендеринге
-    useEffect(() => {
+    useEffect(() =>
+    {
         timerRun();
 
         // Ensure proper viewport scaling for mobile
         const viewport = document.querySelector("meta[name=viewport]");
-        if (viewport) {
+        if (viewport)
+        {
             viewport.setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no");
         }
 
@@ -103,7 +122,8 @@ const Test = (props) => {
         window.scrollTo(0, 0);
 
         // Cleanup on unmount
-        return () => {
+        return () =>
+        {
             cleanupTimer();
         };
     }, []);
@@ -111,12 +131,13 @@ const Test = (props) => {
     return (
         <div className='test-container'>
             <div className='test-content'>
-                <div className='testDiv' style={style}>
+                <div className='testDiv' style={ style }>
                     <div className='carousel-div'>
-                        <Carousel slides={questions} diff={diffical}/>
+                        <Carousel slides={ questions } diff={ diffical } testName={ testConfig.nameTest } descTest={ testConfig.descTest }/>
                     </div>
-                    <div className='carousel-result' hidden={true}>
-                        <DivResult result={result} timerID={timerID} test={testConfig.nameTest} cleanupTimer={cleanupTimer}/>
+                    <div className='carousel-result' hidden={ true }>
+                        <DivResult result={ result } timerID={ timerID } test={ testConfig.descTest }
+                                   cleanupTimer={ cleanupTimer }/>
                     </div>
                 </div>
             </div>

@@ -7,6 +7,7 @@ import {useHistory} from 'react-router-dom';
 
 const Configtest = (props) => {
     const {test, choiceTestConfig, timerID} = props;
+
     const option = {};
     let history = useHistory();
 
@@ -120,7 +121,8 @@ const Configtest = (props) => {
         // option.exclude = document.getElementById('exclude-questions').checked
 
         choiceTestConfig({
-            nameTest: test.testNow,
+            nameTest: test.testNow?.substring(21) ?? test.testNow,
+            descTest: test.testNow,
             optionTest: option,
         });
 

@@ -2,10 +2,19 @@ import React, {Component, useEffect, useRef} from 'react';
 import {connect} from 'react-redux';
 import dispatchResult from '../../body/actions/actionResult';
 import Prism from 'prismjs';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-php';
+import 'prismjs/components/prism-dart';
 import '../../../prism.css';
 import arrL from '../../../common/images/arrow.png';
 import arrR from '../../../common/images/arrow2.png';
 
+const TEST_LANGUAGE_MAP = {
+	'JavaScript': 'javascript',
+	'HTML': 'markup',
+	'DART': 'dart',
+	'PHP': 'php',
+};
 
 const CarouselLeftArrow = (props) => {
     const {activeIndex} = props;
@@ -63,30 +72,60 @@ const CarouselIndicator = (props) => {
 class CarouselSlide extends Component {
 
     componentDidMount() {
-        Prism.highlightAll();
+		try {
+			Prism.highlightAll();
+		} catch (error) {
+			console.warn('Prism highlighting error:', error);
+			// Продолжаем работу без подсветки
+		}
     }
 
-    render() {
+	componentDidUpdate() {
+		try {
+			Prism.highlightAll();
+		} catch (error) {
+			console.warn('Prism highlighting error:', error);
+			// Продолжаем работу без подсветки
+		}
+	}
 
-        return (
-            <li
-                className={
-                    this.props.index === this.props.activeIndex
-                        ? 'carousel__slide carousel__slide--active'
-                        : 'carousel__slide'
-                }
-            >
-                <div className='carousel-slide__content'>
+	getLanguageFromTest = () => {
+		const { testName } = this.props;
+
+		if (!testName) return 'javascript'; // fallback
+
+		// Ищем подходящий язык в маппинге
+		for (const [testKey, language] of Object.entries(TEST_LANGUAGE_MAP)) {
+			if (testName.includes(testKey)) {
+				return language;
+			}
+		}
+
+		return 'javascript';
+	}
+
+	render() {
+		const language = this.getLanguageFromTest();
+		console.log('language',language)
+		return (
+			<li
+				className={
+					this.props.index === this.props.activeIndex
+						? 'carousel__slide carousel__slide--active'
+						: 'carousel__slide'
+				}
+			>
+				<div className='carousel-slide__content'>
                     <pre>
-                        <code className='language-JavaScript'>
-                        {this.props.slide.question}
+                        <code className={`language-${language}`}>
+                            {this.props.slide.question}
                         </code>
                     </pre>
-                    <p className='p-number-question'>{this.props.slide.num}</p>
-                </div>
-            </li>
-        );
-    }
+					<p className='p-number-question'>{this.props.slide.num}</p>
+				</div>
+			</li>
+		);
+	}
 }
 
 const CarouselAnswers = (props) => {
@@ -458,6 +497,8 @@ class Carousel extends Component {
     }
 
     render() {
+		const { testName } = this.props;
+
         return (
             <div className='carousel' id='carousel'>
                 <ul className='carousel__indicators'>
@@ -483,7 +524,8 @@ class Carousel extends Component {
                             index={index}
                             activeIndex={this.state.activeIndex}
                             slide={slide}
-                        />
+							testName={testName}
+						/>
                     )}
                 </ul>
 
