@@ -11,7 +11,7 @@ import arrR from '../../../common/images/arrow2.png';
 
 const TEST_LANGUAGE_MAP = {
 	'JavaScript': 'javascript',
-	'HTML': 'markup',
+	'HTML': 'javascript',
 	'DART': 'dart',
 	'PHP': 'php',
 };
