@@ -397,7 +397,7 @@ const Tests = {
                 num: '#35',
             },
             {
-                question: '\nЧто такое поднятие (Hoisting)?\n\n',
+                question: 'Что такое поднятие (Hoisting)?\n\n',
                 option: {
                     a1: 'Термин, описывающий подъем переменной или \n' +
                         ' функции в глобальную или функциональную \n области видимости.',
@@ -433,7 +433,7 @@ const Tests = {
                 num: '#37',
             },
             {
-                question: '\nЧто такое IIFE ?\n\n',
+                question: 'Что такое IIFE ?\n\n',
 
                 option: {
                     a1: 'Функция, которая выполняется в конце событийного цикла',
@@ -447,7 +447,7 @@ const Tests = {
                 num: '#38',
             },
             {
-                question: '\nЧто такое функция высшего порядка (Higher Order Functions)?\n\n',
+                question: 'Что такое функция высшего порядка (Higher Order Functions)?\n\n',
 
                 option: {
                     a1: 'функция, не имеющая this',
@@ -463,7 +463,7 @@ const Tests = {
                 num: '#40',
             },
             {
-                question: '\nДля чего используется ключевое слово «new»?\n\n',
+                question: 'Для чего используется ключевое слово «new»?\n\n',
 
                 option: {
                     a1: 'создает экземпляр объекта, имеющего конструктор',
@@ -477,7 +477,7 @@ const Tests = {
                 num: '#41',
             },
             {
-                question: ' Что произойдет при выполнении этого кода?\n\n' +
+                question: 'Что произойдет при выполнении этого кода?\n\n' +
                     'functionFoo()\n' +
                     'functionBar()\n' +
                     '\n' +
@@ -501,7 +501,7 @@ const Tests = {
                 num: '#42',
             },
             {
-                question: '\n Чему должен быть равен третий парамер метода \n ' +
+                question: 'Чему должен быть равен третий парамер метода \n ' +
                     'Object.defineProperty()\n\n ',
 
                 option: {
@@ -522,7 +522,7 @@ const Tests = {
                 num: '#46',
             },
             {
-                question: '\n  Что выведет консоль? \n\n' +
+                question: 'Что выведет консоль? \n\n' +
                     'const doc = window.document;\n' +
                     'console.log( typeof doc );\n',
 
@@ -554,7 +554,7 @@ const Tests = {
                 num: '#53',
             },
             {
-                question: '\n Что произойдет после выполнения этого кода?\n\n' +
+                question: 'Что произойдет после выполнения этого кода?\n\n' +
                     ` document.cookie = 'user=John; max-age=0';\n `,
 
                 option: {
@@ -570,7 +570,7 @@ const Tests = {
                 num: '#54',
             },
             {
-                question: '\n Что выведет код?\n\n' +
+                question: 'Что выведет код?\n\n' +
                     'let promise = new Promise( (resolve, reject) => {\n' +
                     '  resolve(1);\n' +
                     '  setTimeout( () => resolve(2), 1000 );\n' +
@@ -590,7 +590,7 @@ const Tests = {
                 num: '#58',
             },
             {
-                question: `\n Какое итоговое значение будет у переменной finNum? \n\n ` +
+                question: `Какое итоговое значение будет у переменной finNum? \n\n ` +
                     'function showName( firstNum, lastNum, ...secondNum ) {\n' +
                     '  let finNum = firstNum;\n' +
                     '  finNum += secondNum;\n' +
@@ -611,7 +611,7 @@ const Tests = {
                 num: '#61',
             },
             {
-                question: '\n Для чего используется метод Object.assign()?\n\n ',
+                question: 'Для чего используется метод Object.assign()?\n\n ',
 
                 option: {
                     a1: 'для копирования значений всех собственных перечисляемых свойств ' +
@@ -630,7 +630,7 @@ const Tests = {
                 num: '#62',
             },
             {
-                question: '\n Для чего служит метод Function.prototype.bind()?\n\n ',
+                question: 'Для чего служит метод Function.prototype.bind()?\n\n ',
 
                 option: {
                     a1: 'Метод создаёт новую функцию, которая при вызове устанавливает в качестве\n' +
@@ -648,7 +648,7 @@ const Tests = {
                 num: '#64',
             },
             {
-                question: '\n Что выведет консоль ?\n\n' +
+                question: 'Что выведет консоль ?\n\n' +
                     'obj = {\n' +
                     '  internal: {}\n' +
                     '};\n' +
@@ -671,7 +671,7 @@ const Tests = {
                 num: '#65',
             },
             {
-                question: '\n Что выведет следующий код? \n\n' +
+                question: 'Что выведет следующий код? \n\n' +
                     'const output = ( (x) => {\n' +
                     '  delete x;\n' +
                     '  return x;\n' +
@@ -692,7 +692,7 @@ const Tests = {
                 num: '#66',
             },
             {
-                question: '\nЧто выведет следующий код? \n\n' +
+                question: 'Что выведет следующий код? \n\n' +
                     'let users = new Set();\n' +
                     '\n' +
                     'let vasya = {name: \'Вася\'};\n' +
@@ -717,7 +717,7 @@ const Tests = {
                 num: '#68',
             },
             {
-                question: '\nЧему будет равно значение в переменной done? \n\n' +
+                question: 'Чему будет равно значение в переменной done? \n\n' +
                     'const mathResult = ( x ) => {\n' +
                     `  return\n` +
                     `      ( x + 3,14 * 2 + 10 + 5 - '0.1' )\n` +
@@ -736,7 +736,7 @@ const Tests = {
                 num: '#71',
             },
             {
-                question: '\nЧто произойдет при выполнении?\n\n' +
+                question: 'Что произойдет при выполнении?\n\n' +
                     'const callbacks = [];\n' +
                     'for (var i = 0; i < 2; i++) {\n' +
                     '  callbacks.push(() => console.log(i));\n' +
@@ -758,7 +758,7 @@ const Tests = {
         ],
         mid: [
             {
-                question: '\n Что выведет консоль? \n\n' +
+                question: 'Что выведет консоль? \n\n' +
                     'const array = [ 1, 2, 3 ]\n' +
                     'const callback = x => x*2\n' +
                     '\n' +
@@ -791,7 +791,7 @@ const Tests = {
                 num: '#39',
             },
             {
-                question: '\n Что произойдет после выполнения этого кода?\n\n' +
+                question: 'Что произойдет после выполнения этого кода?\n\n' +
                     ' window.history.go(-1);\n ',
 
                 option: {
@@ -825,7 +825,7 @@ const Tests = {
                 num: '#26',
             },
             {
-                question: '\n Чем отличаются механизмы веб хранилища: \n' +
+                question: 'Чем отличаются механизмы веб хранилища: \n' +
                     'sessionStorage и localStorage?  \n\n ',
 
                 option: {
@@ -1013,7 +1013,7 @@ const Tests = {
                 num: '#33',
             },
             {
-                question: '\n Что такое IETF?\n\n ',
+                question: 'Что такое IETF?\n\n ',
 
                 option: {
                     a1: 'Международное сообщество проектировщиков, учёных, сетевых операторов, \n ' +
@@ -1032,7 +1032,7 @@ const Tests = {
                 num: '#43',
             },
             {
-                question: '\n Что такое  MIME тип?\n\n ',
+                question: 'Что такое  MIME тип?\n\n ',
 
                 option: {
                     a1: 'стандарт, который рекодирует тип документа, файла или набора байтов',
@@ -1047,7 +1047,7 @@ const Tests = {
                 num: '#44',
             },
             {
-                question: '\n Для чего служит метод Blob.stream()?\n\n ',
+                question: 'Для чего служит метод Blob.stream()?\n\n ',
 
                 option: {
                     a1: 'Возвращает promise, который исполняется с USVString, содержащей всё содержимое Blob,\n' +
@@ -1062,7 +1062,7 @@ const Tests = {
                 num: '#45',
             },
             {
-                question: '\n Что означает третий параметр метода?\n' +
+                question: 'Что означает третий параметр метода?\n' +
                     'EvTarget.addEventListener(event, handler, { passive: true });\n\n ',
 
                 option: {
@@ -1078,7 +1078,7 @@ const Tests = {
                 num: '#47',
             },
             {
-                question: '\n Чем отличаются события DOMContentLoaded и load ? \n\n ',
+                question: 'Чем отличаются события DOMContentLoaded и load ? \n\n ',
 
                 option: {
                     a1: 'load можно обработать через addEventListener(), а DOMContentLoaded - нет',
@@ -1096,7 +1096,7 @@ const Tests = {
                 num: '#48',
             },
             {
-                question: '\n Когда запускается событие beforeunload ?  \n\n ',
+                question: 'Когда запускается событие beforeunload ?  \n\n ',
 
                 option: {
                     a1: 'Перед выгрузкой окна, документа и его ресурсов. \n',
@@ -1112,7 +1112,7 @@ const Tests = {
                 num: '#49',
             },
             {
-                question: '\n Что означает свойство characterData?\n\n ' +
+                question: 'Что означает свойство characterData?\n\n ' +
                     'let observer = new MutationObserver( callback );\n\n ' +
                     'observer.observe(node, { characterData: true } ); \n',
 
@@ -1134,7 +1134,7 @@ const Tests = {
                 num: '#52',
             },
             {
-                question: '\n Какой цели служит данный код?\n\n' +
+                question: 'Какой цели служит данный код?\n\n' +
                     `document.addEventListener( 'visibilitychange', () => {\n` +
                     '  if ( document.visibilityState === \'visible\' ) {\n' +
                     '    funcFirst();\n' +
@@ -1155,7 +1155,7 @@ const Tests = {
                 num: '#57',
             },
             {
-                question: '\n Для чего служит интерфейс Performance?\n ',
+                question: 'Для чего служит интерфейс Performance?\n ',
 
                 option: {
                     a1: `Такого интерфейса нет`,
@@ -1210,7 +1210,7 @@ const Tests = {
                 num: '#60',
             },
             {
-                question: '\n Что такое IndexedDB?\n\n ',
+                question: 'Что такое IndexedDB?\n\n ',
 
                 option: {
                     a1: 'JavaScript-основанная, иерархическая база данных',
@@ -1229,7 +1229,7 @@ const Tests = {
                 num: '#63',
             },
             {
-                question: '\n Что выведет следующий код? \n' +
+                question: 'Что выведет следующий код? \n' +
                     'let weakmap = new WeakMap();\n' +
                     '\n' +
                     '( () => {\n' +
@@ -1253,7 +1253,7 @@ const Tests = {
                 num: '#69',
             },
             {
-                question: '\n Что выведет следующий код? \n\n' +
+                question: 'Что выведет следующий код? \n\n' +
                     'const Compary = {\n' +
                     '  erty: \'sopart\'\n' +
                     '}\n\n' +
@@ -1274,7 +1274,7 @@ const Tests = {
                 num: '#67',
             },
             {
-                question: '\n Что выведет следующий код? \n\n' +
+                question: 'Что выведет следующий код? \n\n' +
                     'const Compary = {\n' +
                     '  erty: \'sopart\'\n' +
                     '}\n\n' +
@@ -1312,7 +1312,7 @@ const Tests = {
                 num: '#10',
             },
             {
-                question: '\n\nКакие из представленных вариантов\n выведут значение в терминал, если есть только dart:core?',
+                question: 'Какие из представленных вариантов\n выведут значение в терминал, если есть только dart:core?',
                 option: {
                     a1: 'print_r("Hello")',
                     a2: 'print("Hello")',
@@ -1324,7 +1324,7 @@ const Tests = {
                 num: '#11',
             },
             {
-                question: '\n\nСколько числовых типов и их видов есть в dart?',
+                question: 'Сколько числовых типов и их видов есть в dart?',
                 option: {
                     a1: '2 type (number и digit)\n4 flavors (int, double, bigint, smallint)',
                     a2: '2 type (number и bigint)\n4 flavors (int, double, digit, smallint)',
@@ -1337,7 +1337,7 @@ const Tests = {
                 num: '#12',
             },
             {
-                question: '\n\nС помощью какого символа или слова возможно указать,\n что идентификатор является приватным\n и не будет доступен вне библеотеки?\n',
+                question: 'С помощью какого символа или слова возможно указать,\n что идентификатор является приватным\n и не будет доступен вне библеотеки?\n',
                 option: {
                     a1: 'private',
                     a2: 'protected',
@@ -1352,7 +1352,7 @@ const Tests = {
 
             },
             {
-                question: '\nКакие кавычки вы НЕ можете использовать для создания строки?',
+                question: 'Какие кавычки вы НЕ можете использовать для создания строки?',
                 option: {
                     a1: '``',
                     a2: `''`,
@@ -1382,7 +1382,7 @@ const Tests = {
                 num: '#15',
             },
             {
-                question: '\n Какой варианты создания коллекции вызовет ошибку?\n\n' +
+                question: 'Какой варианты создания коллекции вызовет ошибку?\n\n' +
                     '1. var numberList = [ 1, 2, 3, if( null == null) 4]\n' +
                     '2. var numberList = [ 1, 2, for( var i in infinityList) 4]\n' +
                     '3. var numberList = [ 1, 2, 3, while( number_list.length < 0 ) 4]\n' +
@@ -1398,7 +1398,7 @@ const Tests = {
                 num: '#16',
             },
             {
-                question: '\nЧто выведет print()?\n\n' +
+                question: 'Что выведет print()?\n\n' +
                     '\nList anotherList = [ 1, 1 ];' +
                     '\nList simpleList = [ \n' +
                     '       1, if( double.nan == double.infinity) 2, 3,\n' +
@@ -1418,7 +1418,7 @@ const Tests = {
                 num: '#17',
             },
             {
-                question: '\nКакое обявление переменной с использованием \nмодификатора late вызовет ошибку?\n\n',
+                question: 'Какое обявление переменной с использованием \nмодификатора late вызовет ошибку?\n\n',
 
                 option: {
                     a1: 'late final variable;',
@@ -1433,7 +1433,7 @@ const Tests = {
                 num: '#18',
             },
             {
-                question: '\nВ чем отличие объявление переменной с помощью сonst от final?\n\n',
+                question: 'В чем отличие объявление переменной с помощью сonst от final?\n\n',
                 option: {
                     a1: 'final переменная может быть установлена ​​только один раз;\nconst переменная является константой времени компиляции',
                     a2: 'final переменная может быть установлена дважды;\nconst переменная является константой времени компиляции',
@@ -1506,7 +1506,7 @@ const Tests = {
                 num: '#22',
             },
             {
-                question: '\nКакие виды параметров существуют в Dart?\n\n',
+                question: 'Какие виды параметров существуют в Dart?\n\n',
                 option: {
                     a1: 'именованные, позиционные, запрашиваемые ( required )',
                     a2: 'позиционные, именованные, необязательные позиционные, запрашиваемые ( required )',
@@ -1520,7 +1520,7 @@ const Tests = {
                 num: '#23',
             },
             {
-                question: '\nКаких префиксов/постфиксов не существует в Dart?\n\n' +
+                question: 'Каких префиксов/постфиксов не существует в Dart?\n\n' +
                     '1. -var\n' +
                     '2. --var\n' +
                     '3. var++\n' +
@@ -1570,7 +1570,7 @@ const Tests = {
                 num: '#26',
             },
             {
-                question: '\nЧто произойдет при выполнении?\n\n' +
+                question: 'Что произойдет при выполнении?\n\n' +
                     'var callbacks = [];\n' +
                     'for (var i = 0; i < 2; i++) {\n' +
                     '  callbacks.add(() => print(i));\n' +
@@ -1589,7 +1589,7 @@ const Tests = {
 
             },
             {
-                question: '\nКакое утверждение НЕ верно в отношении Iterable?',
+                question: 'Какое утверждение НЕ верно в отношении Iterable?',
                 option: {
                     a1: 'Вы можете создать не более одного итератора из одного и того же файла Iterable.\n',
                     a2: 'Все методы, которые возвращает Iterable(например, map и where ) ленивы,\n' +
@@ -1644,7 +1644,7 @@ const Tests = {
                 num: '#10',
             },
             {
-                question: '\n\nКакие из представленных вариантов\n выведут значение в терминал, если есть только dart:core?',
+                question: 'Какие из представленных вариантов\n выведут значение в терминал, если есть только dart:core?',
                 option: {
                     a1: 'print_r("Hello")',
                     a2: 'print("Hello")',
@@ -1656,7 +1656,7 @@ const Tests = {
                 num: '#11',
             },
             {
-                question: '\n\nСколько числовых типов и их видов есть в dart?',
+                question: 'Сколько числовых типов и их видов есть в dart?',
                 option: {
                     a1: '2 type (number и digit)\n4 flavors (int, double, bigint, smallint)',
                     a2: '2 type (number и bigint)\n4 flavors (int, double, digit, smallint)',
@@ -1669,7 +1669,7 @@ const Tests = {
                 num: '#12',
             },
             {
-                question: '\n\nС помощью какого символа или слова возможно указать,\n что идентификатор является приватным\n и не будет доступен вне библеотеки?\n',
+                question: 'С помощью какого символа или слова возможно указать,\n что идентификатор является приватным\n и не будет доступен вне библеотеки?\n',
                 option: {
                     a1: 'private',
                     a2: 'protected',
@@ -1684,7 +1684,7 @@ const Tests = {
 
             },
             {
-                question: '\nКакие кавычки вы НЕ можете использовать для создания строки?',
+                question: 'Какие кавычки вы НЕ можете использовать для создания строки?',
                 option: {
                     a1: '``',
                     a2: `''`,
@@ -1714,7 +1714,7 @@ const Tests = {
                 num: '#15',
             },
             {
-                question: '\n Какой варианты создания коллекции вызовет ошибку?\n\n' +
+                question: 'Какой варианты создания коллекции вызовет ошибку?\n\n' +
                     '1. var numberList = [ 1, 2, 3, if( null == null) 4]\n' +
                     '2. var numberList = [ 1, 2, for( var i in infinityList) 4]\n' +
                     '3. var numberList = [ 1, 2, 3, while( number_list.length < 0 ) 4]\n' +
@@ -1730,7 +1730,7 @@ const Tests = {
                 num: '#16',
             },
             {
-                question: '\nЧто выведет print()?\n\n' +
+                question: 'Что выведет print()?\n\n' +
                     '\nList anotherList = [ 1, 1 ];' +
                     '\nList simpleList = [ \n' +
                     '       1, if( double.nan == double.infinity) 2, 3,\n' +
@@ -1750,7 +1750,7 @@ const Tests = {
                 num: '#17',
             },
             {
-                question: '\nКакое обявление переменной с использованием \nмодификатора late вызовет ошибку?\n\n',
+                question: 'Какое обявление переменной с использованием \nмодификатора late вызовет ошибку?\n\n',
 
                 option: {
                     a1: 'late final variable;',
@@ -1765,7 +1765,7 @@ const Tests = {
                 num: '#18',
             },
             {
-                question: '\nВ чем отличие объявление переменной с помощью сonst от final?\n\n',
+                question: 'В чем отличие объявление переменной с помощью сonst от final?\n\n',
                 option: {
                     a1: 'final переменная может быть установлена ​​только один раз;\nconst переменная является константой времени компиляции',
                     a2: 'final переменная может быть установлена дважды;\nconst переменная является константой времени компиляции',
@@ -1838,7 +1838,7 @@ const Tests = {
                 num: '#22',
             },
             {
-                question: '\nКакие виды параметров существуют в Dart?\n\n',
+                question: 'Какие виды параметров существуют в Dart?\n\n',
                 option: {
                     a1: 'именованные, позиционные, запрашиваемые ( required )',
                     a2: 'позиционные, именованные, необязательные позиционные, запрашиваемые ( required )',
@@ -1852,7 +1852,7 @@ const Tests = {
                 num: '#23',
             },
             {
-                question: '\nКаких префиксов/постфиксов не существует в Dart?\n\n' +
+                question: 'Каких префиксов/постфиксов не существует в Dart?\n\n' +
                     '1. -var\n' +
                     '2. --var\n' +
                     '3. var++\n' +
@@ -1902,7 +1902,7 @@ const Tests = {
                 num: '#26',
             },
             {
-                question: '\nЧто произойдет при выполнении?\n\n' +
+                question: 'Что произойдет при выполнении?\n\n' +
                     'var callbacks = [];\n' +
                     'for (var i = 0; i < 2; i++) {\n' +
                     '  callbacks.add(() => print(i));\n' +
@@ -1921,7 +1921,7 @@ const Tests = {
 
             },
             {
-                question: '\nКакое утверждение НЕ верно в отношении Iterable?',
+                question: 'Какое утверждение НЕ верно в отношении Iterable?',
                 option: {
                     a1: 'Вы можете создать не более одного итератора из одного и того же файла Iterable.\n',
                     a2: 'Все методы, которые возвращает Iterable(например, map и where ) ленивы,\n' +
@@ -1965,7 +1965,7 @@ const Tests = {
     'PHP': {
         jun: [
             {
-                question: '\nКак расшифровывается PHP?',
+                question: 'Как расшифровывается PHP?',
                 option: {
                     a1: 'PHP - Hypertext Preprocessor',
                     a2: 'PHP - Page Hypertext Processor',
@@ -2901,7 +2901,7 @@ const Tests = {
     'HTML': {
         jun: [
             {
-                question: '\nЧем отличается элемент <ul> от <ol> \n\n?',
+                question: 'Чем отличается элемент <ul> от <ol> \n\n?',
                 option: {
                     a1: 'Ничем',
                     a2: '<ul> имеет маркированный тип, а <ol> - нумерованный',
@@ -2913,7 +2913,7 @@ const Tests = {
                 num: '#01',
             },
             {
-                question: '\nЧто означает аббревиатура HTML?\n\n',
+                question: 'Что означает аббревиатура HTML?\n\n',
                 option: {
                     a1: 'язык гипертекстовой разметки',
                     a2: 'язык программи́рования текстовой разметки',
@@ -2926,7 +2926,7 @@ const Tests = {
                 num: '#02',
             },
             {
-                question: '\n Для чего используется элемент <!DOCTYPE...> ?\n\n ',
+                question: 'Для чего используется элемент <!DOCTYPE...> ?\n\n ',
                 option: {
                     a1: 'Элемент указывают больше по традиции, практической пользы нет',
                     a2: 'Элемент предназначен для указания начала текущего документа',
@@ -2940,7 +2940,7 @@ const Tests = {
                 num: '#03',
             },
             {
-                question: '\nЧто означает элемент <meta charset="UTF-8">?  \n',
+                question: 'Что означает элемент <meta charset="UTF-8">?  \n',
                 option: {
                     a1: 'Сообщает браузеру местонахождение сервера',
                     a2: 'Устанавливает кодировку документа - ISO-8859-1',
