@@ -9,7 +9,6 @@ import {startTestConfigTimer} from '../actions/startTest';
 
 const Test = (props) =>
 {
-    console.log('propsprops',props)
     const { testConfig, result, timerID, startTestConfigTimer } = props;
     const diffical = testConfig.optionTest.diffical;
     const questions = testConfig.optionTest.questions;

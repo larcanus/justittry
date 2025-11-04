@@ -94,7 +94,6 @@ class CarouselSlide extends Component {
 
 		if (!testName) return 'javascript'; // fallback
 
-		// Ищем подходящий язык в маппинге
 		for (const [testKey, language] of Object.entries(TEST_LANGUAGE_MAP)) {
 			if (testName.includes(testKey)) {
 				return language;
@@ -106,7 +105,7 @@ class CarouselSlide extends Component {
 
 	render() {
 		const language = this.getLanguageFromTest();
-		console.log('language',language)
+
 		return (
 			<li
 				className={
