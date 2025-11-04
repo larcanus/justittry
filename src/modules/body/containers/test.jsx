@@ -14,8 +14,9 @@ const Test = (props) =>
     const diffical = testConfig.optionTest.diffical;
     const questions = testConfig.optionTest.questions;
     const timerRef = useRef(null);
-    const [elapsedTime, setElapsedTime] = useState('20:00');
+    const [elapsedTime, setElapsedTime] = useState('00:00');
     const history = useHistory();
+    const startTimeRef = useRef(null);
 
     const timerRun = () =>
     {
@@ -35,7 +36,7 @@ const Test = (props) =>
                 timerElement.removeAttribute('hidden');
             }
 
-            const startTime = Date.now();
+            startTimeRef.current = Date.now();
             const timer = setInterval(() =>
             {
                 let my_timer = document.getElementById('timer');
@@ -74,11 +75,15 @@ const Test = (props) =>
                 const currentTime = `${ m }:${ s }`;
                 document.getElementById('timer').innerHTML = currentTime;
 
-                // Сохраняем затраченное время
-                const elapsedMinutes = 20 - parseInt(m);
-                const elapsedSeconds = 60 - parseInt(s);
+                // Calculate actual elapsed time
+                const currentTimeMs = Date.now();
+                const elapsedMs = currentTimeMs - startTimeRef.current;
+                const elapsedSeconds = Math.floor(elapsedMs / 1000);
+                const elapsedMinutes = Math.floor(elapsedSeconds / 60);
+                const remainingSeconds = elapsedSeconds % 60;
 
-                setElapsedTime(`${elapsedMinutes}:${elapsedSeconds < 10 ? '0' + elapsedSeconds : elapsedSeconds}`);
+                const formattedElapsedTime = `${elapsedMinutes}:${remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}`;
+                setElapsedTime(formattedElapsedTime);
 
             }, 1000);
 
