@@ -15,6 +15,7 @@ const Test = (props) =>
     const questions = testConfig.optionTest.questions;
     const timerRef = useRef(null);
     const [elapsedTime, setElapsedTime] = useState('00:00');
+    const [showingAnswers, setShowingAnswers] = useState(false);
     const history = useHistory();
     const startTimeRef = useRef(null);
 
@@ -149,11 +150,11 @@ const Test = (props) =>
             <div className='test-content'>
                 <div className='testDiv' style={ style }>
                     <div className='carousel-div'>
-                        <Carousel slides={ questions } diff={ diffical } testName={ testConfig.nameTest } descTest={ testConfig.descTest }/>
+                        <Carousel slides={ questions } diff={ diffical } testName={ testConfig.nameTest } descTest={ testConfig.descTest } showingAnswers={showingAnswers}/>
                     </div>
                     <div className='carousel-result' hidden={ true }>
                         <DivResult result={ result } timerID={ timerID } test={ testConfig.descTest }
-                                   cleanupTimer={ cleanupTimer } elapsedTime={elapsedTime} history={history}/>
+                                   cleanupTimer={ cleanupTimer } elapsedTime={elapsedTime} history={history} setShowingAnswers={setShowingAnswers}/>
                     </div>
                 </div>
             </div>
@@ -186,15 +187,23 @@ const DivResult = (props) => {
      */
     const showDivCarousel = (e) => {
         document.querySelector(`div[class='carousel-div']`).removeAttribute('hidden');
-        e.target.setAttribute('hidden', 'true');
+        document.querySelector(`div[class='carousel-result']`).setAttribute('hidden', 'true');
+
+        // Устанавливаем флаг, что показываем ответы
+        if (props.setShowingAnswers) {
+            props.setShowingAnswers(true);
+        }
 
         // Останавливаем таймер при просмотре ответов
         if (props.cleanupTimer) {
             props.cleanupTimer();
         }
+
+        // Прокручиваем страницу вверх
+        window.scrollTo(0, 0);
     }
 
-    const {result, timerID, test, cleanupTimer, elapsedTime, history} = props;
+    const {result, timerID, test, cleanupTimer, elapsedTime, history, setShowingAnswers} = props;
     const nameTest = test.substring(21);
     let diff = '';
     let countAnswerTrue = 0;
@@ -210,6 +219,11 @@ const DivResult = (props) => {
         //останавливаем таймер
         if (timerID?.timerID) {
             clearInterval(timerID.timerID);
+        }
+
+        // Сбрасываем флаг показа ответов
+        if (setShowingAnswers) {
+            setShowingAnswers(false);
         }
     }, []);
 

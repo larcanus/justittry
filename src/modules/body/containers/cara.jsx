@@ -428,14 +428,28 @@ class Carousel extends Component {
 
 
     /**
-     * Обработчик кнопки 'Закончить тест'
+     * Обработчик кнопки 'Закончить тест' или 'Вернуться к результатам'
      * @param {event} e
      */
     final(e) {
         e.preventDefault();
 
-        const {slides, testName, dispatchResultTest, diff} = this.props;
+        const {slides, testName, dispatchResultTest, diff, showingAnswers} = this.props;
 
+        // Если мы уже просматриваем ответы, возвращаемся к результатам
+        if (showingAnswers) {
+            const divCarousel = document.querySelector(`div[class='carousel-div']`);
+            const divCarouselResult = document.querySelector(`div[class='carousel-result']`);
+
+            divCarousel.setAttribute('hidden', 'true');
+            divCarouselResult.removeAttribute('hidden');
+
+            // Прокручиваем страницу вверх
+            window.scrollTo(0, 0);
+            return;
+        }
+
+        // Иначе завершаем тест
         const result = {
             test: testName,
             diffical: diff,
@@ -443,7 +457,10 @@ class Carousel extends Component {
         };
 
         //меняем цвет у таймера
-        document.getElementsByClassName('timer')['0'].style.color = '#4caf50';
+        const timerElement = document.getElementsByClassName('timer')['0'];
+        if (timerElement) {
+            timerElement.style.color = '#4caf50';
+        }
 
         for (let i = 0; i < slides.length; i++) {
             const answerTrue = slides[i].answerOption;
@@ -489,15 +506,19 @@ class Carousel extends Component {
 
         divCarousel.setAttribute('hidden', 'true');
         divCarouselResult.removeAttribute('hidden');
-        e.target.setAttribute('hidden', 'true');
 
-        this.state.correctAnswer = true;
+        this.setState({
+            correctAnswer: true
+        });
 
         dispatchResultTest(result);
     }
 
     render() {
-		const { testName } = this.props;
+		const { testName, showingAnswers } = this.props;
+
+        // Определяем текст кнопки в зависимости от режима
+        const buttonText = showingAnswers ? '📊 Вернуться к результатам' : 'Закончить тест!';
 
         return (
             <div className='carousel' id='carousel'>
@@ -551,7 +572,7 @@ class Carousel extends Component {
                 )}
 
                 <button id='btnFinal' className='btnFinal' hidden={this.state.hiddenBtn}
-                        onClick={e => this.final(e)}>Закончить тест!
+                        onClick={e => this.final(e)}>{buttonText}
                 </button>
             </div>
         );
