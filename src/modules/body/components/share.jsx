@@ -8,7 +8,7 @@ class Share extends Component {
             `Я прошел тест "${testName}" на ${result} (${difficulty}) на Just IT Try!` :
             `Проверь свои знания в тесте "${testName}" на Just IT Try!`;
 
-        window.Ya.share2('ya', {
+        window.Ya?.share2('ya', {
             theme: {
                 services: 'vkontakte,facebook,twitter,linkedin,telegram,whatsapp',
                 lang: 'ru',

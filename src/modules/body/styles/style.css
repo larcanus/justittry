@@ -611,6 +611,47 @@
     text-align: left;
     font-size: 16px;
     box-sizing: border-box;
+
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    white-space: normal;
+    overflow: hidden;
+    line-height: 1.6;
+}
+
+.divAnswerFull * {
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.divAnswerFull pre,
+.divAnswerFull code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+    .divAnswerFull {
+        padding: 15px;
+        font-size: 14px;
+        margin: 15px auto;
+        max-width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+    .divAnswerFull {
+        padding: 12px;
+        font-size: 13px;
+        margin: 10px auto;
+        max-width: 98%;
+        line-height: 1.5;
+    }
 }
 
 /* Убрать фон у операторов */
