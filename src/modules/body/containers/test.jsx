@@ -24,12 +24,17 @@ const Test = (props) =>
         }
     };
 
-    const { elapsedTime, stopTimer, resetTimer } = useTestTimer(
+    const { elapsedTime, isRunning, stopTimer, resetTimer } = useTestTimer(
         !testConfig.optionTest.timer, // isTimerEnabled (inverted logic from original)
         handleTimeUp
     );
 
-    // аналог дидмаунта, грузим тимер при рендеринге
+    useEffect(() => {
+        if (result && isRunning) {
+            stopTimer();
+        }
+    }, [result, isRunning, stopTimer]);
+
     useEffect(() =>
     {
         const viewport = document.querySelector("meta[name=viewport]");
@@ -52,7 +57,7 @@ const Test = (props) =>
                 clearInterval(timerID.timerID);
             }
         };
-    }, []);
+    }, [resetTimer, timerID]);
 
     return (
         <div className='test-container'>
@@ -64,11 +69,10 @@ const Test = (props) =>
                     <div className='carousel-result' hidden={ true }>
                         <TestResult
                             result={ result }
-                            timerID={ timerID }
-                            test={ testConfig.descTest }
-                            cleanupTimer={ stopTimer }
+                            testDescription={ testConfig.descTest }
                             elapsedTime={elapsedTime}
-                            history={history}
+                            onCleanupTimer={ stopTimer }
+                            onShowAnswers={() => {}}
                             setShowingAnswers={setShowingAnswers}
                         />
                     </div>

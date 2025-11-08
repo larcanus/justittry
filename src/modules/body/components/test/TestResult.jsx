@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom';
 import Share from '../share';
 import ResultStats from './ResultStats';
 import ResultActions from './ResultActions';
-import { 
-    getDifficultyInfo, 
-    calculateTestResults, 
+import {
+    getDifficultyInfo,
+    calculateTestResults,
     isTestPassed,
-    extractTestName 
+    extractTestName
 } from '../../utils/testCalculations';
 import win from '../../../../common/images/Congratulations.png';
 import fail from '../../../../common/images/failed.png';
@@ -15,13 +15,13 @@ import fail from '../../../../common/images/failed.png';
 /**
  * Компонент отображения результатов теста
  */
-const TestResult = ({ 
-    result, 
+const TestResult = ({
+    result,
     testDescription,
     elapsedTime,
     onShowAnswers,
     onCleanupTimer,
-    setShowingAnswers 
+    setShowingAnswers
 }) => {
     const history = useHistory();
 
@@ -30,16 +30,18 @@ const TestResult = ({
         window.onscroll = null;
         window.onkeyup = null;
 
-        // Останавливаем таймер
-        if (onCleanupTimer) {
-            onCleanupTimer();
-        }
-
         // Сбрасываем флаг показа ответов
         if (setShowingAnswers) {
             setShowingAnswers(false);
         }
-    }, [onCleanupTimer, setShowingAnswers]);
+    }, [setShowingAnswers]);
+
+    useEffect(() => {
+        if (result && onCleanupTimer) {
+            // Останавливаем таймер при получении результата
+            onCleanupTimer();
+        }
+    }, [result, onCleanupTimer]);
 
     if (!result) {
         return (
@@ -91,9 +93,9 @@ const TestResult = ({
         <div className='divResult'>
             {/* Заголовок */}
             <div className={`result-header ${passed ? 'success' : 'failed'}`}>
-                <img 
-                    src={passed ? win : fail} 
-                    alt={passed ? 'Congratulations!' : 'Failed!'} 
+                <img
+                    src={passed ? win : fail}
+                    alt={passed ? 'Congratulations!' : 'Failed!'}
                     className='result-image'
                 />
                 <h2 className='result-title'>
@@ -121,9 +123,9 @@ const TestResult = ({
                 <p className='share-text'>
                     {passed ? 'Поделиться результатом:' : 'Поделиться тестом:'}
                 </p>
-                <Share 
-                    testName={testName} 
-                    result={`${stats.percentage}%`} 
+                <Share
+                    testName={testName}
+                    result={`${stats.percentage}%`}
                     difficulty={difficultyInfo.level}
                 />
             </div>
