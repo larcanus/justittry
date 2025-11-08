@@ -1,58 +1,81 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {REMOVE_TEST} from '../../../common/constants';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { choiceTest, resetTest } from '../../../store/slices/testSlice';
+import { getTestName } from '../../../utils/testMapper';
 import style from '../styles/style.css';
-import newValue from '../actions/newValue';
 import js from '../../../common/images/js-logo.png';
 import dart from '../../../common/images/dart-logo.png';
 import html from '../../../common/images/html-logo.png';
 import php from '../../../common/images/php-logo.png';
 
 
-class Navbar extends Component {
-    componentDidMount() {
-        this.props.choiceTestAction(REMOVE_TEST);
-    }
+const Navbar = () => {
+    const dispatch = useDispatch();
 
-    render() {
-        const {choiceTestAction} = this.props;
+    // Сброс теста при монтировании компонента
+    useEffect(() => {
+        dispatch(resetTest());
+    }, [dispatch]);
 
-        const choiceTest = (e) => {
-            choiceTestAction(e.target.id);
-        }
+    /**
+     * Обработчик выбора теста
+     * @param {Event} e - Событие клика
+     */
+    const handleChoiceTest = (e) => {
+        const testId = e.target.id;
+        const testName = getTestName(testId);
 
-        return (
-            <div className='divNavbar' style={style}>
-                <input type='radio' id='radio-1' name='radio1'/>
-                <label htmlFor='radio-1'>
-                    <img className='logoBtnNavbar' id='js-test-logo' src={js} onClick={choiceTest} alt='js-test'/>
-                </label>
+        // Диспатчим название теста в store
+        dispatch(choiceTest(testName));
+    };
 
-                <input type='radio' id='radio-2' name='radio1'/>
-                <label htmlFor='radio-2'>
-                    <img className='logoBtnNavbar' id='html-test-logo' src={html} onClick={choiceTest} alt='html-test'/>
-                </label>
+    return (
+        <div className='divNavbar' style={style}>
+            <input type='radio' id='radio-1' name='radio1'/>
+            <label htmlFor='radio-1'>
+                <img
+                    className='logoBtnNavbar'
+                    id='js-test-logo'
+                    src={js}
+                    onClick={handleChoiceTest}
+                    alt='js-test'
+                />
+            </label>
 
-                <input type='radio' id='radio-3' name='radio1'/>
-                <label htmlFor='radio-3'>
-                    <img className='logoBtnNavbar' id='dart-test-logo' src={dart} onClick={choiceTest} alt='dart-test'/>
-                </label>
+            <input type='radio' id='radio-2' name='radio1'/>
+            <label htmlFor='radio-2'>
+                <img
+                    className='logoBtnNavbar'
+                    id='html-test-logo'
+                    src={html}
+                    onClick={handleChoiceTest}
+                    alt='html-test'
+                />
+            </label>
 
-                <input type='radio' id='radio-4' name='radio1'/>
-                <label htmlFor='radio-4'>
-                    <img className='logoBtnNavbar' id='php-test-logo' src={php} onClick={choiceTest} alt='php-test'/>
-                </label>
-            </div>
-        );
-    }
+            <input type='radio' id='radio-3' name='radio1'/>
+            <label htmlFor='radio-3'>
+                <img
+                    className='logoBtnNavbar'
+                    id='dart-test-logo'
+                    src={dart}
+                    onClick={handleChoiceTest}
+                    alt='dart-test'
+                />
+            </label>
+
+            <input type='radio' id='radio-4' name='radio1'/>
+            <label htmlFor='radio-4'>
+                <img
+                    className='logoBtnNavbar'
+                    id='php-test-logo'
+                    src={php}
+                    onClick={handleChoiceTest}
+                    alt='php-test'
+                />
+            </label>
+        </div>
+    );
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        choiceTestAction: (test) => {
-            dispatch(newValue(test));
-        }
-    }
-};
-
-export default connect(null,mapDispatchToProps)(Navbar);
+export default Navbar;
