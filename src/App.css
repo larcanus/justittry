@@ -22,13 +22,6 @@
     text-align: center;
 }
 
-.divLogin {
-    height: 5vh;
-    width: 15vw;
-    margin-right: 2%;
-    text-align: center;
-}
-
 .question {
     width: 60vw;
 }
@@ -75,26 +68,6 @@
     margin-top: 3%;
     min-height: 7vh;
     min-width: 7vh;
-}
-
-.butLogin {
-    background-color: #4caf50;
-    border: solid 1px;
-    border-radius: 5px;
-    color: white;
-    padding: 7px 20px;
-    margin-right: 5%;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-}
-
-.butLogin:hover {
-    background-color: #282c34;
-    color: white;
 }
 
 

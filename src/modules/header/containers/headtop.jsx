@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import Just from '../../../common/images/Justistry.png';
-import {connect} from 'react-redux';
-import {handleLogin,handleLogout} from '../actions/handleLogin';
 import {Link} from 'react-router-dom';
 
 class Headtop extends Component {
@@ -14,17 +12,5 @@ class Headtop extends Component {
     }
 };
 
-const mapStateToProps = (store) => {
-    return {
-        login: store.login, // вытащили из стора (из редьюсера login все в переменную this.props.login)
-    }
-}
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        handleLogInAction: () => dispatch(handleLogin()),
-        handleLogOutAction: () => dispatch(handleLogout()),
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Headtop);
+export default Headtop;
