@@ -1,58 +1,194 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class Share extends Component {
-    componentDidMount() {
+    constructor(props) {
+        super(props);
+        this.shareContainerId = `ya-share-${Date.now()}`;
+        this.state = {
+            isLoading: true,
+            error: null
+        };
+    }
+
+    /**
+     * Экранирование специальных символов для безопасности
+     */
+    escapeHtml(text) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, m => map[m]);
+    }
+
+    /**
+     * Формирование безопасного URL с UTM-метками
+     */
+    buildShareUrl() {
+        const baseUrl = 'https://justittry.ru';
+        const { testName, result } = this.props;
+
+        // Добавляем UTM-метки для отслеживания источника трафика
+        const utmParams = new URLSearchParams({
+            utm_source: 'social',
+            utm_medium: 'share',
+            utm_campaign: 'test_results',
+            utm_content: this.escapeHtml(testName)
+        });
+
+        return `${baseUrl}?${utmParams.toString()}`;
+    }
+
+    /**
+     * Формирование текста для шаринга
+     */
+    buildShareText() {
         const { testName, result, difficulty } = this.props;
 
-        const shareText = result ?
-            `Я прошел тест "${testName}" на ${result} (${difficulty}) на Just IT Try!` :
-            `Проверь свои знания в тесте "${testName}" на Just IT Try!`;
+        // Экранируем данные для безопасности
+        const safeTestName = this.escapeHtml(testName);
+        const safeResult = this.escapeHtml(result || '');
+        const safeDifficulty = this.escapeHtml(difficulty || '');
 
-        window.Ya?.share2('ya', {
-            theme: {
-                services: 'vkontakte,facebook,twitter,linkedin,telegram,whatsapp',
-                lang: 'ru',
-                size: 'm',
-                bare: false,
-                shape: 'round',
-            },
-            content: {
-                url: 'https://justittry.ru',
-                title: `Тест ${testName} - Just IT Try`,
-                description: shareText,
-                image: 'https://justittry.ru/logo.png', // Добавьте путь к логотипу
-            },
-            contentByService: {
-                twitter: {
-                    url: 'https://justittry.ru',
-                    title: `Тест ${testName} - Just IT Try`,
-                    description: shareText,
-                    hashtags: 'ITтесты,программирование,JavaScript,тестирование'
+        if (result) {
+            return `Я прошел тест "${safeTestName}" на ${safeResult} (уровень: ${safeDifficulty}) на Just IT Try! 🎯`;
+        } else {
+            return `Проверь свои знания в тесте "${safeTestName}" на Just IT Try! 💻`;
+        }
+    }
+
+    /**
+     * Формирование хэштегов
+     */
+    buildHashtags() {
+        const { testName } = this.props;
+        const baseHashtags = ['JustITTry', 'программирование', 'тестирование'];
+
+        if (testName) {
+            const testHashtag = testName.replace(/\s+/g, '');
+            baseHashtags.push(testHashtag);
+        }
+
+        return baseHashtags.join(',');
+    }
+
+    componentDidMount() {
+        if (!window.Ya || !window.Ya.share2) {
+            this.setState({
+                isLoading: false,
+                error: 'Yandex.Share API недоступен'
+            });
+            console.error('Yandex.Share API не загружен');
+            return;
+        }
+
+        try {
+            const shareUrl = this.buildShareUrl();
+            const shareText = this.buildShareText();
+            const hashtags = this.buildHashtags();
+            const { testName, result, difficulty } = this.props;
+
+            window.Ya.share2(this.shareContainerId, {
+                theme: {
+                    services: 'vkontakte,facebook,twitter,telegram,whatsapp',
+                    lang: 'ru',
+                    size: 'm',
+                    bare: false,
+                    shape: 'round',
+                    limit: 6,
+                    popupDirection: 'auto',
+                    curtain: false,
+                    copy: 'extraItem',
                 },
-                facebook: {
-                    url: 'https://justittry.ru',
-                    title: `Тест ${testName} - Just IT Try`,
+                content: {
+                    url: shareUrl,
+                    title: `Тест ${this.escapeHtml(testName)} - Just IT Try`,
                     description: shareText,
+                    image: 'https://justittry.ru/logo512.png'
                 },
-                vkontakte: {
-                    url: 'https://justittry.ru',
-                    title: `Тест ${testName} - Just IT Try`,
-                    description: shareText,
+                contentByService: {
+                    vkontakte: {
+                        url: shareUrl,
+                        title: `Тест ${this.escapeHtml(testName)}`,
+                        description: shareText,
+                        image: 'https://justittry.ru/logo512.png'
+                    },
+                    facebook: {
+                        url: shareUrl,
+                        title: `Тест ${this.escapeHtml(testName)} - Just IT Try`,
+                        description: shareText,
+                        image: 'https://justittry.ru/logo512.png'
+                    },
+                    twitter: {
+                        url: shareUrl,
+                        title: shareText,
+                        hashtags: hashtags
+                    },
+                    telegram: {
+                        url: shareUrl,
+                        title: `Тест ${this.escapeHtml(testName)}`,
+                        description: shareText
+                    },
+                    whatsapp: {
+                        url: shareUrl,
+                        title: shareText
+                    },
                 },
-                telegram: {
-                    url: 'https://justittry.ru',
-                    title: `Тест ${testName} - Just IT Try`,
-                    description: shareText,
+                hooks: {
+                    onshare: (name) => {
+                        // Отправка события в Yandex.Metrika
+                        if (window.ym) {
+                            window.ym(71738629, 'reachGoal', 'share', {
+                                service: name,
+                                test: testName,
+                                result: result,
+                                difficulty: difficulty
+                            });
+                        }
+                        console.log(`Поделились через: ${name}`);
+                    },
+                    onready: () => {
+                        this.setState({ isLoading: false });
+                        console.log('Yandex.Share инициализирован');
+                    }
                 }
-            },
-        });
+            });
+        } catch (error) {
+            this.setState({
+                isLoading: false,
+                error: 'Ошибка инициализации кнопок шаринга'
+            });
+            console.error('Ошибка инициализации Yandex.Share:', error);
+        }
+    }
+
+    componentWillUnmount() {
+        const container = document.getElementById(this.shareContainerId);
+        if (container) {
+            container.innerHTML = '';
+        }
     }
 
     render() {
+        const { isLoading, error } = this.state;
+
         return (
-            <form className='formBtnShare'>
-                <div id='ya' />
-            </form>
+            <div className='formBtnShare'>
+                {isLoading && (
+                    <div className='share-loading'>
+                        <span>Загрузка кнопок...</span>
+                    </div>
+                )}
+                {error && (
+                    <div className='share-error'>
+                        <span>{error}</span>
+                    </div>
+                )}
+                <div id={this.shareContainerId} />
+            </div>
         );
     }
 }

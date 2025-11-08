@@ -1,0 +1,54 @@
+/* Стили для компонента Share */
+.formBtnShare {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.share-loading,
+.share-error {
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.share-loading {
+    background-color: #f0f0f0;
+    color: #666;
+}
+
+.share-error {
+    background-color: #fee;
+    color: #c33;
+    border: 1px solid #fcc;
+}
+
+/* Стили для кнопок Yandex.Share */
+.ya-share2__container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ya-share2__item {
+    transition: transform 0.2s ease;
+}
+
+.ya-share2__item:hover {
+    transform: scale(1.1);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .formBtnShare {
+        margin: 15px 0;
+    }
+    
+    .ya-share2__container {
+        gap: 6px;
+    }
+}

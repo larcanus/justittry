@@ -1,47 +1,67 @@
 <!DOCTYPE html>
 <html lang='en'>
-  <head>
-    <meta charset='utf-8' />
-    <link rel='icon' href='%PUBLIC_URL%/favicon.ico' />
-<!--    <meta name='viewport' content='width=device-width, initial-scale=1' />-->
-    <meta name='theme-color' content='#000000' />
+<head>
+    <meta charset='utf-8'/>
+    <link rel='icon' href='%PUBLIC_URL%/favicon.ico'/>
+    <!--    <meta name='viewport' content='width=device-width, initial-scale=1' />-->
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes'/>
+    <meta name='theme-color' content='#000000'/>
 
     <meta http-equiv='content-type' content='text/html; charset=utf-8'>
     <title>Just it Try - Tests on programming languages</title>
-    <meta property='og:url'           content='https://www.justittry.ru' />
-    <meta property='og:type'          content='website' />
-    <meta property='og:title'         content='Just it try' />
-    <meta property='og:description'   content='Tests on programming languages' />
+    <meta property='og:url' content='https://www.justittry.ru'/>
+    <meta property='og:type' content='website'/>
+    <meta property='og:title' content='Just it Try - Тесты по программированию'/>
+    <meta property='og:description'
+          content='Проверьте свои знания в программировании. Тесты по JavaScript, PHP и другим языкам.'/>
+    <meta property='og:image' content='https://justittry.ru/logo512.png'/>
+    <meta property='og:image:width' content='512'/>
+    <meta property='og:image:height' content='512'/>
+
+    <!-- Twitter Card -->
+    <meta name='twitter:card' content='summary_large_image'/>
+    <meta name='twitter:title' content='Just it Try - Тесты по программированию'/>
+    <meta name='twitter:description' content='Проверьте свои знания в программировании'/>
+    <meta name='twitter:image' content='https://justittry.ru/logo512.png'/>
 
     <meta
-      name='Just it Try - Tests on programming languages'
-      content='Tests for Javascript, PHP, and other languages'
+            name='description'
+            content='Тесты для проверки знаний по Javascript, PHP и другим языкам программирования'
     />
 
     <!-- Yandex.Metrika counter -->
-    <script type='text/javascript' >
-      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-      (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+    <script type='text/javascript'>
+		(function (m, e, t, r, i, k, a)
+		{
+			m[i] = m[i] || function ()
+			{
+				(m[i].a = m[i].a || []).push(arguments)
+			};
+			m[i].l = 1 * new Date();
+			k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+		})
+		(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
 
-      ym(71738629, 'init', {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true
-      });
+		ym(71738629, 'init', {
+			clickmap: true,
+			trackLinks: true,
+			accurateTrackBounce: true,
+			webvisor: true
+		});
     </script>
-    <noscript><div><img src='https://mc.yandex.ru/watch/71738629' style='position:absolute; left:-9999px;' alt='' /></div></noscript>
+    <noscript>
+        <div><img src='https://mc.yandex.ru/watch/71738629' style='position:absolute; left:-9999px;' alt=''/></div>
+    </noscript>
     <!-- /Yandex.Metrika counter -->
 
-    <link rel='apple-touch-icon' href='%PUBLIC_URL%/logo192.png' />
+    <link rel='apple-touch-icon' href='%PUBLIC_URL%/logo192.png'/>
     <link href='https://fonts.googleapis.com/css?family=Fira+Sans' rel='stylesheet'>
-    <script type='text/javascript' src='https://vk.com/js/api/share.js?93' charset='windows-1251'></script>
     <script src='https://yastatic.net/share2/share.js' async></script>
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel='manifest' href='%PUBLIC_URL%/manifest.json' />
+    <link rel='manifest' href='%PUBLIC_URL%/manifest.json'/>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -52,17 +72,8 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Just it try</title>
-  </head>
-  <body>
-    <div id='root'></div>
-
-    <script src='https://vk.com/js/api/openapi.js?158'></script>
-
-    <script language='javascript'>
-      VK.init({
-        apiId: 7746137,
-      })
-    </script>
-
-  </body>
+</head>
+<body>
+<div id='root'></div>
+</body>
 </html>
