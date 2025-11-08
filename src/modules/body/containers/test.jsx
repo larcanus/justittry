@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import style from '../styles/style.css';
-import win from '../../../common/images/Congratulations.png';
-import fail from '../../../common/images/failed.png';
 import Carousel from '../components/carousel/Carousel';
-import Share from '../components/share';
 import { useHistory } from "react-router-dom";
 import TestResult from '../components/test/TestResult';
 import { useTestTimer } from '../hooks/useTestTimer';
