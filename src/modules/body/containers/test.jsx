@@ -1,135 +1,37 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import style from '../styles/style.css';
 import win from '../../../common/images/Congratulations.png';
 import fail from '../../../common/images/failed.png';
-// import Carousel from './cara';
 import Carousel from '../components/carousel/Carousel';
 import Share from '../components/share';
-import {startTestConfigTimer} from '../actions/startTest';
 import { useHistory } from "react-router-dom";
+import TestResult from '../components/test/TestResult';
+import { useTestTimer } from '../hooks/useTestTimer';
 
 const Test = (props) =>
 {
-    const { testConfig, result, timerID, startTestConfigTimer } = props;
+    const { testConfig, result, timerID } = props;
     const diffical = testConfig.optionTest.diffical;
     const questions = testConfig.optionTest.questions;
-    const timerRef = useRef(null);
-    const [elapsedTime, setElapsedTime] = useState('00:00');
     const [showingAnswers, setShowingAnswers] = useState(false);
     const history = useHistory();
-    const startTimeRef = useRef(null);
 
-    const timerRun = () =>
-    {
-        // Clear any existing timer first
-        if (timerRef.current)
-        {
-            clearInterval(timerRef.current);
-            timerRef.current = null;
+    const handleTimeUp = () => {
+        const finishButton = document.getElementsByClassName('btnFinal')['0'];
+        if (finishButton) {
+            finishButton.click();
         }
+    };
 
-        // если тест с таймером, убираем скрытие, ставим интервал
-        if (!testConfig.optionTest.timer)
-        {
-            const timerElement = document.getElementsByClassName('timer')['0'];
-            if (timerElement)
-            {
-                timerElement.removeAttribute('hidden');
-            }
-
-            startTimeRef.current = Date.now();
-            const timer = setInterval(() =>
-            {
-                let my_timer = document.getElementById('timer');
-                if (!my_timer) return;
-
-                let time = my_timer.innerHTML;
-                let arr = time.split(':');
-                let m = arr[0];
-                let s = arr[1];
-
-                if (Number(s) === 0)
-                {
-                    if (Number(m) === 0)
-                    {
-                        clearInterval(timer);
-                        const finishButton = document.getElementsByClassName('btnFinal')['0'];
-                        if (finishButton)
-                        {
-                            finishButton.click();
-                        }
-                        return;
-                    }
-                    m--;
-                    if (m < 10) m = `0${ m }`;
-                    s = 59;
-                } else
-                {
-                    s--;
-                }
-
-                if (s < 10)
-                {
-                    s = `0${ s }`;
-                }
-
-                const currentTime = `${ m }:${ s }`;
-                document.getElementById('timer').innerHTML = currentTime;
-
-                // Calculate actual elapsed time
-                const currentTimeMs = Date.now();
-                const elapsedMs = currentTimeMs - startTimeRef.current;
-                const elapsedSeconds = Math.floor(elapsedMs / 1000);
-                const elapsedMinutes = Math.floor(elapsedSeconds / 60);
-                const remainingSeconds = elapsedSeconds % 60;
-
-                const formattedElapsedTime = `${elapsedMinutes}:${remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}`;
-                setElapsedTime(formattedElapsedTime);
-
-            }, 1000);
-
-            timerRef.current = timer;
-            startTestConfigTimer({
-                timerID: timer,
-            });
-        }
-    }
-
-    // Cleanup function
-    const cleanupTimer = () =>
-    {
-        if (timerRef.current)
-        {
-            clearInterval(timerRef.current);
-            timerRef.current = null;
-        }
-        if (timerID?.timerID)
-        {
-            clearInterval(timerID.timerID);
-        }
-
-        // Reset timer display
-        const timerElement = document.getElementById('timer');
-        if (timerElement)
-        {
-            timerElement.innerHTML = '20:00';
-        }
-
-        // Hide timer
-        const timerContainer = document.getElementsByClassName('timer')['0'];
-        if (timerContainer)
-        {
-            timerContainer.setAttribute('hidden', 'true');
-        }
-    }
+    const { elapsedTime, stopTimer, resetTimer } = useTestTimer(
+        !testConfig.optionTest.timer, // isTimerEnabled (inverted logic from original)
+        handleTimeUp
+    );
 
     // аналог дидмаунта, грузим тимер при рендеринге
     useEffect(() =>
     {
-        timerRun();
-
-        // Ensure proper viewport scaling for mobile
         const viewport = document.querySelector("meta[name=viewport]");
         if (viewport)
         {
@@ -142,7 +44,13 @@ const Test = (props) =>
         // Cleanup on unmount
         return () =>
         {
-            cleanupTimer();
+            resetTimer();
+
+            // Clear Redux timer ID if exists (legacy cleanup)
+            if (timerID?.timerID)
+            {
+                clearInterval(timerID.timerID);
+            }
         };
     }, []);
 
@@ -154,8 +62,15 @@ const Test = (props) =>
                         <Carousel slides={ questions } diff={ diffical } testName={ testConfig.nameTest } descTest={ testConfig.descTest } showingAnswers={showingAnswers}/>
                     </div>
                     <div className='carousel-result' hidden={ true }>
-                        <DivResult result={ result } timerID={ timerID } test={ testConfig.descTest }
-                                   cleanupTimer={ cleanupTimer } elapsedTime={elapsedTime} history={history} setShowingAnswers={setShowingAnswers}/>
+                        <TestResult
+                            result={ result }
+                            timerID={ timerID }
+                            test={ testConfig.descTest }
+                            cleanupTimer={ stopTimer }
+                            elapsedTime={elapsedTime}
+                            history={history}
+                            setShowingAnswers={setShowingAnswers}
+                        />
                     </div>
                 </div>
             </div>
@@ -172,15 +87,7 @@ const mapStateToProps = (store) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        startTestConfigTimer: (timerID) => {
-            dispatch(startTestConfigTimer(timerID));
-        }
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Test);
+export default connect(mapStateToProps)(Test);
 
 const DivResult = (props) => {
     /**
@@ -217,7 +124,7 @@ const DivResult = (props) => {
         window.onscroll = null;
         window.onkeyup = null;
 
-        //останавливаем таймер
+        //останавливаем таймер (legacy Redux timer)
         if (timerID?.timerID) {
             clearInterval(timerID.timerID);
         }
