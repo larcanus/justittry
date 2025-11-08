@@ -43,10 +43,21 @@ const TestResult = ({
         }
     }, [result, onCleanupTimer]);
 
+    // Проверяем наличие результата
     if (!result) {
         return (
             <div className='loading-result'>
                 <p>Загрузка результатов...</p>
+            </div>
+        );
+    }
+
+    // Проверяем структуру результата
+    if (!result.answers || !Array.isArray(result.answers)) {
+        console.error('Invalid result structure:', result);
+        return (
+            <div className='loading-result'>
+                <p>Ошибка загрузки результатов. Попробуйте еще раз.</p>
             </div>
         );
     }

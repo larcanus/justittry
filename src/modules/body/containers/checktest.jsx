@@ -1,33 +1,21 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Test from './test';
-import {Redirect} from 'react-router-dom';
+import { selectIsTestConfigValid } from '../../../store/selectors/testSelectors';
 
-const CheckTest = ({testConfig}) => {
+const CheckTest = () => {
+    const isTestConfigValid = useSelector(selectIsTestConfigValid);
 
-    let testComponent = null;
-    if (testConfig) {
-        if (testConfig.optionTest.validDif && testConfig.optionTest.validTest) {
-            testComponent = (<Test/>);
-        }
-    } else {
-        testComponent = (
-            <Redirect push to='/'/>
-        );
+    if (!isTestConfigValid) {
+        return <Redirect push to='/' />;
     }
 
     return (
         <div>
-            {testComponent}
+            <Test />
         </div>
     );
 };
 
-const mapStateToProps = (store) => {
-    return {
-        testConfig: store.testConfig.startTestConfig
-    }
-};
-
-export default connect(mapStateToProps)(CheckTest);
-
+export default CheckTest;

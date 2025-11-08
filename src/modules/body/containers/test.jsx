@@ -1,18 +1,31 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import style from '../styles/style.css';
 import Carousel from '../components/carousel/Carousel';
-import { useHistory } from "react-router-dom";
 import TestResult from '../components/test/TestResult';
 import { useTestTimer } from '../hooks/useTestTimer';
+import {
+    selectStartTestConfig,
+    selectResultTest,
+    selectTimerID,
+    selectTestQuestions,
+    selectTestDifficulty,
+    selectTestName,
+    selectTestDescription,
+    selectIsTimerEnabled,
+} from '../../../store/selectors/testSelectors';
 
-const Test = (props) =>
-{
-    const { testConfig, result, timerID } = props;
-    const diffical = testConfig.optionTest.diffical;
-    const questions = testConfig.optionTest.questions;
+const Test = () => {
+    const testConfig = useSelector(selectStartTestConfig);
+    const result = useSelector(selectResultTest);
+    const timerID = useSelector(selectTimerID);
+    const questions = useSelector(selectTestQuestions);
+    const difficulty = useSelector(selectTestDifficulty);
+    const testName = useSelector(selectTestName);
+    const testDescription = useSelector(selectTestDescription);
+    const isTimerEnabled = useSelector(selectIsTimerEnabled);
+
     const [showingAnswers, setShowingAnswers] = useState(false);
-    const history = useHistory();
 
     const handleTimeUp = () => {
         const finishButton = document.getElementsByClassName('btnFinal')['0'];
@@ -22,7 +35,7 @@ const Test = (props) =>
     };
 
     const { elapsedTime, isRunning, stopTimer, resetTimer } = useTestTimer(
-        !testConfig.optionTest.timer, // isTimerEnabled (inverted logic from original)
+        isTimerEnabled,
         handleTimeUp
     );
 
@@ -32,43 +45,55 @@ const Test = (props) =>
         }
     }, [result, isRunning, stopTimer]);
 
-    useEffect(() =>
-    {
+    useEffect(() => {
         const viewport = document.querySelector("meta[name=viewport]");
-        if (viewport)
-        {
-            viewport.setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no");
+        if (viewport) {
+            viewport.setAttribute(
+                "content",
+                "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+            );
         }
 
-        // Scroll to top when test starts
         window.scrollTo(0, 0);
 
-        // Cleanup on unmount
-        return () =>
-        {
+        return () => {
             resetTimer();
 
-            // Clear Redux timer ID if exists (legacy cleanup)
-            if (timerID?.timerID)
-            {
-                clearInterval(timerID.timerID);
+            if (timerID) {
+                clearInterval(timerID);
             }
         };
     }, [resetTimer, timerID]);
 
+    // Логирование для отладки
+    useEffect(() => {
+        console.log('Test component state:', {
+            hasResult: !!result,
+            result,
+            testName,
+            difficulty,
+            questionsCount: questions?.length
+        });
+    }, [result, testName, difficulty, questions]);
+
     return (
         <div className='test-container'>
             <div className='test-content'>
-                <div className='testDiv' style={ style }>
+                <div className='testDiv' style={style}>
                     <div className='carousel-div'>
-                        <Carousel slides={ questions } diff={ diffical } testName={ testConfig.nameTest } descTest={ testConfig.descTest } showingAnswers={showingAnswers}/>
+                        <Carousel
+                            slides={questions}
+                            diff={difficulty}
+                            testName={testName}
+                            showingAnswers={showingAnswers}
+                        />
                     </div>
-                    <div className='carousel-result' hidden={ true }>
+                    <div className='carousel-result' hidden={true}>
                         <TestResult
-                            result={ result }
-                            testDescription={ testConfig.descTest }
+                            result={result}
+                            testDescription={testDescription}
                             elapsedTime={elapsedTime}
-                            onCleanupTimer={ stopTimer }
+                            onCleanupTimer={stopTimer}
                             onShowAnswers={() => {}}
                             setShowingAnswers={setShowingAnswers}
                         />
@@ -77,15 +102,6 @@ const Test = (props) =>
             </div>
         </div>
     );
-}
-
-const mapStateToProps = (store) => {
-    return {
-        testConfig: store.testConfig.startTestConfig,
-        test: store.test,
-        result: store.result.resultTest,
-        timerID: store.testConfig.startTestConfigTimerID,
-    }
 };
 
-export default connect(mapStateToProps)(Test);
+export default Test;

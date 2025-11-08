@@ -1,82 +1,65 @@
 import { useState, useCallback } from 'react';
 
 /**
- * Хук для валидации ответов теста
- * @param {Array} slides - Массив вопросов
- * @returns {object} Методы и состояние валидации
+ * Хук для валидации ответов пользователя
  */
 export const useAnswerValidation = (slides) => {
     const [showCorrectAnswers, setShowCorrectAnswers] = useState(false);
-    const [validationResults, setValidationResults] = useState(null);
+    const [validationResults, setValidationResults] = useState([]);
 
     /**
-     * Валидирует все ответы пользователя
-     * @returns {object} Результаты валидации
+     * Валидация всех ответов
      */
     const validateAnswers = useCallback(() => {
         const results = {
-            answers: {},
-            totalQuestions: slides.length,
-            correctAnswers: 0,
+            answers: [],
+            correctCount: 0,
+            incorrectCount: 0,
         };
 
         slides.forEach((slide, index) => {
-            const answerTrue = slide.answerOption;
-            const answerSection = document.getElementById(`${index}`);
-            
-            if (!answerSection) {
-                results.answers[index] = false;
-                return;
-            }
+            const userAnswers = [];
+            const correctAnswers = slide.correct || [];
 
-            const allInputs = answerSection.querySelectorAll(`input[type='checkbox']`);
-            let resultInputs = '';
-            let hasAnswer = false;
-
-            // Проверяем каждый input
-            allInputs.forEach(input => {
-                input.setAttribute('disabled', 'disabled');
-
-                if (input.checked) {
-                    hasAnswer = true;
-                    if (input.value === answerTrue) {
-                        input.parentNode.style.setProperty('background-color', '#99e59b');
-                        resultInputs += 't';
-                    } else {
-                        input.parentNode.style.setProperty('background-color', '#d26f6f');
-                        resultInputs += 'f';
-                    }
-                } else {
-                    resultInputs += 'n';
+            // Собираем выбранные пользователем ответы
+            ['a1', 'a2', 'a3', 'a4'].forEach((option) => {
+                const checkbox = document.getElementById(`${index}${option}`);
+                if (checkbox && checkbox.checked) {
+                    userAnswers.push(option);
                 }
             });
 
-            // Если не выбран ни один ответ
-            if (!hasAnswer) {
-                results.answers[index] = false;
+            // Проверяем правильность ответа
+            const isCorrect =
+                userAnswers.length === correctAnswers.length &&
+                userAnswers.every((answer) => correctAnswers.includes(answer));
+
+            results.answers.push({
+                questionIndex: index,
+                userAnswers,
+                correctAnswers,
+                isCorrect,
+            });
+
+            if (isCorrect) {
+                results.correctCount++;
             } else {
-                // Правильно, если нет неверных ответов
-                const isCorrect = !resultInputs.includes('f');
-                results.answers[index] = isCorrect;
-                
-                if (isCorrect) {
-                    results.correctAnswers++;
-                }
+                results.incorrectCount++;
             }
         });
 
-        setValidationResults(results);
+        setValidationResults(results.answers);
         setShowCorrectAnswers(true);
-        
+
         return results;
     }, [slides]);
 
     /**
-     * Сбрасывает состояние валидации
+     * Сброс валидации
      */
     const resetValidation = useCallback(() => {
         setShowCorrectAnswers(false);
-        setValidationResults(null);
+        setValidationResults([]);
     }, []);
 
     return {

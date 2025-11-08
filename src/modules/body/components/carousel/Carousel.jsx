@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import dispatchResult from '../../actions/actionResult';
+import { useDispatch } from 'react-redux';
+import { dispatchTestResult } from '../../../../store/slices/resultSlice';
 import { useCarouselNavigation } from '../../hooks/useCarouselNavigation';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 import { useAnswerValidation } from '../../hooks/useAnswerValidation';
@@ -14,7 +14,9 @@ import '../../../../prism.css';
 /**
  * Главный компонент карусели с вопросами теста
  */
-const Carousel = ({ slides, testName, diff, showingAnswers, dispatchResultTest }) => {
+const Carousel = ({ slides, testName, diff, showingAnswers }) => {
+    const dispatch = useDispatch();
+
     const {
         activeIndex,
         showFinishButton,
@@ -97,7 +99,8 @@ const Carousel = ({ slides, testName, diff, showingAnswers, dispatchResultTest }
         divCarousel?.setAttribute('hidden', 'true');
         divCarouselResult?.removeAttribute('hidden');
 
-        dispatchResultTest(result);
+        // Используем новый экшен из Redux Toolkit
+        dispatch(dispatchTestResult(result));
     };
 
     return (
@@ -160,14 +163,4 @@ const Carousel = ({ slides, testName, diff, showingAnswers, dispatchResultTest }
     );
 };
 
-const mapStateToProps = (store) => ({
-    result: store.result
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    dispatchResultTest: (result) => {
-        dispatch(dispatchResult(result));
-    }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Carousel);
+export default Carousel;
