@@ -2,17 +2,28 @@ import { DISPATCH_RESET_RESULT, DISPATCH_TEST_RESULT } from "../../../common/con
 
 export const initialState = {
     resultTest: null,
+    isSubmitted: false,
+    submittedAt: null,
+    error: null,
 };
 
-export default function(state = initialState, action) {
+export default function resultTestReducer(state = initialState, action) {
     switch (action.type) {
-        case DISPATCH_TEST_RESULT :
-            return {...state, resultTest: action.payload }
-        case DISPATCH_RESET_RESULT:
+        case DISPATCH_TEST_RESULT:
             return {
                 ...state,
-                resultTest: null
+                resultTest: action.payload,
+                isSubmitted: true,
+                submittedAt: Date.now(),
+                error: null,
             };
-        default:return state
+
+        case DISPATCH_RESET_RESULT:
+            return {
+                ...initialState
+            };
+
+        default:
+            return state;
     }
-};
+}

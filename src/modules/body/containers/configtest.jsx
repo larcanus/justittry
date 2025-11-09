@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { startTestConfig } from '../actions/startTest';
 import { dispatchResetResult } from '../actions/actionResult';
 import { useTestConfiguration } from '../hooks/useTestConfiguration';
+import { getCurrentTest, getTimerID } from '../selectors/testSelectors';
 import Tests from '../../../store/qustions';
 import TestInfo from '../components/config/TestInfo';
 import DifficultySelector from '../components/config/DifficultySelector';
@@ -14,7 +15,12 @@ import style from '../styles/style.css';
 /**
  * Компонент конфигурации теста
  */
-const Configtest = ({ test, timerID, choiceTestConfig, dispatchResetResult }) => {
+const Configtest = ({
+    currentTest,
+    timerID,
+    choiceTestConfig,
+    dispatchResetResult
+}) => {
     const history = useHistory();
 
     const {
@@ -25,11 +31,10 @@ const Configtest = ({ test, timerID, choiceTestConfig, dispatchResetResult }) =>
         handleTimerToggle,
         createTestConfig,
         resetConfiguration,
-    } = useTestConfiguration(Tests, test.testNow);
+    } = useTestConfiguration(Tests, currentTest);
 
-    // Очистка при монтировании
     useEffect(() => {
-        // Останавливаем таймер если есть
+        // Останавливаем таймер если есть (legacy)
         if (timerID?.timerID) {
             clearInterval(timerID.timerID);
         }
@@ -61,31 +66,25 @@ const Configtest = ({ test, timerID, choiceTestConfig, dispatchResetResult }) =>
 
     return (
         <div className='configTestDiv' style={style}>
-            {/* Информационный блок */}
             <TestInfo />
 
-            {/* Панель настроек */}
             <div className='configRightPanel'>
-                {/* Название теста */}
                 <div className='configTestSelect'>
                     <p>
-                        <b>{test.testNow}.</b>
+                        <b>{currentTest}.</b>
                     </p>
                 </div>
 
-                {/* Выбор сложности */}
                 <DifficultySelector
                     value={difficulty}
                     onChange={handleDifficultyChange}
                 />
 
-                {/* Кнопка старта и ошибки */}
                 <ConfigActions
                     onStart={handleStartTest}
                     validationErrors={validationErrors}
                 />
 
-                {/* Дополнительные опции */}
                 <TestOptions
                     withoutTimer={withoutTimer}
                     onTimerToggle={handleTimerToggle}
@@ -95,10 +94,9 @@ const Configtest = ({ test, timerID, choiceTestConfig, dispatchResetResult }) =>
     );
 };
 
-const mapStateToProps = (store) => ({
-    test: store.test,
-    testConfig: store.testConfig.startTestConfig,
-    timerID: store.testConfig.startTestConfigTimerID,
+const mapStateToProps = (state) => ({
+    currentTest: getCurrentTest(state),
+    timerID: getTimerID(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import dispatchResult from '../../actions/actionResult';
 import { useCarouselNavigation } from '../../hooks/useCarouselNavigation';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 import { useAnswerValidation } from '../../hooks/useAnswerValidation';
+import { useTestRedux } from '../../hooks/useTestRedux';
 import CarouselNavigation from './CarouselNavigation';
 import QuestionSlide from './QuestionSlide';
 import AnswerOptions from './AnswerOptions';
@@ -14,7 +13,9 @@ import '../../../../prism.css';
 /**
  * Главный компонент карусели с вопросами теста
  */
-const Carousel = ({ slides, testName, diff, showingAnswers, dispatchResultTest }) => {
+const Carousel = ({ slides, testName, diff, showingAnswers }) => {
+    const { completeTest } = useTestRedux();
+
     const {
         activeIndex,
         showFinishButton,
@@ -25,7 +26,6 @@ const Carousel = ({ slides, testName, diff, showingAnswers, dispatchResultTest }
 
     const {
         showCorrectAnswers,
-        validationResults,
         validateAnswers,
     } = useAnswerValidation(slides);
 
@@ -90,14 +90,22 @@ const Carousel = ({ slides, testName, diff, showingAnswers, dispatchResultTest }
             answers: results.answers,
         };
 
-        // Скрываем карусель, показываем результаты
-        const divCarousel = document.querySelector(`div[class='carousel-div']`);
-        const divCarouselResult = document.querySelector(`div[class='carousel-result']`);
+        // Используем thunk action для завершения теста
+        completeTest(result, {
+            onSuccess: () => {
+                // Скрываем карусель, показываем результаты
+                const divCarousel = document.querySelector(`div[class='carousel-div']`);
+                const divCarouselResult = document.querySelector(`div[class='carousel-result']`);
 
-        divCarousel?.setAttribute('hidden', 'true');
-        divCarouselResult?.removeAttribute('hidden');
-
-        dispatchResultTest(result);
+                divCarousel?.setAttribute('hidden', 'true');
+                divCarouselResult?.removeAttribute('hidden');
+                window.scrollTo(0, 0);
+            },
+            onError: (error) => {
+                console.error('Failed to submit test:', error);
+                alert('Произошла ошибка при отправке результатов');
+            }
+        });
     };
 
     return (
@@ -150,24 +158,15 @@ const Carousel = ({ slides, testName, diff, showingAnswers, dispatchResultTest }
                 />
             ))}
 
-            {/* Кнопка завершения */}
-            <FinishButton
-                onClick={handleFinish}
-                showingAnswers={showingAnswers}
-                visible={showFinishButton}
-            />
+            {/* Кнопка завершения - показываем всегда когда showFinishButton true или просматриваем ответы */}
+            {(showFinishButton || showingAnswers) && (
+                <FinishButton
+                    onClick={handleFinish}
+                    showingAnswers={showingAnswers}
+                />
+            )}
         </div>
     );
 };
 
-const mapStateToProps = (store) => ({
-    result: store.result
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    dispatchResultTest: (result) => {
-        dispatch(dispatchResult(result));
-    }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Carousel);
+export default Carousel;

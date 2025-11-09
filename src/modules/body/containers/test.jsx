@@ -1,16 +1,31 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import style from '../styles/style.css';
 import Carousel from '../components/carousel/Carousel';
-import { useHistory } from "react-router-dom";
 import TestResult from '../components/test/TestResult';
 import { useTestTimer } from '../hooks/useTestTimer';
+import {
+    getTestConfig,
+    getTestResult,
+    getTestQuestions,
+    getTestDifficulty,
+    getTestName,
+    getTestDescription,
+    isTimerEnabled,
+    getTimerID
+} from '../selectors/testSelectors';
 
-const Test = (props) =>
-{
-    const { testConfig, result, timerID } = props;
-    const diffical = testConfig.optionTest.diffical;
-    const questions = testConfig.optionTest.questions;
+const Test = ({
+    testConfig,
+    result,
+    questions,
+    difficulty,
+    testName,
+    testDescription,
+    timerEnabled,
+    timerID
+}) => {
     const [showingAnswers, setShowingAnswers] = useState(false);
     const history = useHistory();
 
@@ -22,7 +37,7 @@ const Test = (props) =>
     };
 
     const { elapsedTime, isRunning, stopTimer, resetTimer } = useTestTimer(
-        !testConfig.optionTest.timer, // isTimerEnabled (inverted logic from original)
+        timerEnabled,
         handleTimeUp
     );
 
@@ -32,43 +47,50 @@ const Test = (props) =>
         }
     }, [result, isRunning, stopTimer]);
 
-    useEffect(() =>
-    {
+    useEffect(() => {
         const viewport = document.querySelector("meta[name=viewport]");
-        if (viewport)
-        {
-            viewport.setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no");
+        if (viewport) {
+            viewport.setAttribute(
+                "content",
+                "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+            );
         }
 
-        // Scroll to top when test starts
         window.scrollTo(0, 0);
 
-        // Cleanup on unmount
-        return () =>
-        {
+        return () => {
             resetTimer();
 
-            // Clear Redux timer ID if exists (legacy cleanup)
-            if (timerID?.timerID)
-            {
+            // Legacy cleanup
+            if (timerID?.timerID) {
                 clearInterval(timerID.timerID);
             }
         };
     }, [resetTimer, timerID]);
 
+    if (!testConfig) {
+        return null;
+    }
+
     return (
         <div className='test-container'>
             <div className='test-content'>
-                <div className='testDiv' style={ style }>
+                <div className='testDiv' style={style}>
                     <div className='carousel-div'>
-                        <Carousel slides={ questions } diff={ diffical } testName={ testConfig.nameTest } descTest={ testConfig.descTest } showingAnswers={showingAnswers}/>
+                        <Carousel
+                            slides={questions}
+                            diff={difficulty}
+                            testName={testName}
+                            descTest={testDescription}
+                            showingAnswers={showingAnswers}
+                        />
                     </div>
-                    <div className='carousel-result' hidden={ true }>
+                    <div className='carousel-result' hidden={true}>
                         <TestResult
-                            result={ result }
-                            testDescription={ testConfig.descTest }
+                            result={result}
+                            testDescription={testDescription}
                             elapsedTime={elapsedTime}
-                            onCleanupTimer={ stopTimer }
+                            onCleanupTimer={stopTimer}
                             onShowAnswers={() => {}}
                             setShowingAnswers={setShowingAnswers}
                         />
@@ -77,15 +99,17 @@ const Test = (props) =>
             </div>
         </div>
     );
-}
-
-const mapStateToProps = (store) => {
-    return {
-        testConfig: store.testConfig.startTestConfig,
-        test: store.test,
-        result: store.result.resultTest,
-        timerID: store.testConfig.startTestConfigTimerID,
-    }
 };
+
+const mapStateToProps = (state) => ({
+    testConfig: getTestConfig(state),
+    result: getTestResult(state),
+    questions: getTestQuestions(state),
+    difficulty: getTestDifficulty(state),
+    testName: getTestName(state),
+    testDescription: getTestDescription(state),
+    timerEnabled: isTimerEnabled(state),
+    timerID: getTimerID(state), // Legacy
+});
 
 export default connect(mapStateToProps)(Test);

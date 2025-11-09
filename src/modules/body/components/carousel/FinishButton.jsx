@@ -3,16 +3,14 @@ import React from 'react';
 /**
  * Кнопка завершения теста
  */
-const FinishButton = ({ onClick, showingAnswers, visible }) => {
-    if (!visible) return null;
-
-    const buttonText = showingAnswers 
-        ? '📊 Вернуться к результатам' 
+const FinishButton = ({ onClick, showingAnswers }) => {
+    const buttonText = showingAnswers
+        ? '📊 Вернуться к результатам'
         : 'Закончить тест!';
 
     return (
-        <button 
-            id='btnFinal' 
+        <button
+            id='btnFinal'
             className='btnFinal'
             onClick={onClick}
         >

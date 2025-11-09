@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 /**
  * Хук для управления навигацией по карусели
@@ -9,14 +9,15 @@ export const useCarouselNavigation = (totalSlides) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [showFinishButton, setShowFinishButton] = useState(false);
 
+   useEffect(() => {
+        if (activeIndex >= totalSlides - 2 && totalSlides > 0) {
+            setShowFinishButton(true);
+        }
+    }, [activeIndex, totalSlides]);
+
     const goToSlide = useCallback((index) => {
         if (index >= 0 && index < totalSlides) {
             setActiveIndex(index);
-            
-            // Показываем кнопку "Закончить" на предпоследнем слайде
-            if (index === totalSlides - 2) {
-                setShowFinishButton(true);
-            }
         }
     }, [totalSlides]);
 
@@ -29,11 +30,6 @@ export const useCarouselNavigation = (totalSlides) => {
     const goToNextSlide = useCallback(() => {
         if (activeIndex < totalSlides - 1) {
             setActiveIndex(prev => prev + 1);
-            
-            // Показываем кнопку на предпоследнем слайде
-            if (activeIndex === totalSlides - 2) {
-                setShowFinishButton(true);
-            }
         }
     }, [activeIndex, totalSlides]);
 
@@ -48,5 +44,6 @@ export const useCarouselNavigation = (totalSlides) => {
         goToNextSlide,
         isFirstSlide,
         isLastSlide,
+        setShowFinishButton,
     };
 };
