@@ -1,5 +1,21 @@
-/* Test Container */
-.testDiv {
+/* Test Container - BEM refactored */
+.test {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.test__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+}
+
+.test__wrapper {
     text-align: center;
     min-height: 100vh;
     margin-top: var(--spacing-md, 15px);
@@ -9,22 +25,6 @@
     align-items: center;
     padding: var(--spacing-lg, 20px);
     box-sizing: border-box;
-}
-
-.test-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.test-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 100px);
 }
 
 /* Carousel */
@@ -203,6 +203,10 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+    .test__wrapper {
+        padding: var(--spacing-md, 10px);
+    }
+
     .carousel {
         padding: var(--spacing-md, 10px);
         min-height: 90vh;
@@ -267,7 +271,7 @@
 }
 
 @media (max-width: 480px) {
-    .testDiv {
+    .test__wrapper {
         padding: var(--spacing-xs, 5px);
     }
 

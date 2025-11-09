@@ -73,10 +73,10 @@ const Test = ({
     }
 
     return (
-        <div className='test-container'>
-            <div className='test-content'>
-                <div className='testDiv'>
-                    <div className='carousel-div'>
+        <div className='test'>
+            <div className='test__content'>
+                <div className='test__wrapper'>
+                    <div className='test__carousel'>
                         <Carousel
                             slides={questions}
                             diff={difficulty}
@@ -85,7 +85,7 @@ const Test = ({
                             showingAnswers={showingAnswers}
                         />
                     </div>
-                    <div className='carousel-result' hidden={true}>
+                    <div className='test__result' hidden={true}>
                         <TestResult
                             result={result}
                             testDescription={testDescription}

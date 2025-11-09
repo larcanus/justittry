@@ -65,8 +65,8 @@ const Carousel = ({ slides, testName, diff, showingAnswers }) => {
     const handleFinish = () => {
         // Если просматриваем ответы, возвращаемся к результатам
         if (showingAnswers) {
-            const divCarousel = document.querySelector(`div[class='carousel-div']`);
-            const divCarouselResult = document.querySelector(`div[class='carousel-result']`);
+            const divCarousel = document.querySelector(`div[class='test__carousel']`);
+            const divCarouselResult = document.querySelector(`div[class='test__result']`);
 
             divCarousel?.setAttribute('hidden', 'true');
             divCarouselResult?.removeAttribute('hidden');
@@ -94,8 +94,8 @@ const Carousel = ({ slides, testName, diff, showingAnswers }) => {
         completeTest(result, {
             onSuccess: () => {
                 // Скрываем карусель, показываем результаты
-                const divCarousel = document.querySelector(`div[class='carousel-div']`);
-                const divCarouselResult = document.querySelector(`div[class='carousel-result']`);
+                const divCarousel = document.querySelector(`div[class='test__carousel']`);
+                const divCarouselResult = document.querySelector(`div[class='test__result']`);
 
                 divCarousel?.setAttribute('hidden', 'true');
                 divCarouselResult?.removeAttribute('hidden');

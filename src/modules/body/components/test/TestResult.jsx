@@ -65,8 +65,8 @@ const TestResult = ({
             onShowAnswers();
         }
 
-        const divCarousel = document.querySelector(`div[class='carousel-div']`);
-        const divCarouselResult = document.querySelector(`div[class='carousel-result']`);
+        const divCarousel = document.querySelector(`div[class='test__carousel']`);
+        const divCarouselResult = document.querySelector(`div[class='test__result']`);
 
         divCarousel?.removeAttribute('hidden');
         divCarouselResult?.setAttribute('hidden', 'true');
