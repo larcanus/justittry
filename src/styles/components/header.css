@@ -1,0 +1,15 @@
+.App-header {
+    background-color: #282c34;
+    color: white;
+}
+
+.divHeader {
+    height: 19vh;
+    text-align: center;
+}
+
+.imgHead {
+    margin-top: 3%;
+    min-height: 7vh;
+    min-width: 7vh;
+}

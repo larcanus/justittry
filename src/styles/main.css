@@ -1,6 +1,7 @@
 /* Import order matters! */
 @import './variables.css';
 @import './utilities.css';
+@import './components/header.css';
 @import './components/button.css';
 @import './components/form.css';
 @import './components/test-config.css';
@@ -49,21 +50,4 @@ html {
 :focus-visible {
     outline: 2px solid var(--color-active);
     outline-offset: 2px;
-}
-
-
-.App-header {
-    background-color: #282c34;
-    color: white;
-}
-
-.divHeader {
-    height: 19vh;
-    text-align: center;
-}
-
-.imgHead {
-    margin-top: 3%;
-    min-height: 7vh;
-    min-width: 7vh;
 }
