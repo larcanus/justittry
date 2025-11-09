@@ -1,7 +1,12 @@
 import React from 'react';
 
 /**
- * Компонент выбора уровня сложности
+ * Компонент выбора уровня сложности теста
+ *
+ * @component
+ * @param {Object} props - Свойства компонента
+ * @param {string} props.value - Текущее значение сложности ('jun' или 'mid')
+ * @param {Function} props.onChange - Обработчик изменения сложности
  */
 const DifficultySelector = ({ value, onChange }) => {
     const handleChange = (e) => {
@@ -9,33 +14,41 @@ const DifficultySelector = ({ value, onChange }) => {
     };
 
     return (
-        <div className='configDiffTest'>
-            <form className='form cf'>
-                <section className='plan cf'>
+        <div className='test-config__difficulty'>
+            <form className='test-config__difficulty-form'>
+                <div className='test-config__difficulty-list'>
                     <input
                         type='radio'
-                        name='radio2'
-                        id='jun'
+                        name='difficulty'
+                        id='difficulty-jun'
                         value='jun'
+                        className='test-config__difficulty-input'
                         checked={value === 'jun'}
                         onChange={handleChange}
                     />
-                    <label className='jun four col' htmlFor='jun'>
+                    <label
+                        className='test-config__difficulty-label'
+                        htmlFor='difficulty-jun'
+                    >
                         Student
                     </label>
 
                     <input
                         type='radio'
-                        name='radio2'
-                        id='mid'
+                        name='difficulty'
+                        id='difficulty-mid'
                         value='mid'
+                        className='test-config__difficulty-input'
                         checked={value === 'mid'}
                         onChange={handleChange}
                     />
-                    <label className='mid four col' htmlFor='mid'>
+                    <label
+                        className='test-config__difficulty-label'
+                        htmlFor='difficulty-mid'
+                    >
                         Developer
                     </label>
-                </section>
+                </div>
             </form>
         </div>
     );

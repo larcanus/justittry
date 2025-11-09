@@ -13,6 +13,14 @@ import ConfigActions from '../components/config/ConfigActions';
 
 /**
  * Компонент конфигурации теста
+ * Отвечает за настройку параметров теста перед его началом
+ *
+ * @component
+ * @param {Object} props - Свойства компонента
+ * @param {string} props.currentTest - Название текущего теста
+ * @param {Object} props.timerID - ID таймера (legacy)
+ * @param {Function} props.choiceTestConfig - Функция для сохранения конфигурации теста
+ * @param {Function} props.dispatchResetResult - Функция для сброса результатов
  */
 const Configtest = ({
     currentTest,
@@ -51,6 +59,7 @@ const Configtest = ({
 
     /**
      * Обработчик начала теста
+     * Создает конфигурацию и перенаправляет на страницу теста
      */
     const handleStartTest = () => {
         const config = createTestConfig();
@@ -64,13 +73,13 @@ const Configtest = ({
     };
 
     return (
-        <div className='configTestDiv'>
+        <div className='test-config'>
             <TestInfo />
 
-            <div className='configRightPanel'>
-                <div className='configTestSelect'>
-                    <p>
-                        <b>{currentTest}.</b>
+            <div className='test-config__panel'>
+                <div className='test-config__header'>
+                    <p className='test-config__header-title'>
+                        <b>{currentTest}</b>
                     </p>
                 </div>
 

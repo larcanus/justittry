@@ -2,22 +2,37 @@ import React from 'react';
 
 /**
  * Компонент действий конфигурации
+ * Отображает кнопку запуска теста и ошибки валидации
+ *
+ * @component
+ * @param {Object} props - Свойства компонента
+ * @param {Function} props.onStart - Обработчик начала теста
+ * @param {Object} props.validationErrors - Объект с ошибками валидации
+ * @param {boolean} props.validationErrors.difficulty - Ошибка выбора сложности
+ * @param {boolean} props.validationErrors.test - Ошибка выбора теста
  */
 const ConfigActions = ({ onStart, validationErrors }) => {
+    const hasErrors = validationErrors.difficulty || validationErrors.test;
+
     return (
-        <div className='configActions'>
-            <button className='startTest' onClick={onStart}>
-                Начать!
+        <div className='test-config__actions'>
+            <button
+                className='test-config__button'
+                onClick={onStart}
+                type='button'
+                disabled={hasErrors}
+            >
+                Начать тест
             </button>
 
-            <div className='configErrors'>
+            <div className='test-config__errors'>
                 {validationErrors.difficulty && (
-                    <p style={{ color: 'red', margin: '10px 0 0 0' }}>
-                        Выберите сложность!
+                    <p className='test-config__error'>
+                        Выберите уровень сложности!
                     </p>
                 )}
                 {validationErrors.test && (
-                    <p style={{ color: 'red', margin: '5px 0 0 0' }}>
+                    <p className='test-config__error'>
                         Выберите тест!
                     </p>
                 )}

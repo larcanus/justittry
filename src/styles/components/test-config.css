@@ -303,3 +303,475 @@
         font-size: 16px;
     }
 }
+
+/* ============================================
+   Test Configuration Block
+   ============================================ */
+
+.test-config {
+    display: flex;
+    gap: var(--spacing-lg);
+    max-width: var(--max-width-xl);
+    margin: var(--spacing-lg) auto;
+    padding: var(--spacing-lg);
+}
+
+/* ============================================
+   Description Panel (Left Side)
+   ============================================ */
+
+.test-config__info {
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+    padding: var(--spacing-xl);
+    line-height: 1.6;
+    background-color: var(--color-bg-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.test-config__info-content {
+    background: var(--color-bg-gray);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+}
+
+.test-config__info-title {
+    font-size: var(--font-xl);
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 var(--spacing-md) 0;
+}
+
+.test-config__info-text {
+    margin: var(--spacing-sm) 0;
+    color: var(--color-text);
+    font-size: var(--font-md);
+    line-height: 1.6;
+}
+
+.test-config__info-list {
+    margin: var(--spacing-md) 0;
+    padding-left: var(--spacing-lg);
+    list-style: disc;
+}
+
+.test-config__info-item {
+    margin: var(--spacing-xs) 0;
+    color: var(--color-text);
+}
+
+.test-config__info-footer {
+    text-align: center;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-top: var(--spacing-lg);
+    font-size: var(--font-lg);
+}
+
+.test-config__info-text strong,
+.test-config__info-item strong {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+/* ============================================
+   Configuration Panel (Right Side)
+   ============================================ */
+
+.test-config__panel {
+    flex: 0 0 350px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+/* ============================================
+   Test Header
+   ============================================ */
+
+.test-config__header {
+    text-align: center;
+    padding: var(--spacing-md);
+    background-color: var(--color-bg-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.test-config__header-title {
+    margin: 0;
+    font-size: var(--font-lg);
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+/* ============================================
+   Difficulty Selector
+   ============================================ */
+
+.test-config__difficulty {
+    background: var(--color-bg-light);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.test-config__difficulty-form {
+    width: 100%;
+}
+
+.test-config__difficulty-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.test-config__difficulty-input {
+    display: none;
+}
+
+.test-config__difficulty-label {
+    position: relative;
+    color: #fff;
+    background-color: var(--color-secondary);
+    font-size: var(--font-md);
+    font-weight: 600;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    display: block;
+    cursor: pointer;
+    border: 3px solid transparent;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+    user-select: none;
+}
+
+.test-config__difficulty-label:hover {
+    background-color: var(--color-secondary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.test-config__difficulty-input:checked + .test-config__difficulty-label {
+    border-color: var(--color-text);
+    background-color: var(--color-primary);
+}
+
+.test-config__difficulty-input:checked + .test-config__difficulty-label::after {
+    content: "\2713";
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: var(--radius-round);
+    border: 2px solid var(--color-text);
+    background-color: var(--color-primary);
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: var(--font-xs);
+    font-weight: 700;
+}
+
+/* ============================================
+   Actions Section
+   ============================================ */
+
+.test-config__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.test-config__button {
+    background-color: var(--color-primary);
+    border: solid 1px var(--color-primary-hover);
+    border-radius: var(--radius-md);
+    color: white;
+    padding: var(--spacing-sm) var(--spacing-xl);
+    text-align: center;
+    text-decoration: none;
+    font-size: var(--font-lg);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color var(--transition-normal),
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+    width: 100%;
+    display: block;
+}
+
+.test-config__button:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.test-config__button:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+.test-config__button:disabled {
+    background-color: var(--color-secondary);
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+}
+
+.test-config__errors {
+    min-height: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.test-config__error {
+    color: var(--color-danger);
+    font-size: var(--font-base);
+    margin: 0;
+    text-align: center;
+}
+
+/* ============================================
+   Options Section (Timer Toggle)
+   ============================================ */
+
+.test-config__options {
+    padding: var(--spacing-md);
+    background: var(--color-bg-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.test-config__option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.test-config__option-form {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+}
+
+/* ============================================
+   Custom Checkbox Styles
+   ============================================ */
+
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+    .test-config__checkbox {
+        --active: var(--color-active);
+        --active-inner: var(--color-active-inner);
+        --focus: 2px rgba(39, 94, 254, .3);
+        --border: var(--color-border);
+        --border-hover: var(--color-border-hover);
+        --background: #fff;
+        --disabled: var(--color-bg-disabled);
+        --disabled-inner: #E1E6F9;
+
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 21px;
+        height: 21px;
+        outline: none;
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        margin: 0;
+        cursor: pointer;
+        border: 1px solid var(--bc, var(--border));
+        background: var(--b, var(--background));
+        transition: background var(--transition-normal),
+                    border-color var(--transition-normal),
+                    box-shadow 0.2s;
+        border-radius: var(--radius-md);
+        flex-shrink: 0;
+    }
+
+    .test-config__checkbox::after {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        left: 7px;
+        top: 4px;
+        width: 5px;
+        height: 9px;
+        border: 2px solid var(--active-inner);
+        border-top: 0;
+        border-left: 0;
+        transform: rotate(20deg);
+        opacity: 0;
+        transition: transform var(--transition-normal),
+                    opacity 0.2s;
+    }
+
+    .test-config__checkbox:checked {
+        --b: var(--active);
+        --bc: var(--active);
+    }
+
+    .test-config__checkbox:checked::after {
+        opacity: 1;
+        transform: rotate(43deg);
+    }
+
+    .test-config__checkbox:disabled {
+        --b: var(--disabled);
+        cursor: not-allowed;
+        opacity: 0.9;
+    }
+
+    .test-config__checkbox:hover:not(:checked):not(:disabled) {
+        --bc: var(--border-hover);
+    }
+
+    .test-config__checkbox:focus {
+        box-shadow: 0 0 0 var(--focus);
+    }
+
+    .test-config__checkbox:focus-visible {
+        outline: 2px solid var(--color-active);
+        outline-offset: 2px;
+    }
+}
+
+.test-config__checkbox-label {
+    font-size: var(--font-base);
+    line-height: 21px;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    color: var(--color-text);
+    user-select: none;
+}
+
+.test-config__checkbox:disabled + .test-config__checkbox-label {
+    cursor: not-allowed;
+    color: var(--color-text-muted);
+}
+
+/* ============================================
+   Mobile Responsive (< 768px)
+   ============================================ */
+
+@media (max-width: 768px) {
+    .test-config {
+        flex-direction: column;
+        gap: var(--spacing-lg);
+        padding: var(--spacing-md);
+        margin: var(--spacing-md) auto;
+    }
+
+    .test-config__panel {
+        flex: 1;
+        width: 100%;
+    }
+
+    .test-config__info {
+        max-width: 100%;
+        padding: var(--spacing-lg);
+    }
+
+    .test-config__info-title {
+        font-size: var(--font-lg);
+    }
+
+    .test-config__info-text {
+        font-size: var(--font-base);
+    }
+
+    .test-config__difficulty-label {
+        font-size: var(--font-base);
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .test-config__button {
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: var(--font-md);
+    }
+
+    .test-config__header {
+        padding: var(--spacing-sm);
+    }
+
+    .test-config__header-title {
+        font-size: var(--font-md);
+    }
+}
+
+/* ============================================
+   Tablet Responsive (769px - 1024px)
+   ============================================ */
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .test-config {
+        padding: var(--spacing-md);
+    }
+
+    .test-config__info {
+        min-width: 250px;
+        padding: var(--spacing-lg);
+    }
+
+    .test-config__panel {
+        flex: 0 0 300px;
+    }
+
+    .test-config__difficulty-label {
+        height: 55px;
+        line-height: 55px;
+    }
+}
+
+/* ============================================
+   Small Mobile (< 480px)
+   ============================================ */
+
+@media (max-width: 480px) {
+    .test-config {
+        padding: var(--spacing-sm);
+        margin: var(--spacing-sm) auto;
+    }
+
+    .test-config__info {
+        padding: var(--spacing-md);
+    }
+
+    .test-config__info-content {
+        padding: var(--spacing-md);
+    }
+
+    .test-config__info-title {
+        font-size: var(--font-md);
+    }
+
+    .test-config__info-text,
+    .test-config__info-item {
+        font-size: var(--font-sm);
+    }
+
+    .test-config__difficulty-label {
+        height: 45px;
+        line-height: 45px;
+        font-size: var(--font-sm);
+    }
+
+    .test-config__button {
+        padding: var(--spacing-xs) var(--spacing-md);
+        font-size: var(--font-base);
+    }
+
+    .test-config__options,
+    .test-config__difficulty {
+        padding: var(--spacing-sm);
+    }
+}
