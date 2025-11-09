@@ -1,5 +1,3 @@
-import checkUserAgent from './common/utils';
-import StubMobile from './modules/header/components/stabMobile';
 import Headtop from './modules/header/containers/headtop';
 import Navbar from './modules/header/containers/navbar';
 import Footdown from './modules/footer/components/footdown';
@@ -9,7 +7,7 @@ import {Switch, Route} from 'react-router-dom';
 import React from 'react';
 
 function App() {
-    return checkUserAgent() ? (
+    return (
         <div>
             <header className='header'>
                 <Headtop/>
@@ -34,7 +32,7 @@ function App() {
                 <Footdown/>
             </footer>
         </div>
-    ) : ( <StubMobile/> );
+    );
 }
 
 export default App;
