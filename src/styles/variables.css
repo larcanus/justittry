@@ -1,0 +1,60 @@
+:root {
+    /* Colors */
+    --color-primary: #4caf50;
+    --color-primary-hover: #45a049;
+    --color-primary-dark: #3d8b40;
+    --color-secondary: #6c757d;
+    --color-secondary-hover: #5a6268;
+    --color-danger: #f44336;
+    --color-text: #2c3e50;
+    --color-text-muted: #6c757d;
+    --color-text-light: #888;
+    --color-border: #BBC1E1;
+    --color-border-hover: #275EFE;
+    --color-bg-light: #f8f9fa;
+    --color-bg-gray: #f5f2f0;
+    --color-bg-card: #d6dfe8;
+    --color-bg-disabled: #F6F8FF;
+    --color-active: #275EFE;
+    --color-active-inner: #fff;
+
+    /* Spacing */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+    --spacing-xl: 30px;
+    --spacing-2xl: 40px;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 7px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-round: 50%;
+
+    /* Transitions */
+    --transition-fast: 0.15s cubic-bezier(0.4, 0, 1, 1);
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.4s ease;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+    /* Font Sizes */
+    --font-xs: 12px;
+    --font-sm: 13px;
+    --font-base: 14px;
+    --font-md: 16px;
+    --font-lg: 18px;
+    --font-xl: 1.5rem;
+    --font-2xl: 1.8em;
+
+    /* Max Widths */
+    --max-width-sm: 600px;
+    --max-width-md: 800px;
+    --max-width-lg: 900px;
+    --max-width-xl: 1200px;
+}

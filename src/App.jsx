@@ -1,4 +1,3 @@
-import './App.css';
 import checkUserAgent from './common/utils';
 import StubMobile from './modules/header/components/stabMobile';
 import Headtop from './modules/header/containers/headtop';

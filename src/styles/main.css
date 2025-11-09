@@ -1,0 +1,69 @@
+/* Import order matters! */
+@import './variables.css';
+@import './utilities.css';
+@import './components/button.css';
+@import './components/form.css';
+@import './components/test-config.css';
+@import './components/test-carousel.css';
+@import './components/answers.css';
+@import './components/result.css';
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Open Sans", "Trebuchet MS", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--color-text);
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* Remove default list styles */
+ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Remove default button styles */
+button {
+    font-family: inherit;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+    outline: 2px solid var(--color-active);
+    outline-offset: 2px;
+}
+
+
+.App-header {
+    background-color: #282c34;
+    color: white;
+}
+
+.divHeader {
+    height: 19vh;
+    text-align: center;
+}
+
+.imgHead {
+    margin-top: 3%;
+    min-height: 7vh;
+    min-width: 7vh;
+}

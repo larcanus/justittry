@@ -1,0 +1,154 @@
+/* Custom Checkbox/Radio Base */
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+    .custom-input {
+        --active: var(--color-active);
+        --active-inner: var(--color-active-inner);
+        --border: var(--color-border);
+        --border-hover: var(--color-border-hover);
+        --background: #fff;
+        --disabled: var(--color-bg-disabled);
+        --disabled-inner: #E1E6F9;
+
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        height: 21px;
+        width: 21px;
+        outline: none;
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        margin: 0;
+        cursor: pointer;
+        border: 1px solid var(--bc, var(--border));
+        background: var(--b, var(--background));
+        transition: background var(--transition-normal),
+                    border-color var(--transition-normal),
+                    box-shadow 0.2s;
+    }
+
+    .custom-input::after {
+        content: "";
+        display: inline-block;
+        left: 0;
+        top: 0;
+        position: absolute;
+        transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),
+                    opacity var(--d-o, 0.2s);
+    }
+
+    .custom-input:checked {
+        --b: var(--active);
+        --bc: var(--active);
+        --d-o: .3s;
+        --d-t: .6s;
+        --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+    }
+
+    .custom-input:disabled {
+        --b: var(--disabled);
+        cursor: not-allowed;
+        opacity: 0.9;
+    }
+
+    .custom-input:disabled:checked {
+        --b: var(--disabled-inner);
+        --bc: var(--border);
+    }
+
+    .custom-input:hover:not(:checked):not(:disabled) {
+        --bc: var(--border-hover);
+    }
+
+    .custom-input:focus {
+        box-shadow: 0 0 0 2px rgba(39, 94, 254, 0.3);
+    }
+
+    /* Checkbox Specific */
+    .custom-input--checkbox {
+        border-radius: var(--radius-md);
+    }
+
+    .custom-input--checkbox::after {
+        width: 5px;
+        height: 9px;
+        border: 2px solid var(--active-inner);
+        border-top: 0;
+        border-left: 0;
+        left: 7px;
+        top: 4px;
+        transform: rotate(var(--r, 20deg));
+        opacity: var(--o, 0);
+    }
+
+    .custom-input--checkbox:checked {
+        --r: 43deg;
+        --o: 1;
+    }
+
+    /* Radio Specific */
+    .custom-input--radio {
+        border-radius: var(--radius-round);
+    }
+
+    .custom-input--radio::after {
+        width: 19px;
+        height: 19px;
+        border-radius: var(--radius-round);
+        background: var(--active-inner);
+        opacity: 0;
+        transform: scale(var(--s, 0.7));
+    }
+
+    .custom-input--radio:checked {
+        --s: .5;
+    }
+
+    .custom-input--radio:checked::after {
+        opacity: 1;
+    }
+
+    /* Switch Variant */
+    .custom-input--switch {
+        width: 38px;
+        border-radius: 11px;
+    }
+
+    .custom-input--switch::after {
+        left: 2px;
+        top: 2px;
+        border-radius: var(--radius-round);
+        width: 15px;
+        height: 15px;
+        background: var(--ab, var(--border));
+        transform: translateX(var(--x, 0));
+    }
+
+    .custom-input--switch:checked {
+        --ab: var(--active-inner);
+        --x: 17px;
+    }
+
+    .custom-input--switch:disabled:not(:checked)::after {
+        opacity: 0.6;
+    }
+}
+
+/* Label */
+.custom-input__label {
+    font-size: var(--font-base);
+    line-height: 21px;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    margin-left: 14px;
+}
+
+.custom-input:disabled + .custom-input__label {
+    cursor: not-allowed;
+}
+
+/* Form Group */
+.form-group {
+    margin-top: var(--spacing-md);
+}
