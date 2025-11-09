@@ -12,55 +12,73 @@ class Navbar extends Component {
         this.props.choiceTestAction(REMOVE_TEST);
     }
 
+    handleTestChoice = (e) => {
+        this.props.choiceTestAction(e.target.value);
+    }
+
     render() {
-        const {choiceTestAction} = this.props;
-
-        const choiceTest = (e) => {
-            choiceTestAction(e.target.id);
-        }
-
         return (
             <div className='navbar'>
-                <input type='radio' id='radio-1' name='radio1' className='navbar__radio'/>
+                <input
+                    type='radio'
+                    id='radio-1'
+                    name='radio1'
+                    value='js-test-logo'
+                    className='navbar__radio'
+                    onChange={this.handleTestChoice}
+                />
                 <label htmlFor='radio-1' className='navbar__label'>
                     <img
                         className='navbar__test-logo'
-                        id='js-test-logo'
                         src={js}
-                        onClick={choiceTest}
                         alt='JavaScript Test'
                     />
                 </label>
 
-                <input type='radio' id='radio-2' name='radio1' className='navbar__radio'/>
+                <input
+                    type='radio'
+                    id='radio-2'
+                    name='radio1'
+                    value='html-test-logo'
+                    className='navbar__radio'
+                    onChange={this.handleTestChoice}
+                />
                 <label htmlFor='radio-2' className='navbar__label'>
                     <img
                         className='navbar__test-logo'
-                        id='html-test-logo'
                         src={html}
-                        onClick={choiceTest}
                         alt='HTML Test'
                     />
                 </label>
 
-                <input type='radio' id='radio-3' name='radio1' className='navbar__radio'/>
+                <input
+                    type='radio'
+                    id='radio-3'
+                    name='radio1'
+                    value='dart-test-logo'
+                    className='navbar__radio'
+                    onChange={this.handleTestChoice}
+                />
                 <label htmlFor='radio-3' className='navbar__label'>
                     <img
                         className='navbar__test-logo'
-                        id='dart-test-logo'
                         src={dart}
-                        onClick={choiceTest}
                         alt='Dart Test'
                     />
                 </label>
 
-                <input type='radio' id='radio-4' name='radio1' className='navbar__radio'/>
+                <input
+                    type='radio'
+                    id='radio-4'
+                    name='radio1'
+                    value='php-test-logo'
+                    className='navbar__radio'
+                    onChange={this.handleTestChoice}
+                />
                 <label htmlFor='radio-4' className='navbar__label'>
                     <img
                         className='navbar__test-logo'
-                        id='php-test-logo'
                         src={php}
-                        onClick={choiceTest}
                         alt='PHP Test'
                     />
                 </label>
