@@ -15,39 +15,57 @@
     align-items: stretch;
 }
 
-/* Answer Option */
-.answer {
-    border-radius: var(--radius-md);
-    color: var(--color-text);
+/* Answer Container */
+.divAnswer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+    width: 100%;
+    align-items: stretch;
+}
+
+/* Answer Label */
+.labelAnswer {
+    border-radius: 7px;
+    color: black;
     min-height: 70px;
     flex: 1 1 300px;
     max-width: 400px;
-    padding: var(--spacing-md);
+    padding: 15px;
     margin: 5px;
     text-align: left;
-    font-size: var(--font-md);
+    font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     word-break: break-word;
-    background: var(--color-bg-card);
-    transition: var(--transition-normal);
+    background-color: #d6dfe8;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
     cursor: pointer;
+    height: auto;
 }
 
-.answer:hover {
-    background: #c5d0db;
-    transform: translateY(-1px);
+.labelAnswer:hover {
+    border-color: #4caf50;
+    background: #c5d9e8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.answer__input {
+/* Answer Input (Checkbox/Radio) */
+.inputAnswer {
     margin-right: 12px;
     transform: scale(1.2);
     flex-shrink: 0;
     margin-top: 0.25em;
+    cursor: pointer;
 }
 
-.answer__text {
+/* Answer Text */
+.answerText {
     flex: 1;
     display: flex;
     align-items: center;
@@ -59,39 +77,54 @@
     white-space: normal;
 }
 
-/* Text Length Variants */
-.answer--long {
+/* Long Text Variants */
+.labelAnswer.long-text {
     min-height: 80px;
     padding-top: 12px;
 }
 
-.answer--long .answer__text {
+.labelAnswer.long-text .answerText {
     line-height: 1.5;
 }
 
-.answer--very-long {
+.labelAnswer.very-long-text {
     min-height: 90px;
     padding-top: 12px;
 }
 
-.answer--very-long .answer__text {
+.labelAnswer.very-long-text .answerText {
     max-height: none;
     align-items: flex-start;
     line-height: 1.5;
 }
 
-/* Full Answer (Explanation) */
-.answer--full {
-    background: gainsboro;
-    border-radius: var(--radius-md);
+/* Scrollbar for very long text */
+.labelAnswer.very-long-text .answerText::-webkit-scrollbar {
+    width: 4px;
+}
+
+.labelAnswer.very-long-text .answerText::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 2px;
+}
+
+.labelAnswer.very-long-text .answerText::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Full Answer Display */
+.divAnswerFull {
+    background-color: gainsboro;
+    border-radius: 7px;
     word-break: break-word;
-    color: var(--color-text);
+    color: black;
     width: 100%;
-    max-width: var(--max-width-md);
-    padding: var(--spacing-lg);
-    margin: var(--spacing-lg) auto;
+    max-width: 800px;
+    padding: 20px;
+    margin: 20px auto;
     text-align: left;
-    font-size: var(--font-md);
+    font-size: 16px;
+    box-sizing: border-box;
     overflow-wrap: break-word;
     word-wrap: break-word;
     hyphens: auto;
@@ -100,66 +133,49 @@
     line-height: 1.6;
 }
 
-.answer--full * {
+.divAnswerFull * {
     max-width: 100%;
     word-break: break-word;
     overflow-wrap: break-word;
 }
 
-.answer--full pre,
-.answer--full code {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    max-width: 100%;
-    overflow-x: auto;
-}
-
-/* Remove background from operators in code */
-.answer--full .token.operator {
-    background: none !important;
-}
-
-/* Mobile */
+/* Mobile Responsive */
 @media (max-width: 768px) {
-    .answer {
+    .labelAnswer {
         flex: 1 1 100%;
         min-height: 60px;
         padding: 12px;
-        font-size: var(--font-base);
+        font-size: 14px;
         margin: 3px 0;
     }
 
-    .answer__input {
-        margin-right: var(--spacing-sm);
+    .inputAnswer {
+        margin-right: 10px;
         transform: scale(1.1);
     }
 
-    .answer--full {
-        padding: var(--spacing-md);
-        font-size: var(--font-base);
-        margin: var(--spacing-md) auto;
-        max-width: 95%;
+    .divAnswerFull {
+        padding: 15px;
+        margin: 15px auto;
+        font-size: 15px;
     }
 }
 
 @media (max-width: 480px) {
-    .answer {
+    .labelAnswer {
         min-height: 50px;
-        padding: var(--spacing-sm);
-        font-size: var(--font-sm);
+        padding: 10px;
+        font-size: 13px;
     }
 
-    .answer__input {
+    .inputAnswer {
         margin-right: 8px;
         transform: scale(1);
     }
 
-    .answer--full {
+    .divAnswerFull {
         padding: 12px;
-        font-size: var(--font-sm);
-        margin: var(--spacing-sm) auto;
-        max-width: 98%;
-        line-height: 1.5;
+        margin: 10px auto;
+        font-size: 14px;
     }
 }

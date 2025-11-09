@@ -58,11 +58,95 @@
     min-width: 200px;
 }
 
+/* Final Button */
+.btnFinal {
+    margin: 40px auto;
+    background-color: #4caf50;
+    border: solid 1px #45a049;
+    border-radius: 8px;
+    color: white;
+    padding: 12px 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    display: block;
+    max-width: 300px;
+}
+
+.btnFinal:hover {
+    background-color: #282c34;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btnFinal:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Start Test Button */
+.startTest {
+    background-color: #4caf50;
+    border: solid 1px #45a049;
+    border-radius: 5px;
+    color: white;
+    padding: 12px 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    display: block;
+}
+
+.startTest:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.startTest:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 /* Mobile */
 @media (max-width: 768px) {
     .btn {
         min-width: 100%;
         padding: 10px 20px;
         font-size: var(--font-md);
+    }
+
+    .btnFinal {
+        margin: 30px auto;
+        padding: 10px 25px;
+        font-size: 16px;
+        max-width: 250px;
+    }
+
+    .startTest {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .btnFinal {
+        margin: 20px auto;
+        padding: 8px 20px;
+        font-size: 14px;
+        max-width: 200px;
+    }
+
+    .startTest {
+        padding: 8px 15px;
+        font-size: 14px;
     }
 }
