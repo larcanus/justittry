@@ -8,7 +8,7 @@ import QuestionSlide from './QuestionSlide';
 import AnswerOptions from './AnswerOptions';
 import CorrectAnswer from './CorrectAnswer';
 import FinishButton from './FinishButton';
-import '../../../../prism.css';
+import '../../../../styles/prism.css'
 
 /**
  * Главный компонент карусели с вопросами теста
