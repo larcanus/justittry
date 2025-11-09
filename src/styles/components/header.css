@@ -1,54 +1,104 @@
+/* Header Container */
 .App-header {
     background-color: #282c34;
     color: white;
 }
 
+/* Header Top Section */
 .divHeader {
-    height: 19vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 15vh;
+    padding: 20px;
     text-align: center;
 }
 
 .imgHead {
-    margin-top: 3%;
-    min-height: 7vh;
-    min-width: 7vh;
+    max-height: 80px;
+    max-width: 300px;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
+.imgHead:hover {
+    transform: scale(1.05);
+}
+
+/* Navbar Container */
 .divNavbar {
-    text-align: center;
-    width: 90%;
-    /* border:2px solid floralwhite;*/
-    /* background: #eee5e5;*/
-    /* box-shadow:0 0 10pt #c4c3c3;*/
-    padding: 15pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 30px 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
+/* Hide radio inputs */
+[id^=radio-] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Label styling */
+[id^=radio-] + label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 12px;
+    background: transparent;
+}
+
+[id^=radio-] + label:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-5px);
+}
+
+/* Test logo images */
 .logoBtnNavbar {
-    display: inline-block;
+    display: block;
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    filter: brightness(0.9);
 }
 
 .logoBtnNavbar:hover {
-    box-shadow: 0 5px 0 #c4c3c3;
+    filter: brightness(1.1);
+    box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3);
 }
 
-[id^=radio-] {
-    display: none;
-}
-
-[id^=radio-] + label {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 50px;
-    color: #555;
-    cursor: pointer;
-}
-
+/* Selected state */
 [id^=radio-]:checked + label {
-    height: 100px;
-    background-color: #ffffff;
-    cursor: text;
+    background: rgba(76, 175, 80, 0.1);
+    border-radius: 12px;
+    position: relative;
 }
 
+[id^=radio-]:checked + label .logoBtnNavbar {
+    filter: brightness(1.2);
+    box-shadow: 0 12px 32px rgba(76, 175, 80, 0.4);
+    transform: scale(1.05);
+}
+
+/* Focus styles for accessibility */
+[id^=radio-]:focus-visible + label {
+    outline: 3px solid #4caf50;
+    outline-offset: 4px;
+}
+
+/* Share button section (if used) */
 .formBtnShare {
     display: block;
     margin-top: 50px;
@@ -59,34 +109,152 @@
     border: none;
 }
 
+/* Stub/Loading states */
 .div-stub-root {
     background-color: #282c34;
     width: 100%;
     height: 100vh;
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
 }
 
 .div-stub-child {
-    width: 570px;
-    height: 110px;
-    position: absolute;
-    top: 50%;
-    left: 28%;
-    margin: -3vh 0 0 -5vh;
+    max-width: 570px;
+    width: 90%;
+    padding: 30px;
     border: #4caf50 solid 3px;
-    border-radius: 5px;
+    border-radius: 12px;
+    background: rgba(40, 44, 52, 0.95);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .p-stub {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    border: none;
     color: #ffffff;
-    font-size: 230%;
-    padding: 5px 5px 5px 17px;
+    font-size: clamp(1.2em, 4vw, 2em);
+    text-align: center;
+    margin: 0;
+    line-height: 1.4;
 }
+
+/* Aside navigation (if used) */
 .navBarAside {
     min-height: 250px;
+}
+
+/* Mobile Responsive - Horizontal Scroll */
+@media (max-width: 768px) {
+    .divHeader {
+        min-height: 12vh;
+        padding: 15px;
+    }
+    .navBarAside {
+        min-height: 10px;
+    }
+
+    .imgHead {
+        max-height: 60px;
+        max-width: 200px;
+    }
+
+    /* Horizontal scroll for mobile */
+    .divNavbar {
+        justify-content: flex-start;
+        gap: 20px;
+        padding: 20px;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #4caf50 transparent;
+    }
+
+    .divNavbar::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .divNavbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .divNavbar::-webkit-scrollbar-thumb {
+        background: #4caf50;
+        border-radius: 3px;
+    }
+
+    [id^=radio-] + label {
+        flex: 0 0 auto;
+        scroll-snap-align: center;
+        padding: 8px;
+    }
+
+    .logoBtnNavbar {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Remove vertical shift on mobile - use scale instead */
+    [id^=radio-]:checked + label .logoBtnNavbar {
+        transform: scale(0.95);
+        box-shadow: 0 8px 24px rgba(76, 175, 80, 0.4);
+    }
+
+    .div-stub-child {
+        padding: 20px;
+    }
+
+    .p-stub {
+        font-size: clamp(1em, 5vw, 1.5em);
+    }
+}
+
+@media (max-width: 480px) {
+    .divHeader {
+        min-height: 10vh;
+        padding: 10px;
+    }
+
+    .imgHead {
+        max-height: 50px;
+        max-width: 180px;
+    }
+
+    .navBarAside {
+        min-height: 10px;
+    }
+
+    .divNavbar {
+        gap: 15px;
+        padding: 15px;
+    }
+
+    [id^=radio-] + label {
+        padding: 5px;
+    }
+
+    .logoBtnNavbar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .div-stub-child {
+        padding: 15px;
+        border-width: 2px;
+    }
+}
+
+/* Accessibility - Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .logoBtnNavbar,
+    [id^=radio-] + label,
+    [id^=radio-]:checked + label .logoBtnNavbar,
+    .imgHead {
+        transition: none;
+        animation: none;
+    }
 }
