@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import style from '../styles/style.css';
 import Carousel from '../components/carousel/Carousel';
 import TestResult from '../components/test/TestResult';
 import { useTestTimer } from '../hooks/useTestTimer';
@@ -75,7 +74,7 @@ const Test = ({
     return (
         <div className='test-container'>
             <div className='test-content'>
-                <div className='testDiv' style={style}>
+                <div className='testDiv'>
                     <div className='carousel-div'>
                         <Carousel
                             slides={questions}

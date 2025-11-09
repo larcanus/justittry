@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import dataPackage from '../../../../package.json';
-import './../styles/style.css';
 
 const Footdown = () => {
     const versionApp = dataPackage.version;

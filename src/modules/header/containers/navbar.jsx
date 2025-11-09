@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {REMOVE_TEST} from '../../../common/constants';
-import style from '../styles/style.css';
 import newValue from '../actions/newValue';
 import js from '../../../common/images/js-logo.png';
 import dart from '../../../common/images/dart-logo.png';
@@ -22,7 +21,7 @@ class Navbar extends Component {
         }
 
         return (
-            <div className='divNavbar' style={style}>
+            <div className='divNavbar'>
                 <input type='radio' id='radio-1' name='radio1'/>
                 <label htmlFor='radio-1'>
                     <img className='logoBtnNavbar' id='js-test-logo' src={js} onClick={choiceTest} alt='js-test'/>

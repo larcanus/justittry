@@ -10,7 +10,6 @@ import TestInfo from '../components/config/TestInfo';
 import DifficultySelector from '../components/config/DifficultySelector';
 import TestOptions from '../components/config/TestOptions';
 import ConfigActions from '../components/config/ConfigActions';
-import style from '../styles/style.css';
 
 /**
  * Компонент конфигурации теста
@@ -65,7 +64,7 @@ const Configtest = ({
     };
 
     return (
-        <div className='configTestDiv' style={style}>
+        <div className='configTestDiv'>
             <TestInfo />
 
             <div className='configRightPanel'>
