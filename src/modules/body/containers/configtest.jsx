@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {connect} from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { startTestConfig } from '../../../store/slices/testConfigSlice';
-import { dispatchResetResult } from '../../../store/slices/resultSlice';
-import { selectTestNow, selectTimerID } from '../../../store/selectors/testSelectors';
+import { startTestConfig } from '../actions/startTest';
+import { dispatchResetResult } from '../actions/actionResult';
 import { useTestConfiguration } from '../hooks/useTestConfiguration';
 import Tests from '../../../store/qustions';
 import TestInfo from '../components/config/TestInfo';
@@ -15,13 +14,8 @@ import style from '../styles/style.css';
 /**
  * Компонент конфигурации теста
  */
-const Configtest = () => {
-    const dispatch = useDispatch();
+const Configtest = ({ test, timerID, choiceTestConfig, dispatchResetResult }) => {
     const history = useHistory();
-
-    // Используем мемоизированные селекторы
-    const testNow = useSelector(selectTestNow);
-    const timerID = useSelector(selectTimerID);
 
     const {
         difficulty,
@@ -31,25 +25,25 @@ const Configtest = () => {
         handleTimerToggle,
         createTestConfig,
         resetConfiguration,
-    } = useTestConfiguration(Tests, testNow);
+    } = useTestConfiguration(Tests, test.testNow);
 
     // Очистка при монтировании
     useEffect(() => {
         // Останавливаем таймер если есть
-        if (timerID) {
-            clearInterval(timerID);
+        if (timerID?.timerID) {
+            clearInterval(timerID.timerID);
         }
 
         // Очищаем событие на скроллинг
         window.onscroll = null;
 
         // Сбрасываем результаты
-        dispatch(dispatchResetResult());
+        dispatchResetResult();
 
         return () => {
             resetConfiguration();
         };
-    }, [timerID, dispatch, resetConfiguration]);
+    }, [timerID, dispatchResetResult, resetConfiguration]);
 
     /**
      * Обработчик начала теста
@@ -61,7 +55,7 @@ const Configtest = () => {
             return;
         }
 
-        dispatch(startTestConfig(config));
+        choiceTestConfig(config);
         history.push('/test');
     };
 
@@ -75,7 +69,7 @@ const Configtest = () => {
                 {/* Название теста */}
                 <div className='configTestSelect'>
                     <p>
-                        <b>{testNow}.</b>
+                        <b>{test.testNow}.</b>
                     </p>
                 </div>
 
@@ -101,4 +95,19 @@ const Configtest = () => {
     );
 };
 
-export default Configtest;
+const mapStateToProps = (store) => ({
+    test: store.test,
+    testConfig: store.testConfig.startTestConfig,
+    timerID: store.testConfig.startTestConfigTimerID,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    choiceTestConfig: (testConfig) => {
+        dispatch(startTestConfig(testConfig));
+    },
+    dispatchResetResult: () => {
+        dispatch(dispatchResetResult());
+    },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Configtest);

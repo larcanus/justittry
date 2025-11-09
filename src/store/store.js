@@ -1,23 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
-import testReducer from './slices/testSlice';
-import testConfigReducer from './slices/testConfigSlice';
-import resultReducer from './slices/resultSlice';
+import {createStore, applyMiddleware } from 'redux';
+import {rootReducer} from '../common/rootReducer';
+import thunk from 'redux-thunk';
 
-const store = configureStore({
-    reducer: {
-        test: testReducer,
-        testConfig: testConfigReducer,
-        result: resultReducer,
-    },
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                // Игнорируем проверку для timerID, так как это может быть функция
-                ignoredActions: ['testConfig/startTestConfigTimer'],
-                ignoredPaths: ['testConfig.startTestConfigTimerID'],
-            },
-        }),
-    devTools: process.env.NODE_ENV !== 'production',
-});
-
-export default store;
+export default createStore(rootReducer, applyMiddleware(thunk));
