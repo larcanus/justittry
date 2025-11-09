@@ -104,7 +104,7 @@
 }
 
 /* ============================================
-   Difficulty Selector
+   Difficulty Selector - Modern Design
    ============================================ */
 
 .test-config__difficulty {
@@ -131,7 +131,7 @@
 .test-config__difficulty-label {
     position: relative;
     color: #fff;
-    background-color: var(--color-secondary);
+    background: linear-gradient(135deg, #3a3f47 0%, #282c34 100%);
     font-size: var(--font-md);
     font-weight: 600;
     text-align: center;
@@ -139,40 +139,63 @@
     line-height: 60px;
     display: block;
     cursor: pointer;
-    border: 3px solid transparent;
+    border: 2px solid transparent;
     border-radius: var(--radius-md);
     transition: all var(--transition-normal);
     user-select: none;
+    overflow: hidden;
+}
+
+.test-config__difficulty-label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
 }
 
 .test-config__difficulty-label:hover {
-    background-color: var(--color-secondary-hover);
+    background: linear-gradient(135deg, #4a4f57 0%, #353941 100%);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.test-config__difficulty-label:hover::before {
+    left: 100%;
 }
 
 .test-config__difficulty-input:checked + .test-config__difficulty-label {
-    border-color: var(--color-text);
-    background-color: var(--color-primary);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
 }
 
 .test-config__difficulty-input:checked + .test-config__difficulty-label::after {
-    content: "\2713";
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    border-radius: var(--radius-round);
-    border: 2px solid var(--color-text);
-    background-color: var(--color-primary);
+    content: '';
     position: absolute;
-    top: -5px;
-    right: -5px;
-    font-size: var(--font-xs);
-    font-weight: 700;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.5) 100%);
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        height: 0;
+    }
+    to {
+        height: 100%;
+    }
 }
 
 /* ============================================
-   Actions Section
+   Actions Section - Modern Button Design
    ============================================ */
 
 .test-config__actions {
@@ -190,38 +213,53 @@
     align-items: stretch;
     border-radius: var(--radius-md);
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .test-config__button {
-    background-color: var(--color-primary);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
     color: white;
     text-align: center;
     text-decoration: none;
     font-weight: 700;
     cursor: pointer;
-    transition: background-color var(--transition-normal),
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
+    transition: all var(--transition-normal);
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.test-config__button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
 }
 
 .test-config__button:hover:not(:disabled) {
-    background-color: var(--color-primary-hover);
+    background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.test-config__button:hover:not(:disabled)::before {
+    left: 100%;
 }
 
 .test-config__button:active:not(:disabled) {
     transform: translateY(0);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
 .test-config__button:disabled {
-    background-color: var(--color-secondary);
+    background: linear-gradient(135deg, #4a4f57 0%, #353941 100%);
     cursor: not-allowed;
     opacity: 0.6;
     transform: none;
@@ -237,7 +275,7 @@
 
 .test-config__button-divider {
     width: 2px;
-    background-color: rgba(255, 255, 255, 0.3);
+    background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
     align-self: stretch;
 }
 
@@ -277,13 +315,14 @@
     position: absolute;
     top: calc(100% + 8px);
     right: 0;
-    background: var(--color-bg-light);
+    background: linear-gradient(135deg, #3a3f47 0%, #282c34 100%);
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     padding: var(--spacing-sm);
     min-width: 200px;
     z-index: 1000;
     animation: dropdownSlideIn 0.2s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @keyframes dropdownSlideIn {
@@ -313,7 +352,7 @@
 }
 
 .options-dropdown__item:hover {
-    background-color: var(--color-bg-gray);
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* ============================================
@@ -322,14 +361,14 @@
 
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
     .options-dropdown__checkbox {
-        --active: var(--color-active);
-        --active-inner: var(--color-active-inner);
-        --focus: 2px rgba(39, 94, 254, .3);
-        --border: var(--color-border);
-        --border-hover: var(--color-border-hover);
-        --background: #fff;
-        --disabled: var(--color-bg-disabled);
-        --disabled-inner: #E1E6F9;
+        --active: #667eea;
+        --active-inner: #fff;
+        --focus: 2px rgba(102, 126, 234, 0.3);
+        --border: rgba(255, 255, 255, 0.2);
+        --border-hover: rgba(102, 126, 234, 0.5);
+        --background: rgba(255, 255, 255, 0.05);
+        --disabled: rgba(255, 255, 255, 0.1);
+        --disabled-inner: rgba(255, 255, 255, 0.3);
 
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -404,13 +443,13 @@
     display: inline-block;
     vertical-align: top;
     cursor: pointer;
-    color: var(--color-text);
+    color: rgba(255, 255, 255, 0.9);
     user-select: none;
 }
 
 .options-dropdown__checkbox:disabled + .options-dropdown__label {
     cursor: not-allowed;
-    color: var(--color-text-muted);
+    color: rgba(255, 255, 255, 0.4);
 }
 
 /* ============================================
