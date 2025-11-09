@@ -9,6 +9,7 @@
 @import './components/test-carousel.css';
 @import './components/answers.css';
 @import './components/result.css';
+@import './components/share.css';
 
 /* Global Styles */
 * {
