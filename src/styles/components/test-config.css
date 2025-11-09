@@ -8,6 +8,8 @@
     max-width: var(--max-width-xl);
     margin: var(--spacing-lg) auto;
     padding: var(--spacing-lg);
+    justify-content: center;
+    align-items: flex-start;
 }
 
 /* ============================================
@@ -15,7 +17,7 @@
    ============================================ */
 
 .test-config__info {
-    flex: 1;
+    flex: 1 1 auto;
     min-width: 300px;
     max-width: 600px;
     padding: var(--spacing-xl);
@@ -461,6 +463,43 @@
 }
 
 /* ============================================
+   Large Screens (1600px+) - Better Centering
+   ============================================ */
+
+@media (min-width: 1600px) {
+    .test-config {
+        gap: clamp(var(--spacing-lg), 5vw, 120px);
+        padding: var(--spacing-lg) clamp(var(--spacing-lg), 8vw, 150px);
+    }
+
+    .test-config__info {
+        margin-right: auto;
+    }
+
+    .test-config__panel {
+        margin-left: auto;
+    }
+}
+
+@media (min-width: 1920px) {
+    .test-config {
+        gap: 120px;
+        padding: var(--spacing-lg) 150px;
+    }
+}
+
+/* ============================================
+   Desktop (1025px - 1599px) - Balanced Layout
+   ============================================ */
+
+@media (min-width: 1025px) and (max-width: 1599px) {
+    .test-config {
+        gap: clamp(var(--spacing-lg), 3vw, 60px);
+        padding: var(--spacing-lg) clamp(var(--spacing-lg), 4vw, 80px);
+    }
+}
+
+/* ============================================
    Mobile Responsive (< 768px)
    ============================================ */
 
@@ -522,6 +561,7 @@
 @media (max-width: 1024px) and (min-width: 769px) {
     .test-config {
         padding: var(--spacing-md);
+        gap: var(--spacing-lg);
     }
 
     .test-config__info {
