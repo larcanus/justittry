@@ -1,4 +1,5 @@
 import { ERROR_MESSAGES } from "./errorMessages";
+import log from "eslint-plugin-react/lib/util/log";
 
 /**
  * Типы ошибок валидации
@@ -60,7 +61,7 @@ export const validateTestConfig = (config) => {
     }
 
     // Проверка выбора теста
-    if (!config.testName || config.testName.trim() === '') {
+    if ( config.testName === 'Выберите тест' || !config.testName || config.testName.trim() === '') {
         errors.test = ERROR_MESSAGES.NO_TEST;
         isValid = false;
     }
