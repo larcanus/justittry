@@ -5,12 +5,13 @@ import {Link} from 'react-router-dom';
 class Headtop extends Component {
     render() {
         return (
-            <div className='divHeader'>
-                <Link to='/'><img className='imgHead' src={Just} alt='Justitry'/></Link>
+            <div className='header__top'>
+                <Link to='/'>
+                    <img className='header__logo' src={Just} alt='Justitry'/>
+                </Link>
             </div>
         );
     }
-};
-
+}
 
 export default Headtop;

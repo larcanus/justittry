@@ -10,8 +10,8 @@ import React from 'react';
 
 function App() {
     return checkUserAgent() ? (
-        <div className='App'>
-            <header className='App-header'>
+        <div>
+            <header className='header'>
                 <Headtop/>
             </header>
 
@@ -21,7 +21,7 @@ function App() {
                 </Route>
 
                 <Route exact path='/'>
-                    <aside className='navBarAside'>
+                    <aside>
                         <Navbar/>
                     </aside>
                     <main>

@@ -2,13 +2,14 @@ import React from 'react';
 
 const StubMobile = () => {
     return (
-        <div className='div-stub-root'>
-            <div className='div-stub-child'>
-                <p className='p-stub'>
+        <div className='stub'>
+            <div className='stub__content'>
+                <p className='stub__text'>
                     Мобильная версия отсутствует. Пока...
                 </p>
             </div>
         </div>
-    )
+    );
 }
+
 export default StubMobile;

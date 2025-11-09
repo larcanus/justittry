@@ -1,11 +1,14 @@
-/* Header Container */
-.App-header {
+/* ============================================
+   HEADER BLOCK
+   ============================================ */
+
+.header {
     background-color: #282c34;
     color: white;
 }
 
 /* Header Top Section */
-.divHeader {
+.header__top {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,7 +17,7 @@
     text-align: center;
 }
 
-.imgHead {
+.header__logo {
     max-height: 80px;
     max-width: 300px;
     height: auto;
@@ -23,8 +26,11 @@
     cursor: pointer;
 }
 
-/* Navbar Container */
-.divNavbar {
+/* ============================================
+   NAVBAR BLOCK
+   ============================================ */
+
+.navbar {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,14 +43,14 @@
 }
 
 /* Hide radio inputs */
-[id^=radio-] {
+.navbar__radio {
     position: absolute;
     opacity: 0;
     pointer-events: none;
 }
 
 /* Label styling */
-[id^=radio-] + label {
+.navbar__label {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -56,12 +62,12 @@
     position: relative;
 }
 
-[id^=radio-] + label:hover {
+.navbar__label:hover {
     background: rgba(100, 255, 218, 0.05);
     transform: translateY(-5px);
 }
 
-[id^=radio-] + label:hover::before {
+.navbar__label:hover::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -71,7 +77,7 @@
 }
 
 /* Test logo images */
-.logoBtnNavbar {
+.navbar__test-logo {
     display: block;
     width: 140px;
     height: 140px;
@@ -80,20 +86,20 @@
     filter: brightness(0.9) grayscale(0.2);
 }
 
-.logoBtnNavbar:hover {
+.navbar__test-logo:hover {
     filter: brightness(1.1) grayscale(0);
 }
 
 /* Selected state - Terminal/Code style */
-[id^=radio-]:checked + label {
+.navbar__radio:checked + .navbar__label {
     background: rgba(100, 255, 218, 0.04);
     border-radius: 4px;
     position: relative;
-    animation: pulse-glow 2s ease-in-out infinite;
+    animation: navbar-pulse-glow 2s ease-in-out infinite;
 }
 
 /* Static border effect */
-[id^=radio-]:checked + label::before {
+.navbar__radio:checked + .navbar__label::before {
     content: '';
     position: absolute;
     inset: -2px;
@@ -103,7 +109,7 @@
 }
 
 /* Corner brackets effect */
-[id^=radio-]:checked + label::after {
+.navbar__radio:checked + .navbar__label::after {
     content: '';
     position: absolute;
     inset: -6px;
@@ -122,44 +128,27 @@
     opacity: 0.4;
 }
 
-[id^=radio-]:checked + label .logoBtnNavbar {
+.navbar__radio:checked + .navbar__label .navbar__test-logo {
     filter: brightness(1.15) drop-shadow(0 0 12px rgba(100, 255, 218, 0.3));
     transform: scale(1.02);
 }
 
-/* Animations */
-@keyframes pulse-glow {
-    0%, 100% {
-        box-shadow:
-            0 0 15px rgba(100, 255, 218, 0.1),
-            inset 0 0 15px rgba(100, 255, 218, 0.03);
-    }
-    50% {
-        box-shadow:
-            0 0 20px rgba(100, 255, 218, 0.2),
-            inset 0 0 20px rgba(100, 255, 218, 0.05);
-    }
-}
-
 /* Focus styles for accessibility */
-[id^=radio-]:focus-visible + label {
+.navbar__radio:focus-visible + .navbar__label {
     outline: 2px solid #2881A3FF;
     outline-offset: 4px;
 }
 
-/* Share button section (if used) */
-.formBtnShare {
-    display: block;
-    margin-top: 50px;
+/* Aside navigation */
+.navbar__aside {
+    min-height: 250px;
 }
 
-.vk_share_button {
-    background-color: white;
-    border: none;
-}
+/* ============================================
+   STUB BLOCK (Mobile/Loading)
+   ============================================ */
 
-/* Stub/Loading states */
-.div-stub-root {
+.stub {
     background-color: #282c34;
     width: 100%;
     height: 100vh;
@@ -172,7 +161,7 @@
     z-index: 9999;
 }
 
-.div-stub-child {
+.stub__content {
     max-width: 570px;
     width: 90%;
     padding: 30px;
@@ -182,7 +171,7 @@
     box-shadow: 0 0 40px rgba(100, 255, 218, 0.3);
 }
 
-.p-stub {
+.stub__text {
     color: #2881A3FF;
     font-size: clamp(1.2em, 4vw, 2em);
     text-align: center;
@@ -191,28 +180,58 @@
     text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
 }
 
-/* Aside navigation (if used) */
-.navBarAside {
-    min-height: 250px;
+/* ============================================
+   SHARE BUTTON (if used)
+   ============================================ */
+
+.share-form {
+    display: block;
+    margin-top: 50px;
 }
 
-/* Mobile Responsive - Horizontal Scroll */
+.share-form__vk-button {
+    background-color: white;
+    border: none;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes navbar-pulse-glow {
+    0%, 100% {
+        box-shadow:
+            0 0 15px rgba(100, 255, 218, 0.1),
+            inset 0 0 15px rgba(100, 255, 218, 0.03);
+    }
+    50% {
+        box-shadow:
+            0 0 20px rgba(100, 255, 218, 0.2),
+            inset 0 0 20px rgba(100, 255, 218, 0.05);
+    }
+}
+
+/* ============================================
+   RESPONSIVE - TABLET
+   ============================================ */
+
 @media (max-width: 768px) {
-    .divHeader {
+    .header__top {
         min-height: 12vh;
         padding: 15px;
     }
-    .navBarAside {
-        min-height: 10px;
-    }
 
-    .imgHead {
+    .header__logo {
         max-height: 60px;
         max-width: 200px;
     }
 
+    .navbar__aside {
+        min-height: 10px;
+    }
+
     /* Horizontal scroll for mobile */
-    .divNavbar {
+    .navbar {
         justify-content: flex-start;
         gap: 20px;
         padding: 20px;
@@ -224,94 +243,101 @@
         scrollbar-color: #2881A3FF transparent;
     }
 
-    .divNavbar::-webkit-scrollbar {
+    .navbar::-webkit-scrollbar {
         height: 6px;
     }
 
-    .divNavbar::-webkit-scrollbar-track {
+    .navbar::-webkit-scrollbar-track {
         background: transparent;
     }
 
-    .divNavbar::-webkit-scrollbar-thumb {
+    .navbar::-webkit-scrollbar-thumb {
         background: #2881A3FF;
         border-radius: 3px;
     }
 
-    [id^=radio-] + label {
+    .navbar__label {
         flex: 0 0 auto;
         scroll-snap-align: center;
         padding: 8px;
     }
 
-    .logoBtnNavbar {
+    .navbar__test-logo {
         width: 100px;
         height: 100px;
     }
 
     /* Simplified effects for mobile */
-    [id^=radio-]:checked + label::after {
+    .navbar__radio:checked + .navbar__label::after {
         background-size: 15px 15px;
     }
 
-    [id^=radio-]:checked + label .logoBtnNavbar {
+    .navbar__radio:checked + .navbar__label .navbar__test-logo {
         transform: scale(0.98);
     }
 
-    .div-stub-child {
+    .stub__content {
         padding: 20px;
     }
 
-    .p-stub {
+    .stub__text {
         font-size: clamp(1em, 5vw, 1.5em);
     }
 }
 
+/* ============================================
+   RESPONSIVE - MOBILE
+   ============================================ */
+
 @media (max-width: 480px) {
-    .divHeader {
+    .header__top {
         min-height: 10vh;
         padding: 10px;
     }
 
-    .imgHead {
+    .header__logo {
         max-height: 50px;
         max-width: 180px;
     }
 
-    .navBarAside {
+    .navbar__aside {
         min-height: 10px;
     }
 
-    .divNavbar {
+    .navbar {
         gap: 15px;
         padding: 15px;
     }
 
-    [id^=radio-] + label {
+    .navbar__label {
         padding: 5px;
     }
 
-    .logoBtnNavbar {
+    .navbar__test-logo {
         width: 80px;
         height: 80px;
     }
 
-    [id^=radio-]:checked + label::after {
+    .navbar__radio:checked + .navbar__label::after {
         background-size: 12px 12px;
         inset: -4px;
     }
 
-    .div-stub-child {
+    .stub__content {
         padding: 15px;
         border-width: 2px;
     }
 }
 
-/* Accessibility - Reduced motion */
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
 @media (prefers-reduced-motion: reduce) {
-    .logoBtnNavbar,
-    [id^=radio-] + label,
-    [id^=radio-]:checked + label .logoBtnNavbar,
-    [id^=radio-]:checked + label::before {
+    .navbar__test-logo,
+    .navbar__label,
+    .navbar__radio:checked + .navbar__label .navbar__test-logo,
+    .navbar__radio:checked + .navbar__label::before {
         transition: none;
         animation: none;
     }
