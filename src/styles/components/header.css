@@ -51,13 +51,23 @@
     cursor: pointer;
     transition: all 0.3s ease;
     padding: 10px;
-    border-radius: 12px;
+    border-radius: 4px;
     background: transparent;
+    position: relative;
 }
 
 [id^=radio-] + label:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(100, 255, 218, 0.05);
     transform: translateY(-5px);
+}
+
+[id^=radio-] + label:hover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px dashed rgba(100, 255, 218, 0.3);
+    border-radius: 4px;
+    pointer-events: none;
 }
 
 /* Test logo images */
@@ -67,30 +77,91 @@
     height: 140px;
     object-fit: contain;
     transition: all 0.3s ease;
-    filter: brightness(0.9);
+    filter: brightness(0.9) grayscale(0.2);
 }
 
 .logoBtnNavbar:hover {
-    filter: brightness(1.1);
-    box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3);
+    filter: brightness(1.1) grayscale(0);
 }
 
-/* Selected state */
+/* Selected state - Terminal/Code style */
 [id^=radio-]:checked + label {
-    background: rgba(76, 175, 80, 0.1);
-    border-radius: 12px;
+    background: rgba(100, 255, 218, 0.04);
+    border-radius: 4px;
     position: relative;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Animated border effect */
+[id^=radio-]:checked + label::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    background: linear-gradient(135deg,
+        rgba(100, 255, 218, 0.4) 0%,
+        rgba(0, 191, 255, 0.4) 50%,
+        rgba(100, 255, 218, 0.4) 100%
+    ) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: border-flow 3s linear infinite;
+}
+
+/* Corner brackets effect */
+[id^=radio-]:checked + label::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    background:
+        linear-gradient(to right, #54d4b5 2px, transparent 2px) 0 0,
+        linear-gradient(to right, #54D4B5FF 2px, transparent 2px) 0 100%,
+        linear-gradient(to left, #54D4B5FF 2px, transparent 2px) 100% 0,
+        linear-gradient(to left, #54D4B5FF 2px, transparent 2px) 100% 100%,
+        linear-gradient(to bottom, #54D4B5FF 2px, transparent 2px) 0 0,
+        linear-gradient(to bottom, #54D4B5FF 2px, transparent 2px) 100% 0,
+        linear-gradient(to top, #54D4B5FF 2px, transparent 2px) 0 100%,
+        linear-gradient(to top, #54D4B5FF 2px, transparent 2px) 100% 100%;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 [id^=radio-]:checked + label .logoBtnNavbar {
-    filter: brightness(1.2);
-    box-shadow: 0 12px 32px rgba(76, 175, 80, 0.4);
-    transform: scale(1.05);
+    filter: brightness(1.15) drop-shadow(0 0 12px rgba(100, 255, 218, 0.3));
+    transform: scale(1.02);
+}
+
+/* Animations */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow:
+            0 0 15px rgba(100, 255, 218, 0.1),
+            inset 0 0 15px rgba(100, 255, 218, 0.03);
+    }
+    50% {
+        box-shadow:
+            0 0 20px rgba(100, 255, 218, 0.2),
+            inset 0 0 20px rgba(100, 255, 218, 0.05);
+    }
+}
+
+@keyframes border-flow {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 200% 200%;
+    }
 }
 
 /* Focus styles for accessibility */
 [id^=radio-]:focus-visible + label {
-    outline: 3px solid #4caf50;
+    outline: 2px solid #54D4B5FF;
     outline-offset: 4px;
 }
 
@@ -123,18 +194,19 @@
     max-width: 570px;
     width: 90%;
     padding: 30px;
-    border: #4caf50 solid 3px;
-    border-radius: 12px;
+    border: #54D4B5FF solid 3px;
+    border-radius: 4px;
     background: rgba(40, 44, 52, 0.95);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 40px rgba(100, 255, 218, 0.3);
 }
 
 .p-stub {
-    color: #ffffff;
+    color: #54D4B5FF;
     font-size: clamp(1.2em, 4vw, 2em);
     text-align: center;
     margin: 0;
     line-height: 1.4;
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
 }
 
 /* Aside navigation (if used) */
@@ -167,7 +239,7 @@
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: thin;
-        scrollbar-color: #4caf50 transparent;
+        scrollbar-color: #54D4B5FF transparent;
     }
 
     .divNavbar::-webkit-scrollbar {
@@ -179,7 +251,7 @@
     }
 
     .divNavbar::-webkit-scrollbar-thumb {
-        background: #4caf50;
+        background: #54D4B5FF;
         border-radius: 3px;
     }
 
@@ -194,10 +266,13 @@
         height: 100px;
     }
 
-    /* Remove vertical shift on mobile - use scale instead */
+    /* Simplified effects for mobile */
+    [id^=radio-]:checked + label::after {
+        background-size: 15px 15px;
+    }
+
     [id^=radio-]:checked + label .logoBtnNavbar {
-        transform: scale(0.95);
-        box-shadow: 0 8px 24px rgba(76, 175, 80, 0.4);
+        transform: scale(0.98);
     }
 
     .div-stub-child {
@@ -238,6 +313,11 @@
         height: 80px;
     }
 
+    [id^=radio-]:checked + label::after {
+        background-size: 12px 12px;
+        inset: -4px;
+    }
+
     .div-stub-child {
         padding: 15px;
         border-width: 2px;
@@ -248,7 +328,8 @@
 @media (prefers-reduced-motion: reduce) {
     .logoBtnNavbar,
     [id^=radio-] + label,
-    [id^=radio-]:checked + label .logoBtnNavbar {
+    [id^=radio-]:checked + label .logoBtnNavbar,
+    [id^=radio-]:checked + label::before {
         transition: none;
         animation: none;
     }
