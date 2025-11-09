@@ -2,6 +2,7 @@
 @import './variables.css';
 @import './utilities.css';
 @import './components/header.css';
+@import './components/footer.css';
 @import './components/button.css';
 @import './components/form.css';
 @import './components/test-config.css';
