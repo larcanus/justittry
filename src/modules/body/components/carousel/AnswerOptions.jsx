@@ -7,16 +7,16 @@ import { useAnswerHeightSync } from '../../hooks/useAnswerHeightSync';
  */
 const AnswerOptions = ({ slide, index, activeIndex }) => {
     const isActive = index === activeIndex;
-    
+
     // Синхронизируем высоту вариантов
     useAnswerHeightSync(activeIndex, index);
 
     const renderAnswerOption = (optionKey, optionValue) => (
         <label className={`labelAnswer ${getTextLengthClass(optionValue)}`}>
-            <input 
-                className='inputAnswer' 
-                id={`${index}${optionKey}`} 
-                type='checkbox' 
+            <input
+                className='inputAnswer'
+                id={`${index}${optionKey}`}
+                type='checkbox'
                 value={optionKey}
             />
             <span className='answerText'>
@@ -26,8 +26,8 @@ const AnswerOptions = ({ slide, index, activeIndex }) => {
     );
 
     return (
-        <li className={`carousel__slide_answers ${isActive ? 'carousel__slide_answers--active' : ''}`}>
-            <section className='sectionAnswers' id={index}>
+        <li className={`slide_answers ${isActive ? 'slide_answers--active' : ''}`}>
+            <section id={index}>
                 <div className='divAnswer'>
                     {renderAnswerOption('a1', slide.option.a1)}
                     {renderAnswerOption('a2', slide.option.a2)}

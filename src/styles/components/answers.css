@@ -139,6 +139,21 @@
     overflow-wrap: break-word;
 }
 
+
+.slide_answers {
+    display: none;
+    width: 100%;
+    max-width: 900px;
+    list-style-type: none;
+    text-align: center;
+    min-height: 200px;
+    box-sizing: border-box;
+}
+
+.slide_answers--active {
+    display: block;
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .labelAnswer {
