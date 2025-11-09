@@ -20,11 +20,7 @@
     height: auto;
     width: auto;
     object-fit: contain;
-    transition: transform 0.3s ease;
-}
-
-.imgHead:hover {
-    transform: scale(1.05);
+    cursor: pointer;
 }
 
 /* Navbar Container */
@@ -252,8 +248,7 @@
 @media (prefers-reduced-motion: reduce) {
     .logoBtnNavbar,
     [id^=radio-] + label,
-    [id^=radio-]:checked + label .logoBtnNavbar,
-    .imgHead {
+    [id^=radio-]:checked + label .logoBtnNavbar {
         transition: none;
         animation: none;
     }
