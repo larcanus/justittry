@@ -9,8 +9,8 @@ const CorrectAnswer = ({ slide, index, activeIndex, show }) => {
     const isActive = index === activeIndex;
 
     return (
-        <li className={`carousel__slide_cur_answer ${isActive ? 'carousel__slide_cur_answer--active' : ''}`}>
-            <div className='divAnswerFull'>
+        <li className={`correct-answer ${isActive ? 'correct-answer--active' : ''}`}>
+            <div className='correct-answer__content'>
                 <pre>
                     <code>{slide.answer}</code>
                 </pre>

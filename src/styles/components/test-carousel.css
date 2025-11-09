@@ -56,21 +56,6 @@
     display: block;
 }
 
-.carousel__slide_cur_answer {
-    display: none;
-    width: 100%;
-    max-width: 900px;
-    list-style-type: none;
-    text-align: center;
-    min-height: 100px;
-    margin: var(--spacing-lg, 20px) auto;
-    box-sizing: border-box;
-}
-
-.carousel__slide_cur_answer--active {
-    display: block;
-}
-
 
 /* Question Content */
 .carousel-slide__content {

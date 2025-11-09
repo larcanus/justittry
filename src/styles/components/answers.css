@@ -1,4 +1,4 @@
-/* Answers Section */
+/* Block: answers */
 .answers {
     width: 100%;
     max-width: var(--max-width-md);
@@ -15,8 +15,8 @@
     align-items: stretch;
 }
 
-/* Answer Container */
-.divAnswer {
+/* Block: answer-group */
+.answer-group {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -26,8 +26,8 @@
     align-items: stretch;
 }
 
-/* Answer Label */
-.labelAnswer {
+/* Block: answer-option */
+.answer-option {
     border-radius: 7px;
     color: black;
     min-height: 70px;
@@ -48,15 +48,15 @@
     height: auto;
 }
 
-.labelAnswer:hover {
+.answer-option:hover {
     border-color: #4caf50;
     background: #c5d9e8;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Answer Input (Checkbox/Radio) */
-.inputAnswer {
+/* Element: answer-option__input */
+.answer-option__input {
     margin-right: 12px;
     transform: scale(1.2);
     flex-shrink: 0;
@@ -64,8 +64,8 @@
     cursor: pointer;
 }
 
-/* Answer Text */
-.answerText {
+/* Element: answer-option__text */
+.answer-option__text {
     flex: 1;
     display: flex;
     align-items: center;
@@ -77,43 +77,44 @@
     white-space: normal;
 }
 
-/* Long Text Variants */
-.labelAnswer.long-text {
+/* Modifier: answer-option--long-text */
+.answer-option--long-text {
     min-height: 80px;
     padding-top: 12px;
 }
 
-.labelAnswer.long-text .answerText {
+.answer-option--long-text .answer-option__text {
     line-height: 1.5;
 }
 
-.labelAnswer.very-long-text {
+/* Modifier: answer-option--very-long-text */
+.answer-option--very-long-text {
     min-height: 90px;
     padding-top: 12px;
 }
 
-.labelAnswer.very-long-text .answerText {
+.answer-option--very-long-text .answer-option__text {
     max-height: none;
     align-items: flex-start;
     line-height: 1.5;
 }
 
 /* Scrollbar for very long text */
-.labelAnswer.very-long-text .answerText::-webkit-scrollbar {
+.answer-option--very-long-text .answer-option__text::-webkit-scrollbar {
     width: 4px;
 }
 
-.labelAnswer.very-long-text .answerText::-webkit-scrollbar-thumb {
+.answer-option--very-long-text .answer-option__text::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 2px;
 }
 
-.labelAnswer.very-long-text .answerText::-webkit-scrollbar-thumb:hover {
+.answer-option--very-long-text .answer-option__text::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
-/* Full Answer Display */
-.divAnswerFull {
+/* Block: answer-full */
+.answer-full {
     background-color: gainsboro;
     border-radius: 7px;
     word-break: break-word;
@@ -133,14 +134,14 @@
     line-height: 1.6;
 }
 
-.divAnswerFull * {
+.answer-full * {
     max-width: 100%;
     word-break: break-word;
     overflow-wrap: break-word;
 }
 
-
-.slide_answers {
+/* Block: slide-answers */
+.slide-answers {
     display: none;
     width: 100%;
     max-width: 900px;
@@ -150,13 +151,14 @@
     box-sizing: border-box;
 }
 
-.slide_answers--active {
+/* Modifier: slide-answers--active */
+.slide-answers--active {
     display: block;
 }
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-    .labelAnswer {
+    .answer-option {
         flex: 1 1 100%;
         min-height: 60px;
         padding: 12px;
@@ -164,12 +166,12 @@
         margin: 3px 0;
     }
 
-    .inputAnswer {
+    .answer-option__input {
         margin-right: 10px;
         transform: scale(1.1);
     }
 
-    .divAnswerFull {
+    .answer-full {
         padding: 15px;
         margin: 15px auto;
         font-size: 15px;
@@ -177,20 +179,79 @@
 }
 
 @media (max-width: 480px) {
-    .labelAnswer {
+    .answer-option {
         min-height: 50px;
         padding: 10px;
         font-size: 13px;
     }
 
-    .inputAnswer {
+    .answer-option__input {
         margin-right: 8px;
         transform: scale(1);
     }
 
-    .divAnswerFull {
+    .answer-full {
         padding: 12px;
         margin: 10px auto;
+        font-size: 14px;
+    }
+}
+
+/* Block: correct-answer */
+.correct-answer {
+    display: none;
+    width: 100%;
+    max-width: 900px;
+    list-style-type: none;
+    text-align: center;
+    min-height: 100px;
+    margin: var(--spacing-lg, 20px) auto;
+    box-sizing: border-box;
+}
+
+/* Modifier: correct-answer--active */
+.correct-answer--active {
+    display: block;
+}
+
+/* Element: correct-answer__content */
+.correct-answer__content {
+    background-color: gainsboro;
+    border-radius: 7px;
+    word-break: break-word;
+    color: black;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 16px;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    white-space: normal;
+    overflow: hidden;
+    line-height: 1.6;
+}
+
+.correct-answer__content * {
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Mobile Responsive for correct-answer */
+@media (max-width: 768px) {
+    .correct-answer__content {
+        padding: 15px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .correct-answer__content {
+        padding: 12px;
         font-size: 14px;
     }
 }
