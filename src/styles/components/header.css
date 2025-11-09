@@ -92,23 +92,14 @@
     animation: pulse-glow 2s ease-in-out infinite;
 }
 
-/* Animated border effect */
+/* Static border effect */
 [id^=radio-]:checked + label::before {
     content: '';
     position: absolute;
     inset: -2px;
-    border: 2px solid transparent;
+    border: 2px solid rgba(87, 221, 189, 0.35);
     border-radius: 4px;
-    background: linear-gradient(135deg,
-        rgba(100, 255, 218, 0.4) 0%,
-        rgba(0, 191, 255, 0.4) 50%,
-        rgba(100, 255, 218, 0.4) 100%
-    ) border-box;
-    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
     pointer-events: none;
-    animation: border-flow 3s linear infinite;
 }
 
 /* Corner brackets effect */
@@ -117,18 +108,18 @@
     position: absolute;
     inset: -6px;
     background:
-        linear-gradient(to right, #54d4b5 2px, transparent 2px) 0 0,
-        linear-gradient(to right, #54D4B5FF 2px, transparent 2px) 0 100%,
-        linear-gradient(to left, #54D4B5FF 2px, transparent 2px) 100% 0,
-        linear-gradient(to left, #54D4B5FF 2px, transparent 2px) 100% 100%,
-        linear-gradient(to bottom, #54D4B5FF 2px, transparent 2px) 0 0,
-        linear-gradient(to bottom, #54D4B5FF 2px, transparent 2px) 100% 0,
-        linear-gradient(to top, #54D4B5FF 2px, transparent 2px) 0 100%,
-        linear-gradient(to top, #54D4B5FF 2px, transparent 2px) 100% 100%;
+        linear-gradient(to right, #2881a3 2px, transparent 2px) 0 0,
+        linear-gradient(to right, #2881A3FF 2px, transparent 2px) 0 100%,
+        linear-gradient(to left, #2881A3FF 2px, transparent 2px) 100% 0,
+        linear-gradient(to left, #2881A3FF 2px, transparent 2px) 100% 100%,
+        linear-gradient(to bottom, #2881A3FF 2px, transparent 2px) 0 0,
+        linear-gradient(to bottom, #2881A3FF 2px, transparent 2px) 100% 0,
+        linear-gradient(to top, #2881A3FF 2px, transparent 2px) 0 100%,
+        linear-gradient(to top, #2881A3FF 2px, transparent 2px) 100% 100%;
     background-repeat: no-repeat;
     background-size: 20px 20px;
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
 [id^=radio-]:checked + label .logoBtnNavbar {
@@ -150,18 +141,9 @@
     }
 }
 
-@keyframes border-flow {
-    0% {
-        background-position: 0% 0%;
-    }
-    100% {
-        background-position: 200% 200%;
-    }
-}
-
 /* Focus styles for accessibility */
 [id^=radio-]:focus-visible + label {
-    outline: 2px solid #54D4B5FF;
+    outline: 2px solid #2881A3FF;
     outline-offset: 4px;
 }
 
@@ -194,14 +176,14 @@
     max-width: 570px;
     width: 90%;
     padding: 30px;
-    border: #54D4B5FF solid 3px;
+    border: #2881A3FF solid 3px;
     border-radius: 4px;
     background: rgba(40, 44, 52, 0.95);
     box-shadow: 0 0 40px rgba(100, 255, 218, 0.3);
 }
 
 .p-stub {
-    color: #54D4B5FF;
+    color: #2881A3FF;
     font-size: clamp(1.2em, 4vw, 2em);
     text-align: center;
     margin: 0;
@@ -239,7 +221,7 @@
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: thin;
-        scrollbar-color: #54D4B5FF transparent;
+        scrollbar-color: #2881A3FF transparent;
     }
 
     .divNavbar::-webkit-scrollbar {
@@ -251,7 +233,7 @@
     }
 
     .divNavbar::-webkit-scrollbar-thumb {
-        background: #54D4B5FF;
+        background: #2881A3FF;
         border-radius: 3px;
     }
 
