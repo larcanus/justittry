@@ -29,7 +29,8 @@ const Test = ({
     const history = useHistory();
 
     const handleTimeUp = () => {
-        const finishButton = document.getElementsByClassName('btnFinal')['0'];
+        const finishButton = document.getElementById('btnFinal')['0'];
+
         if (finishButton) {
             finishButton.click();
         }

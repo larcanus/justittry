@@ -58,8 +58,8 @@
     min-width: 200px;
 }
 
-/* Final Button */
-.btnFinal {
+/* Block: finish-button */
+.finish-button {
     margin: 40px auto;
     background-color: #4caf50;
     border: solid 1px #45a049;
@@ -76,16 +76,26 @@
     max-width: 300px;
 }
 
-.btnFinal:hover {
+.finish-button:hover {
     background-color: #282c34;
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.btnFinal:active {
+.finish-button:active {
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Modifier: finish-button--results */
+.finish-button--results {
+    background-color: #2196F3;
+    border-color: #1976D2;
+}
+
+.finish-button--results:hover {
+    background-color: #1976D2;
 }
 
 /* Start Test Button */
@@ -124,7 +134,7 @@
         font-size: var(--font-md);
     }
 
-    .btnFinal {
+    .finish-button {
         margin: 30px auto;
         padding: 10px 25px;
         font-size: 16px;
@@ -138,7 +148,7 @@
 }
 
 @media (max-width: 480px) {
-    .btnFinal {
+    .finish-button {
         margin: 20px auto;
         padding: 8px 20px;
         font-size: 14px;
