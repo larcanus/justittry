@@ -181,31 +181,41 @@
     gap: var(--spacing-md);
 }
 
+.test-config__button-wrapper {
+    position: relative;
+}
+
+.test-config__button-container {
+    display: flex;
+    align-items: stretch;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
 .test-config__button {
     background-color: var(--color-primary);
-    border: solid 1px var(--color-primary-hover);
-    border-radius: var(--radius-md);
+    border: none;
     color: white;
-    padding: var(--spacing-sm) var(--spacing-xl);
     text-align: center;
     text-decoration: none;
-    font-size: var(--font-lg);
     font-weight: 700;
     cursor: pointer;
     transition: background-color var(--transition-normal),
                 transform 0.2s ease,
                 box-shadow 0.2s ease;
-    width: 100%;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.test-config__button:hover {
+.test-config__button:hover:not(:disabled) {
     background-color: var(--color-primary-hover);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
-.test-config__button:active {
+.test-config__button:active:not(:disabled) {
     transform: translateY(0);
     box-shadow: var(--shadow-sm);
 }
@@ -215,6 +225,34 @@
     cursor: not-allowed;
     opacity: 0.6;
     transform: none;
+}
+
+.test-config__button-text {
+    flex: 1;
+    padding: var(--spacing-sm) var(--spacing-xl);
+    font-size: var(--font-lg);
+    border-top-left-radius: var(--radius-md);
+    border-bottom-left-radius: var(--radius-md);
+}
+
+.test-config__button-divider {
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.3);
+    align-self: stretch;
+}
+
+.test-config__button-options {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-top-right-radius: var(--radius-md);
+    border-bottom-right-radius: var(--radius-md);
+    min-width: 50px;
+}
+
+.test-config__button-icon {
+    width: 20px;
+    height: 20px;
+    color: white;
+    display: block;
 }
 
 .test-config__errors {
@@ -232,35 +270,58 @@
 }
 
 /* ============================================
-   Options Section (Timer Toggle)
+   Options Dropdown
    ============================================ */
 
-.test-config__options {
-    padding: var(--spacing-md);
+.options-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
     background: var(--color-bg-light);
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-sm);
+    min-width: 200px;
+    z-index: 1000;
+    animation: dropdownSlideIn 0.2s ease-out;
 }
 
-.test-config__option {
+@keyframes dropdownSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.options-dropdown__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.options-dropdown__item {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-normal);
 }
 
-.test-config__option-form {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    width: 100%;
+.options-dropdown__item:hover {
+    background-color: var(--color-bg-gray);
 }
 
 /* ============================================
-   Custom Checkbox Styles
+   Custom Checkbox Styles (for dropdown)
    ============================================ */
 
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
-    .test-config__checkbox {
+    .options-dropdown__checkbox {
         --active: var(--color-active);
         --active-inner: var(--color-active-inner);
         --focus: 2px rgba(39, 94, 254, .3);
@@ -290,7 +351,7 @@
         flex-shrink: 0;
     }
 
-    .test-config__checkbox::after {
+    .options-dropdown__checkbox::after {
         content: "";
         display: inline-block;
         position: absolute;
@@ -307,37 +368,37 @@
                     opacity 0.2s;
     }
 
-    .test-config__checkbox:checked {
+    .options-dropdown__checkbox:checked {
         --b: var(--active);
         --bc: var(--active);
     }
 
-    .test-config__checkbox:checked::after {
+    .options-dropdown__checkbox:checked::after {
         opacity: 1;
         transform: rotate(43deg);
     }
 
-    .test-config__checkbox:disabled {
+    .options-dropdown__checkbox:disabled {
         --b: var(--disabled);
         cursor: not-allowed;
         opacity: 0.9;
     }
 
-    .test-config__checkbox:hover:not(:checked):not(:disabled) {
+    .options-dropdown__checkbox:hover:not(:checked):not(:disabled) {
         --bc: var(--border-hover);
     }
 
-    .test-config__checkbox:focus {
+    .options-dropdown__checkbox:focus {
         box-shadow: 0 0 0 var(--focus);
     }
 
-    .test-config__checkbox:focus-visible {
+    .options-dropdown__checkbox:focus-visible {
         outline: 2px solid var(--color-active);
         outline-offset: 2px;
     }
 }
 
-.test-config__checkbox-label {
+.options-dropdown__label {
     font-size: var(--font-base);
     line-height: 21px;
     display: inline-block;
@@ -347,9 +408,17 @@
     user-select: none;
 }
 
-.test-config__checkbox:disabled + .test-config__checkbox-label {
+.options-dropdown__checkbox:disabled + .options-dropdown__label {
     cursor: not-allowed;
     color: var(--color-text-muted);
+}
+
+/* ============================================
+   Options Section (Hidden - kept for compatibility)
+   ============================================ */
+
+.test-config__options {
+    display: none;
 }
 
 /* ============================================
@@ -388,9 +457,9 @@
         line-height: 50px;
     }
 
-    .test-config__button {
-        padding: var(--spacing-sm) var(--spacing-lg);
+    .test-config__button-text {
         font-size: var(--font-md);
+        padding: var(--spacing-sm) var(--spacing-lg);
     }
 
     .test-config__header {
@@ -399,6 +468,11 @@
 
     .test-config__header-title {
         font-size: var(--font-md);
+    }
+
+    .options-dropdown {
+        right: 0;
+        left: auto;
     }
 }
 

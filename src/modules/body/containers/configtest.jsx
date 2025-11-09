@@ -8,7 +8,6 @@ import { getCurrentTest, getTimerID } from '../selectors/testSelectors';
 import Tests from '../../../store/qustions';
 import TestInfo from '../components/config/TestInfo';
 import DifficultySelector from '../components/config/DifficultySelector';
-import TestOptions from '../components/config/TestOptions';
 import ConfigActions from '../components/config/ConfigActions';
 
 /**
@@ -72,6 +71,8 @@ const Configtest = ({
         history.push('/test');
     };
 
+    console.log('Configtest validationErrors:', validationErrors);
+
     return (
         <div className='test-config'>
             <TestInfo />
@@ -91,9 +92,6 @@ const Configtest = ({
                 <ConfigActions
                     onStart={handleStartTest}
                     validationErrors={validationErrors}
-                />
-
-                <TestOptions
                     withoutTimer={withoutTimer}
                     onTimerToggle={handleTimerToggle}
                 />

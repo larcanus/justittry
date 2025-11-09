@@ -1,3 +1,5 @@
+import { ERROR_MESSAGES } from "./errorMessages";
+
 /**
  * Типы ошибок валидации
  */
@@ -13,7 +15,7 @@ export const ValidationErrors = {
  */
 export const validateDifficulty = (difficulty) => {
     const isValid = Boolean(difficulty);
-    
+
     return {
         isValid,
         error: isValid ? null : ValidationErrors.NO_DIFFICULTY,
@@ -28,7 +30,7 @@ export const validateDifficulty = (difficulty) => {
  */
 export const validateTestSelection = (testName) => {
     const isValid = Boolean(testName) && testName !== 'Выберите тест';
-    
+
     return {
         isValid,
         error: isValid ? null : ValidationErrors.NO_TEST,
@@ -37,27 +39,47 @@ export const validateTestSelection = (testName) => {
 };
 
 /**
- * Валидирует всю конфигурацию теста
- * @param {object} config - Конфигурация теста
- * @returns {object} Результат валидации
+ * Валидирует конфигурацию теста перед запуском
+ * @param {Object} config - Конфигурация теста
+ * @param {string} config.difficulty - Уровень сложности
+ * @param {string} config.testName - Название теста
+ * @returns {Object} Результат валидации
  */
 export const validateTestConfig = (config) => {
-    const { difficulty, testName } = config;
-    
-    const difficultyValidation = validateDifficulty(difficulty);
-    const testValidation = validateTestSelection(testName);
-    
-    const isValid = difficultyValidation.isValid && testValidation.isValid;
-    
+    const errors = {
+        difficulty: null,
+        test: null,
+    };
+
+    let isValid = true;
+
+    // Проверка уровня сложности
+    if (!config.difficulty || config.difficulty.trim() === '') {
+        errors.difficulty = ERROR_MESSAGES.NO_DIFFICULTY;
+        isValid = false;
+    }
+
+    // Проверка выбора теста
+    if (!config.testName || config.testName.trim() === '') {
+        errors.test = ERROR_MESSAGES.NO_TEST;
+        isValid = false;
+    }
+
     return {
         isValid,
-        errors: {
-            difficulty: difficultyValidation.error,
-            test: testValidation.error,
-        },
-        messages: {
-            difficulty: difficultyValidation.message,
-            test: testValidation.message,
-        },
+        errors,
     };
+};
+
+/**
+ * Проверяет, есть ли ошибки валидации
+ * @param {Object} errors - Объект с ошибками
+ * @returns {boolean} true если есть ошибки
+ */
+export const hasValidationErrors = (errors) => {
+    if (!errors || typeof errors !== 'object') {
+        return false;
+    }
+
+    return Object.values(errors).some(error => error !== null && error !== '');
 };

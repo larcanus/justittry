@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { generateRandomQuestions, extractShortTestName } from '../utils/questionGenerator';
 import { validateTestConfig } from '../utils/testConfigValidator';
+import { ERROR_MESSAGES } from '../utils/errorMessages';
 
 /**
  * Хук для управления конфигурацией теста
@@ -63,6 +64,10 @@ export const useTestConfiguration = (testData, currentTestName) => {
 
         if (questions.length === 0) {
             console.error('Не удалось сгенерировать вопросы');
+            setValidationErrors({
+                difficulty: null,
+                test: ERROR_MESSAGES.NO_QUESTIONS,
+            });
             return null;
         }
 
