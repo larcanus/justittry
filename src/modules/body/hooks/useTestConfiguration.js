@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { generateRandomQuestions, extractShortTestName } from '../utils/questionGenerator';
 import { validateTestConfig } from '../utils/testConfigValidator';
 
@@ -15,6 +15,15 @@ export const useTestConfiguration = (testData, currentTestName) => {
         difficulty: null,
         test: null,
     });
+
+    /**
+     * Очищает ошибку валидации теста при изменении выбранного теста
+     */
+    useEffect(() => {
+        if (currentTestName) {
+            setValidationErrors(prev => ({ ...prev, test: null }));
+        }
+    }, [currentTestName]);
 
     /**
      * Обработчик изменения сложности
