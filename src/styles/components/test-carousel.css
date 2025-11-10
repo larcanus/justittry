@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow-x: hidden;
 }
 
 .test__content {
@@ -13,6 +14,7 @@
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 100px);
+    overflow-x: hidden;
 }
 
 .test__wrapper {
@@ -25,6 +27,8 @@
     align-items: center;
     padding: var(--spacing-lg, 20px);
     box-sizing: border-box;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 /* Carousel */
@@ -38,6 +42,7 @@
     margin: var(--spacing-lg, 20px) auto;
     padding: var(--spacing-lg, 20px);
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 /* Slides */
@@ -50,12 +55,12 @@
     min-height: 300px;
     margin: var(--spacing-lg, 20px) auto;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .carousel__slide--active {
     display: block;
 }
-
 
 /* Question Content */
 .carousel-slide__content {
@@ -74,26 +79,27 @@
     border-radius: var(--radius-lg, 12px);
     position: relative;
     overflow-y: auto;
-    overflow-x: auto;
+    overflow-x: hidden;
     box-sizing: border-box;
-    /* Улучшенная прокрутка на мобильных */
     -webkit-overflow-scrolling: touch;
 }
 
 .carousel-slide__content pre {
     margin: 0;
-    white-space: pre;
-    word-wrap: normal;
+    white-space: pre-wrap;
+    word-wrap: break-word;
     position: relative;
     overflow-x: auto;
-    /* Улучшенная прокрутка кода */
     -webkit-overflow-scrolling: touch;
+    max-width: 100%;
 }
 
 .carousel-slide__content code {
     font-size: var(--font-base, 14px);
     line-height: 1.4;
     display: block;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .p-number-question {
@@ -211,31 +217,43 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+    .test {
+        overflow-x: hidden;
+    }
+
     .test__wrapper {
         padding: var(--spacing-sm, 8px);
         margin-top: var(--spacing-sm, 8px);
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
     }
 
     .carousel {
         padding: var(--spacing-sm, 8px);
-        margin: var(--spacing-sm, 8px) auto;
-        /* Убираем фиксированную высоту для мобильных */
+        margin: var(--spacing-sm, 8px) 0;
         min-height: auto;
-        max-height: calc(100vh - 60px);
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
     }
 
     .carousel__slide {
-        margin: var(--spacing-sm, 8px) auto;
+        margin: var(--spacing-sm, 8px) 0;
         min-height: auto;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        overflow-x: hidden;
     }
 
     .carousel-slide__content {
-        /* Адаптивная высота под контент */
         min-height: auto;
-        max-height: calc(100vh - 280px);
         padding: var(--spacing-md, 12px);
         font-size: var(--font-sm, 14px);
-        margin: var(--spacing-sm, 8px) auto;
+        margin: var(--spacing-sm, 8px) 0;
+        width: 100%;
+        max-width: 100%;
     }
 
     .carousel-slide__content code {
@@ -244,7 +262,6 @@
     }
 
     .carousel-slide__content pre {
-        /* Горизонтальная прокрутка для длинного кода */
         overflow-x: auto;
         max-width: 100%;
     }
@@ -258,7 +275,6 @@
 
     .carousel__arrow {
         padding: var(--spacing-xs, 6px);
-        /* Позиционируем стрелки ниже для удобства */
         top: 45%;
     }
 
@@ -301,31 +317,33 @@
 
 @media (max-width: 480px) {
     .test__wrapper {
-        padding: var(--spacing-xs, 5px);
-        margin-top: var(--spacing-xs, 5px);
+        padding: var(--spacing-xs, 4px);
+        margin-top: var(--spacing-xs, 4px);
+        width: 100%;
+        max-width: 100vw;
     }
 
     .carousel {
-        padding: var(--spacing-xs, 5px);
-        margin: var(--spacing-xs, 5px) auto;
-        /* Убираем фиксированную высоту */
+        padding: var(--spacing-xs, 4px);
+        margin: var(--spacing-xs, 4px) 0;
         min-height: auto;
-        max-height: calc(100vh - 50px);
+        width: 100%;
     }
 
     .carousel__slide {
-        margin: var(--spacing-xs, 5px) auto;
+        margin: var(--spacing-xs, 4px) 0;
         min-height: auto;
+        width: 100%;
+        padding: 0;
     }
 
     .carousel-slide__content {
-        /* Максимально адаптивная высота */
         min-height: auto;
-        max-height: calc(100vh - 250px);
         padding: var(--spacing-sm, 8px);
         font-size: var(--font-xs, 12px);
-        margin: var(--spacing-xs, 5px) auto;
+        margin: var(--spacing-xs, 4px) 0;
         border-radius: var(--radius-md, 8px);
+        width: 100%;
     }
 
     .carousel-slide__content code {
@@ -334,12 +352,12 @@
     }
 
     .carousel-slide__content pre {
-        padding: 0.5em;
+        padding: 0.4em;
     }
 
     .timer {
         font-size: 0.95rem;
-        margin: var(--spacing-xs, 5px) 0;
+        margin: var(--spacing-xs, 4px) 0;
         padding: var(--spacing-xs, 4px);
         top: 3px;
     }
@@ -351,11 +369,11 @@
     }
 
     .carousel__arrow--left {
-        left: 3px;
+        left: 2px;
     }
 
     .carousel__arrow--right {
-        right: 3px;
+        right: 2px;
     }
 
     .carousel__arrow img {
@@ -377,7 +395,7 @@
 
     .carousel__indicators {
         gap: 5px;
-        padding: 0 3px;
+        padding: 0 2px;
         margin-top: var(--spacing-xs, 3px);
     }
 
@@ -387,12 +405,28 @@
     }
 }
 
-/* Очень маленькие экраны */
+/* Very small screens */
 @media (max-width: 360px) {
+    .test__wrapper {
+        padding: 2px;
+        margin-top: 2px;
+    }
+
+    .carousel {
+        padding: 2px;
+        margin: 2px 0;
+    }
+
+    .carousel__slide {
+        margin: 2px 0;
+        padding: 0;
+    }
+
     .carousel-slide__content {
-        max-height: calc(100vh - 220px);
         padding: var(--spacing-xs, 6px);
         font-size: 11px;
+        width: 100%;
+        margin: 2px 0;
     }
 
     .carousel-slide__content code {
