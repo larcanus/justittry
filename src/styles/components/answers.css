@@ -115,7 +115,6 @@
 
 /* Block: answer-full */
 .answer-full {
-    background-color: gainsboro;
     border-radius: 7px;
     word-break: break-word;
     color: black;
@@ -204,7 +203,7 @@
     max-width: 900px;
     list-style-type: none;
     text-align: center;
-    min-height: 100px;
+    min-height: 10px;
     margin: var(--spacing-lg, 20px) auto;
     box-sizing: border-box;
 }
@@ -216,13 +215,11 @@
 
 /* Element: correct-answer__content */
 .correct-answer__content {
-    background-color: gainsboro;
-    border-radius: 7px;
     word-break: break-word;
     color: black;
     width: 100%;
     max-width: 800px;
-    padding: 20px;
+    padding: 5px;
     margin: 0 auto;
     text-align: left;
     font-size: 16px;
@@ -244,14 +241,14 @@
 /* Mobile Responsive for correct-answer */
 @media (max-width: 768px) {
     .correct-answer__content {
-        padding: 15px;
+        padding: 5px;
         font-size: 15px;
     }
 }
 
 @media (max-width: 480px) {
     .correct-answer__content {
-        padding: 12px;
+        padding: 3px;
         font-size: 14px;
     }
 }

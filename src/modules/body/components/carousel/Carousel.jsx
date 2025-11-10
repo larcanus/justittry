@@ -155,6 +155,7 @@ const Carousel = ({ slides, testName, diff, showingAnswers }) => {
                     index={index}
                     activeIndex={activeIndex}
                     show={showCorrectAnswers}
+                    testName={testName}
                 />
             ))}
 
