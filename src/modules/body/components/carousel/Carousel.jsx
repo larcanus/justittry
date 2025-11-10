@@ -49,7 +49,7 @@ const Carousel = ({ slides, testName, diff, showingAnswers }) => {
                         block: 'start'
                     });
                 }
-            }, 2300);
+            }, 10000);
         };
 
         window.addEventListener('scroll', handleScroll);

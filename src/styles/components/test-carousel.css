@@ -74,19 +74,26 @@
     border-radius: var(--radius-lg, 12px);
     position: relative;
     overflow-y: auto;
+    overflow-x: auto;
     box-sizing: border-box;
+    /* Улучшенная прокрутка на мобильных */
+    -webkit-overflow-scrolling: touch;
 }
 
 .carousel-slide__content pre {
     margin: 0;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    white-space: pre;
+    word-wrap: normal;
     position: relative;
+    overflow-x: auto;
+    /* Улучшенная прокрутка кода */
+    -webkit-overflow-scrolling: touch;
 }
 
 .carousel-slide__content code {
     font-size: var(--font-base, 14px);
     line-height: 1.4;
+    display: block;
 }
 
 .p-number-question {
@@ -97,6 +104,7 @@
     padding: 4px 8px;
     font-size: var(--font-xs, 12px);
     color: var(--color-text-light, #888);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: var(--radius-sm, 4px);
     font-weight: normal;
     z-index: 5;
@@ -204,42 +212,62 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .test__wrapper {
-        padding: var(--spacing-md, 10px);
+        padding: var(--spacing-sm, 8px);
+        margin-top: var(--spacing-sm, 8px);
     }
 
     .carousel {
-        padding: var(--spacing-md, 10px);
-        min-height: 90vh;
+        padding: var(--spacing-sm, 8px);
+        margin: var(--spacing-sm, 8px) auto;
+        /* Убираем фиксированную высоту для мобильных */
+        min-height: auto;
+        max-height: calc(100vh - 60px);
+    }
+
+    .carousel__slide {
+        margin: var(--spacing-sm, 8px) auto;
+        min-height: auto;
     }
 
     .carousel-slide__content {
-        min-height: 150px;
-        max-height: 300px;
-        padding: var(--spacing-md, 15px);
-        font-size: var(--font-base, 16px);
-        margin: var(--spacing-md, 10px) auto;
+        /* Адаптивная высота под контент */
+        min-height: auto;
+        max-height: calc(100vh - 280px);
+        padding: var(--spacing-md, 12px);
+        font-size: var(--font-sm, 14px);
+        margin: var(--spacing-sm, 8px) auto;
     }
 
     .carousel-slide__content code {
-        font-size: var(--font-sm, 12px);
+        font-size: var(--font-xs, 11px);
+        line-height: 1.3;
+    }
+
+    .carousel-slide__content pre {
+        /* Горизонтальная прокрутка для длинного кода */
+        overflow-x: auto;
+        max-width: 100%;
     }
 
     .timer {
-        font-size: var(--font-lg, 1.2rem);
-        margin: var(--spacing-md, 10px) 0;
-        padding: var(--spacing-sm, 8px);
+        font-size: var(--font-lg, 1.1rem);
+        margin: var(--spacing-sm, 8px) 0;
+        padding: var(--spacing-xs, 6px);
+        top: 5px;
     }
 
     .carousel__arrow {
-        padding: var(--spacing-sm, 8px);
+        padding: var(--spacing-xs, 6px);
+        /* Позиционируем стрелки ниже для удобства */
+        top: 45%;
     }
 
     .carousel__arrow--left {
-        left: var(--spacing-sm, 10px);
+        left: var(--spacing-xs, 5px);
     }
 
     .carousel__arrow--right {
-        right: var(--spacing-sm, 10px);
+        right: var(--spacing-xs, 5px);
     }
 
     .carousel__arrow img {
@@ -248,24 +276,25 @@
     }
 
     .inputAnswer {
-        margin-right: var(--spacing-sm, 10px);
+        margin-right: var(--spacing-sm, 8px);
         transform: scale(1.1);
     }
 
     .p-number-question {
-        bottom: 6px;
-        right: 10px;
-        font-size: 11px;
-        padding: 3px 6px;
+        bottom: 4px;
+        right: 8px;
+        font-size: 10px;
+        padding: 2px 5px;
     }
 
     .carousel__indicators {
-        gap: 8px;
+        gap: 6px;
         padding: 0 5px;
+        margin-top: var(--spacing-xs, 5px);
     }
 
     .carousel__indicator {
-        width: 20px;
+        width: 18px;
         height: 2.5px;
     }
 }
@@ -273,29 +302,60 @@
 @media (max-width: 480px) {
     .test__wrapper {
         padding: var(--spacing-xs, 5px);
+        margin-top: var(--spacing-xs, 5px);
     }
 
     .carousel {
         padding: var(--spacing-xs, 5px);
-        min-height: 95vh;
+        margin: var(--spacing-xs, 5px) auto;
+        /* Убираем фиксированную высоту */
+        min-height: auto;
+        max-height: calc(100vh - 50px);
+    }
+
+    .carousel__slide {
+        margin: var(--spacing-xs, 5px) auto;
+        min-height: auto;
     }
 
     .carousel-slide__content {
-        min-height: 120px;
-        max-height: 250px;
-        padding: var(--spacing-sm, 10px);
-        font-size: var(--font-sm, 13px);
+        /* Максимально адаптивная высота */
+        min-height: auto;
+        max-height: calc(100vh - 250px);
+        padding: var(--spacing-sm, 8px);
+        font-size: var(--font-xs, 12px);
         margin: var(--spacing-xs, 5px) auto;
+        border-radius: var(--radius-md, 8px);
+    }
+
+    .carousel-slide__content code {
+        font-size: 10px;
+        line-height: 1.25;
+    }
+
+    .carousel-slide__content pre {
+        padding: 0.5em;
     }
 
     .timer {
-        font-size: 1rem;
+        font-size: 0.95rem;
         margin: var(--spacing-xs, 5px) 0;
-        padding: var(--spacing-xs, 5px);
+        padding: var(--spacing-xs, 4px);
+        top: 3px;
     }
 
     .carousel__arrow {
-        padding: var(--spacing-xs, 6px);
+        padding: var(--spacing-xs, 4px);
+        top: 40%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .carousel__arrow--left {
+        left: 3px;
+    }
+
+    .carousel__arrow--right {
+        right: 3px;
     }
 
     .carousel__arrow img {
@@ -304,16 +364,47 @@
     }
 
     .inputAnswer {
-        margin-right: var(--spacing-sm, 8px);
+        margin-right: var(--spacing-xs, 6px);
         transform: scale(1);
     }
 
+    .p-number-question {
+        bottom: 3px;
+        right: 6px;
+        font-size: 9px;
+        padding: 2px 4px;
+    }
+
     .carousel__indicators {
-        gap: 6px;
+        gap: 5px;
+        padding: 0 3px;
+        margin-top: var(--spacing-xs, 3px);
     }
 
     .carousel__indicator {
-        width: 16px;
+        width: 14px;
         height: 2px;
+    }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 360px) {
+    .carousel-slide__content {
+        max-height: calc(100vh - 220px);
+        padding: var(--spacing-xs, 6px);
+        font-size: 11px;
+    }
+
+    .carousel-slide__content code {
+        font-size: 9px;
+    }
+
+    .timer {
+        font-size: 0.85rem;
+    }
+
+    .carousel__arrow img {
+        width: 18px;
+        height: 18px;
     }
 }

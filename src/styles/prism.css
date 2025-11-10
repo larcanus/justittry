@@ -107,7 +107,7 @@ pre[class*="language-"] {
 .language-css .token.string,
 .style .token.string {
 	color: #9a6e3a;
-	background: none; /* Убрали фон у операторов */
+	background: none;
 }
 
 .token.atrule,
@@ -137,5 +137,35 @@ pre[class*="language-"] {
 
 .token.entity {
 	cursor: help;
+}
+
+/* Mobile adaptations for PrismJS */
+@media (max-width: 768px) {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		font-size: 0.85em;
+		line-height: 1.4;
+		tab-size: 2;
+		-moz-tab-size: 2;
+		-o-tab-size: 2;
+	}
+
+	pre[class*="language-"] {
+		padding: 0.75em;
+		margin: 0.25em 0;
+	}
+}
+
+@media (max-width: 480px) {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		font-size: 0.75em;
+		line-height: 1.3;
+	}
+
+	pre[class*="language-"] {
+		padding: 0.5em;
+		margin: 0.15em 0;
+	}
 }
 
