@@ -58,44 +58,108 @@
     min-width: 200px;
 }
 
-/* Block: finish-button */
+/* ============================================
+   Finish Button
+   ============================================ */
 .finish-button {
-    margin: 40px auto;
-    background-color: #4caf50;
-    border: solid 1px #45a049;
-    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: var(--spacing-xl) auto;
+    padding: 0;
+    width: 100%;
+    max-width: 400px;
+}
+
+.finish-button__container {
+    display: flex;
+    align-items: stretch;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    transition: box-shadow var(--transition-normal);
+}
+
+.finish-button__main {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
     color: white;
-    padding: 12px 30px;
     text-align: center;
     text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
-    transition: all 0.4s ease;
+    font-weight: 700;
     cursor: pointer;
-    display: block;
-    max-width: 300px;
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--font-lg);
+    min-height: 56px;
 }
 
-.finish-button:hover {
-    background-color: #282c34;
-    color: white;
+.finish-button__main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.finish-button__main:hover:not(:disabled) {
+    background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
-.finish-button:active {
+.finish-button__main:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.finish-button__main:active:not(:disabled) {
     transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
-/* Modifier: finish-button--results */
-.finish-button--results {
-    background-color: #2196F3;
-    border-color: #1976D2;
+.finish-button__main:disabled {
+    background: linear-gradient(135deg, #4a4f57 0%, #353941 100%);
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
 }
 
-.finish-button--results:hover {
-    background-color: #1976D2;
+.finish-button__text {
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.5px;
+}
+
+/* finish-button--results (Вернуться к результатам) */
+.finish-button__main--results {
+    background: linear-gradient(135deg, #51a3e4 0%, #9063bf 100%);
+}
+
+.finish-button__main--results::before {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+}
+
+.finish-button__main--results:hover:not(:disabled) {
+    background: linear-gradient(135deg, #1e88e5 0%, #9063bf 100%);
+    box-shadow: 0 6px 20px rgba(33, 150, 243, 0.5);
+}
+
+.finish-button__main--results:active:not(:disabled) {
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.4);
+}
+
+.finish-button__container:has(.finish-button__main--results):hover {
+    box-shadow: 0 6px 20px rgba(33, 150, 243, 0.3);
 }
 
 /* Start Test Button */
@@ -126,7 +190,9 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Mobile */
+/* ============================================
+   Mobile Responsive
+   ============================================ */
 @media (max-width: 768px) {
     .btn {
         min-width: 100%;
@@ -135,10 +201,19 @@
     }
 
     .finish-button {
-        margin: 30px auto;
-        padding: 10px 25px;
-        font-size: 16px;
-        max-width: 250px;
+        margin: var(--spacing-lg) auto;
+        max-width: 100%;
+        padding: 0 var(--spacing-md);
+    }
+
+    .finish-button__main {
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: var(--font-md);
+        min-height: 50px;
+    }
+
+    .finish-button__container {
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
     }
 
     .startTest {
@@ -149,14 +224,51 @@
 
 @media (max-width: 480px) {
     .finish-button {
-        margin: 20px auto;
-        padding: 8px 20px;
-        font-size: 14px;
-        max-width: 200px;
+        margin: var(--spacing-md) auto;
+        padding: 0 var(--spacing-sm);
+    }
+
+    .finish-button__main {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-base);
+        min-height: 45px;
+    }
+
+    .finish-button__text {
+        letter-spacing: 0.3px;
     }
 
     .startTest {
         padding: 8px 15px;
         font-size: 14px;
     }
+}
+
+@media (max-width: 360px) {
+    .finish-button {
+        margin: var(--spacing-sm) auto;
+        padding: 0 var(--spacing-xs);
+    }
+
+    .finish-button__main {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-sm);
+        min-height: 40px;
+    }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+.finish-button__main:focus-visible {
+    outline: 3px solid rgba(102, 126, 234, 0.5);
+    outline-offset: 3px;
+}
+
+.finish-button__main--results:focus-visible {
+    outline-color: rgba(33, 150, 243, 0.5);
+}
+
+.finish-button__main:disabled:focus-visible {
+    outline-color: rgba(74, 79, 87, 0.5);
 }
