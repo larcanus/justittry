@@ -31,49 +31,24 @@ const Carousel = ({ slides, testName, diff, showingAnswers }) => {
         validateAnswers,
     } = useAnswerValidation(slides);
 
+    const canNavigate = showingAnswers || !showCorrectAnswers;
+
     // Клавиатурная навигация
-    useKeyboardNavigation(goToPrevSlide, goToNextSlide, !showCorrectAnswers);
+    useKeyboardNavigation(goToPrevSlide, goToNextSlide, canNavigate);
 
     // Свайп навигация для мобильных устройств
     const swipeRef = useSwipe(
         () => {
-            if (activeIndex < slides.length - 1 && !showCorrectAnswers) {
+            if (activeIndex < slides.length - 1 && canNavigate) {
                 goToNextSlide();
             }
         },
         () => {
-            if (activeIndex > 0 && !showCorrectAnswers) {
+            if (activeIndex > 0 && canNavigate) {
                 goToPrevSlide();
             }
         }
     );
-
-    // // Автоскролл к карусели
-    // useEffect(() => {
-    //     let timeout = false;
-    //
-    //     const handleScroll = () => {
-    //         if (timeout !== false) {
-    //             clearTimeout(timeout);
-    //         }
-    //
-    //         timeout = setTimeout(() => {
-    //             const anchor = document.getElementById('carousel');
-    //             if (anchor) {
-    //                 anchor.scrollIntoView({
-    //                     behavior: 'smooth',
-    //                     block: 'start'
-    //                 });
-    //             }
-    //         }, 10000);
-    //     };
-    //
-    //     window.addEventListener('scroll', handleScroll);
-    //
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll);
-    //     };
-    // }, []);
 
     /**
      * Обработчик завершения теста
