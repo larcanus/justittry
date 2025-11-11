@@ -58,4 +58,7 @@
     --max-width-md: 800px;
     --max-width-lg: 900px;
     --max-width-xl: 1200px;
+
+    /* Font family */
+    --font-family-code: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }

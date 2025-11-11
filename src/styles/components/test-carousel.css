@@ -64,8 +64,7 @@
 
 /* Question Content */
 .carousel-slide__content {
-    font-family: "Open Sans", "Trebuchet MS", sans-serif;
-    font-size: var(--font-md, 18px);
+    font-family: var(--font-family-code), Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     word-break: break-word;
     color: var(--color-text, #2c3e50);
     min-height: 200px;
@@ -95,7 +94,6 @@
 }
 
 .carousel-slide__content code {
-    font-size: var(--font-base, 14px);
     line-height: 1.4;
     display: block;
     word-wrap: break-word;
@@ -250,14 +248,12 @@
     .carousel-slide__content {
         min-height: auto;
         padding: var(--spacing-md, 12px);
-        font-size: var(--font-sm, 14px);
         margin: var(--spacing-sm, 8px) 0;
         width: 100%;
-        max-width: 100%;
+        max-width: calc(100vw - 16px - 10px - 8px);
     }
 
     .carousel-slide__content code {
-        font-size: var(--font-xs, 11px);
         line-height: 1.3;
     }
 
@@ -340,14 +336,12 @@
     .carousel-slide__content {
         min-height: auto;
         padding: var(--spacing-sm, 8px);
-        font-size: var(--font-xs, 12px);
         margin: var(--spacing-xs, 4px) 0;
         border-radius: var(--radius-md, 8px);
-        width: 100%;
+        max-width: calc(100vw - 16px - 10px - 8px);
     }
 
     .carousel-slide__content code {
-        font-size: 10px;
         line-height: 1.25;
     }
 
@@ -424,13 +418,8 @@
 
     .carousel-slide__content {
         padding: var(--spacing-xs, 6px);
-        font-size: 11px;
-        width: 100%;
+        max-width: calc(100vw - 16px - 10px - 8px);
         margin: 2px 0;
-    }
-
-    .carousel-slide__content code {
-        font-size: 9px;
     }
 
     .timer {

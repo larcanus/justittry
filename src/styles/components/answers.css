@@ -75,6 +75,7 @@
     word-break: break-word;
     hyphens: auto;
     white-space: normal;
+    font-family: var(--font-family-code), Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
 
 /* Modifier: answer-option--long-text */
