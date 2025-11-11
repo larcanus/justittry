@@ -62,10 +62,11 @@
         --active-inner: #fff;
         --focus: 2px rgba(91, 127, 200, 0.3);
         --border: #BBC1E1;
+        --disabled-border: #506ad0;
         --border-hover: #5b7fc8;
         --background: #fff;
         --disabled: #F6F8FF;
-        --disabled-inner: #E1E6F9;
+        --disabled-inner: #5b7fc8;
 
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -119,7 +120,7 @@
 
     .answer-option__input:disabled:checked {
         --b: var(--disabled-inner);
-        --bc: var(--border);
+        --bc: var(--disabled-border);
     }
 
     .answer-option__input:hover:not(:checked):not(:disabled) {
