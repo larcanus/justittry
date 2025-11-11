@@ -37,13 +37,11 @@ const Carousel = ({ slides, testName, diff, showingAnswers }) => {
     // Свайп навигация для мобильных устройств
     const swipeRef = useSwipe(
         () => {
-            // Свайп влево = следующий слайд
             if (activeIndex < slides.length - 1 && !showCorrectAnswers) {
                 goToNextSlide();
             }
         },
         () => {
-            // Свайп вправо = предыдущий слайд
             if (activeIndex > 0 && !showCorrectAnswers) {
                 goToPrevSlide();
             }
