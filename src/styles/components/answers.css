@@ -77,7 +77,7 @@
         display: inline-block;
         vertical-align: top;
         position: relative;
-        margin: 0;
+        margin-right: 10px;
         cursor: pointer;
         border: 2px solid var(--bc, var(--border));
         background: var(--b, var(--background));
