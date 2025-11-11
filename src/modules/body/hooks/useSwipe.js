@@ -11,19 +11,48 @@ const useSwipe = (onSwipeLeft, onSwipeRight) => {
     const touchStartY = useRef(null);
     const touchStartTime = useRef(null);
     const elementRef = useRef(null);
+    const shouldIgnoreSwipe = useRef(false);
 
     useEffect(() => {
         const element = elementRef.current;
         if (!element) return;
 
+        /**
+         * Проверяет, находится ли элемент внутри области с горизонтальным скроллом
+         * @param {HTMLElement} target - Целевой элемент
+         * @returns {boolean} - true если свайп нужно игнорировать
+         */
+        const isInsideScrollableArea = (target) => {
+            const codeContent = target.closest('.carousel-slide__content');
+            const correctAnswer = target.closest('.correct-answer__content');
+
+            return !(!codeContent && !correctAnswer);
+        };
+
         const handleTouchStart = (e) => {
             const touch = e.touches[0];
+            const target = e.target;
+
+            shouldIgnoreSwipe.current = isInsideScrollableArea(target);
+            // Если свайп нужно игнорировать, не сохраняем начальные координаты
+            if (shouldIgnoreSwipe.current) {
+                touchStartX.current = null;
+                touchStartY.current = null;
+                touchStartTime.current = null;
+                return;
+            }
+
             touchStartX.current = touch.clientX;
             touchStartY.current = touch.clientY;
             touchStartTime.current = Date.now();
         };
 
         const handleTouchEnd = (e) => {
+            if (shouldIgnoreSwipe.current) {
+                shouldIgnoreSwipe.current = false;
+                return;
+            }
+
             if (!touchStartX.current || !touchStartY.current) return;
 
             const touch = e.changedTouches[0];
@@ -57,15 +86,22 @@ const useSwipe = (onSwipeLeft, onSwipeRight) => {
             touchStartX.current = null;
             touchStartY.current = null;
             touchStartTime.current = null;
+            shouldIgnoreSwipe.current = false;
         };
 
         const handleTouchMove = (e) => {
+            // Если свайп игнорируется, разрешаем стандартное поведение (горизонтальный скролл)
+            if (shouldIgnoreSwipe.current) {
+                return;
+            }
+
             if (!touchStartX.current || !touchStartY.current) return;
 
             const touch = e.touches[0];
             const deltaX = Math.abs(touch.clientX - touchStartX.current);
             const deltaY = Math.abs(touch.clientY - touchStartY.current);
 
+            // Предотвращаем скролл только если это горизонтальный свайп вне области с кодом
             if (deltaX > deltaY && deltaX > 10) {
                 e.preventDefault();
             }
