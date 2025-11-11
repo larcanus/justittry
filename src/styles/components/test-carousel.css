@@ -277,9 +277,11 @@
         width: 100%;
         max-width: 100%;
         overflow-x: hidden;
-        touch-action: pan-y; /* Только вертикальный скролл */
+        touch-action: pan-y;
         -webkit-user-select: none;
         user-select: none;
+        position: relative;
+        padding-bottom: 80px;
     }
 
     .carousel__slide {
@@ -320,18 +322,18 @@
         margin-right: 8px;
     }
 
+    /* Mobile arrow styles */
     .carousel__arrow {
-        background: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        top: 50%;
-        pointer-events: auto;
-        border-radius: 0 !important;
-        border: none !important;
-        -webkit-tap-highlight-color: transparent !important;
-        outline: none !important;
+        position: fixed;
+        bottom: 20px;
+        top: auto;
+        transform: none;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+        padding: 12px;
+        opacity: 0.9;
+        transition: opacity 0.3s ease, transform 0.2s ease;
+        border-radius: var(--radius-lg, 12px);
         width: auto;
         height: auto;
     }
@@ -340,29 +342,27 @@
     .carousel__arrow:active,
     .carousel__arrow:focus,
     .test__wrapper:active .carousel__arrow {
-        opacity: 0.8;
-        background: none !important;
-        box-shadow: none !important;
+        opacity: 1;
+        transform: scale(1.05);
     }
 
     .carousel__arrow:disabled {
-        opacity: 0;
+        opacity: 0.3;
         pointer-events: none;
     }
 
     .carousel__arrow--left {
-        left: 2px;
+        left: 20px;
     }
 
     .carousel__arrow--right {
-        right: 2px;
+        right: 20px;
     }
 
     .carousel__arrow img {
-        width: 28px;
-        height: 28px;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-        -webkit-tap-highlight-color: transparent !important;
+        width: 32px;
+        height: 32px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
         display: block;
     }
 
@@ -382,6 +382,7 @@
         gap: 6px;
         padding: 0 5px;
         margin-top: var(--spacing-xs, 5px);
+        margin-bottom: 70px; /* Отступ от стрелок внизу */
     }
 
     .carousel__indicator {
@@ -404,6 +405,7 @@
         margin: var(--spacing-xs, 4px) 0;
         min-height: auto;
         width: 100%;
+        padding-bottom: 70px;
     }
 
     .carousel__slide {
@@ -441,25 +443,31 @@
     }
 
     /* Arrow adjustments for smaller screens */
+    .carousel__arrow {
+        bottom: 15px;
+        padding: 10px;
+    }
+
     .carousel:active .carousel__arrow,
     .carousel__arrow:active,
     .carousel__arrow:focus,
     .test__wrapper:active .carousel__arrow {
-        opacity: 0.75;
+        opacity: 1;
+        transform: scale(1.03);
     }
 
     .carousel__arrow--left {
-        left: 0;
+        left: 15px;
     }
 
     .carousel__arrow--right {
-        right: 0;
+        right: 15px;
     }
 
     .carousel__arrow img {
-        width: 24px;
-        height: 24px;
-        filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.4));
+        width: 28px;
+        height: 28px;
+        filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
     }
 
     .inputAnswer {
@@ -478,6 +486,7 @@
         gap: 5px;
         padding: 0 2px;
         margin-top: var(--spacing-xs, 3px);
+        margin-bottom: 60px;
     }
 
     .carousel__indicator {
@@ -496,6 +505,7 @@
     .carousel {
         padding: 2px;
         margin: 2px 0;
+        padding-bottom: 60px;
     }
 
     .carousel__slide {
@@ -513,19 +523,35 @@
         font-size: 0.85rem;
     }
 
+    .carousel__arrow {
+        bottom: 10px;
+        padding: 8px;
+    }
+
+    .carousel__arrow--left {
+        left: 10px;
+    }
+
+    .carousel__arrow--right {
+        right: 10px;
+    }
+
     .carousel__arrow img {
-        width: 20px;
-        height: 20px;
-        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+        width: 24px;
+        height: 24px;
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+    }
+
+    .carousel__indicators {
+        margin-bottom: 55px;
     }
 }
 
-/* Swipe indicator - показывает направление свайпа */
+/* Swipe animations */
 .carousel {
-    touch-action: pan-y pinch-zoom; /* Разрешаем вертикальный скролл */
+    touch-action: pan-y pinch-zoom;
 }
 
-/* Плавная анимация переключения слайдов */
 .carousel__slide {
     transition: opacity 0.3s ease-in-out;
 }
@@ -548,7 +574,7 @@
 /* Для мобильных устройств - улучшаем touch область */
 @media (max-width: 768px) {
     .carousel {
-        touch-action: pan-y; /* Только вертикальный скролл */
+        touch-action: pan-y;
         -webkit-user-select: none;
         user-select: none;
     }
