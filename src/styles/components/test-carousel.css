@@ -43,6 +43,7 @@
     padding: var(--spacing-lg, 20px);
     box-sizing: border-box;
     overflow-x: hidden;
+    touch-action: pan-y pinch-zoom; /* Разрешаем вертикальный скролл */
 }
 
 /* Slides */
@@ -56,10 +57,23 @@
     margin: var(--spacing-lg, 20px) auto;
     box-sizing: border-box;
     overflow-x: hidden;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .carousel__slide--active {
     display: block;
+    animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 /* Question Content */
@@ -263,6 +277,9 @@
         width: 100%;
         max-width: 100%;
         overflow-x: hidden;
+        touch-action: pan-y; /* Только вертикальный скролл */
+        -webkit-user-select: none;
+        user-select: none;
     }
 
     .carousel__slide {
@@ -500,5 +517,45 @@
         width: 20px;
         height: 20px;
         filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+    }
+}
+
+/* Swipe indicator - показывает направление свайпа */
+.carousel {
+    touch-action: pan-y pinch-zoom; /* Разрешаем вертикальный скролл */
+}
+
+/* Плавная анимация переключения слайдов */
+.carousel__slide {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.carousel__slide--active {
+    animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Для мобильных устройств - улучшаем touch область */
+@media (max-width: 768px) {
+    .carousel {
+        touch-action: pan-y; /* Только вертикальный скролл */
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    /* Увеличиваем активную область для свайпа */
+    .carousel__slides {
+        padding: 20px 0;
+        margin: -20px 0;
     }
 }

@@ -3,6 +3,7 @@ import { useCarouselNavigation } from '../../hooks/useCarouselNavigation';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 import { useAnswerValidation } from '../../hooks/useAnswerValidation';
 import { useTestRedux } from '../../hooks/useTestRedux';
+import useSwipe from '../../hooks/useSwipe';
 import CarouselNavigation from './CarouselNavigation';
 import QuestionSlide from './QuestionSlide';
 import AnswerOptions from './AnswerOptions';
@@ -32,6 +33,22 @@ const Carousel = ({ slides, testName, diff, showingAnswers }) => {
 
     // Клавиатурная навигация
     useKeyboardNavigation(goToPrevSlide, goToNextSlide, !showCorrectAnswers);
+
+    // Свайп навигация для мобильных устройств
+    const swipeRef = useSwipe(
+        () => {
+            // Свайп влево = следующий слайд
+            if (activeIndex < slides.length - 1 && !showCorrectAnswers) {
+                goToNextSlide();
+            }
+        },
+        () => {
+            // Свайп вправо = предыдущий слайд
+            if (activeIndex > 0 && !showCorrectAnswers) {
+                goToPrevSlide();
+            }
+        }
+    );
 
     // // Автоскролл к карусели
     // useEffect(() => {
@@ -107,7 +124,7 @@ const Carousel = ({ slides, testName, diff, showingAnswers }) => {
     };
 
     return (
-        <div className='carousel' id='carousel'>
+        <div className='carousel' id='carousel' ref={swipeRef}>
             {/* Навигация */}
             <CarouselNavigation
                 totalSlides={slides.length}
