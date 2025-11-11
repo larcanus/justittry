@@ -33,32 +33,32 @@ const Carousel = ({ slides, testName, diff, showingAnswers }) => {
     // Клавиатурная навигация
     useKeyboardNavigation(goToPrevSlide, goToNextSlide, !showCorrectAnswers);
 
-    // Автоскролл к карусели
-    useEffect(() => {
-        let timeout = false;
-
-        const handleScroll = () => {
-            if (timeout !== false) {
-                clearTimeout(timeout);
-            }
-
-            timeout = setTimeout(() => {
-                const anchor = document.getElementById('carousel');
-                if (anchor) {
-                    anchor.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            }, 10000);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+    // // Автоскролл к карусели
+    // useEffect(() => {
+    //     let timeout = false;
+    //
+    //     const handleScroll = () => {
+    //         if (timeout !== false) {
+    //             clearTimeout(timeout);
+    //         }
+    //
+    //         timeout = setTimeout(() => {
+    //             const anchor = document.getElementById('carousel');
+    //             if (anchor) {
+    //                 anchor.scrollIntoView({
+    //                     behavior: 'smooth',
+    //                     block: 'start'
+    //                 });
+    //             }
+    //         }, 10000);
+    //     };
+    //
+    //     window.addEventListener('scroll', handleScroll);
+    //
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll);
+    //     };
+    // }, []);
 
     /**
      * Обработчик завершения теста
