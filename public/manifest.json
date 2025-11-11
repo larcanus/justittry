@@ -1,16 +1,32 @@
 {
-  "short_name": "Justittry",
-  "name": "Just it Try - Tests on programming languages",
+  "short_name": "Just it Try",
+  "name": "Just it Try - Тесты по программированию",
+  "description": "Проверьте свои знания в программировании",
   "icons": [
     {
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
+    },
+    {
+      "src": "slogo62.png",
+      "type": "image/png",
+      "sizes": "62x62",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "slogo32.png",
+      "type": "image/png",
+      "sizes": "32x32",
+      "purpose": "any maskable"
     }
   ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff",
-  "version" : "1.0.1"
+  "orientation": "portrait-primary",
+  "lang": "ru",
+  "dir": "ltr",
+  "scope": "/"
 }

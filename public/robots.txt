@@ -1,3 +1,18 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /*.json$
+
+# Sitemap
+Sitemap: https://www.justittry.ru/sitemap.xml
+
+# Crawl-delay для всех ботов
+Crawl-delay: 1
+
+# Yandex
+User-agent: Yandex
+Allow: /
+
+# Google
+User-agent: Googlebot
+Allow: /
