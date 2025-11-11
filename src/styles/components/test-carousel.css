@@ -122,22 +122,37 @@
 
 /* Timer */
 .timer {
-    color: var(--color-danger, #f44336);
+    color: #3d354f;
     font-size: var(--font-xl, 1.5rem);
-    font-weight: bold;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.08em;
     margin: var(--spacing-lg, 20px) 0;
     padding: var(--spacing-sm, 10px);
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: var(--radius-lg, 12px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: transparent;
     position: sticky;
     top: 10px;
     z-index: 100;
-    transition: color var(--transition-normal, 0.3s ease);
+    transition: all var(--transition-normal, 0.3s ease);
+    text-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+}
+
+.timer::before {
+    content: '⏱';
+    margin-right: 10px;
+    font-size: 1.2em;
+    opacity: 0.85;
+    filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.2));
 }
 
 .timer--completed {
-    color: #4caf50;
+    color: #679569;
+    text-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
+}
+
+.timer--completed::before {
+    content: '✓';
+    filter: drop-shadow(0 2px 4px rgba(76, 175, 80, 0.2));
 }
 
 /* Navigation Arrows */
@@ -274,6 +289,11 @@
         top: 5px;
     }
 
+    .timer::before {
+        font-size: 1.1em;
+        margin-right: 8px;
+    }
+
     .carousel__arrow {
         padding: var(--spacing-xs, 6px);
         top: 45%;
@@ -359,6 +379,10 @@
         margin: var(--spacing-xs, 4px) 0;
         padding: var(--spacing-xs, 4px);
         top: 3px;
+    }
+
+    .timer::before {
+        margin-right: 6px;
     }
 
     .carousel__arrow {
