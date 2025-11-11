@@ -1,6 +1,6 @@
 {
   "name": "justitry",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.10.1",
