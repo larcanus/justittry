@@ -338,10 +338,8 @@
         height: auto;
     }
 
-    .carousel:active .carousel__arrow,
     .carousel__arrow:active,
-    .carousel__arrow:focus,
-    .test__wrapper:active .carousel__arrow {
+    .carousel__arrow:focus {
         opacity: 1;
         transform: scale(1.05);
     }
@@ -447,10 +445,8 @@
         padding: 10px;
     }
 
-    .carousel:active .carousel__arrow,
     .carousel__arrow:active,
-    .carousel__arrow:focus,
-    .test__wrapper:active .carousel__arrow {
+    .carousel__arrow:focus {
         opacity: 1;
         transform: scale(1.03);
     }
