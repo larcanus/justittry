@@ -133,6 +133,11 @@
     position: sticky;
     top: 10px;
     z-index: 100;
+    transition: color var(--transition-normal, 0.3s ease);
+}
+
+.timer--completed {
+    color: #4caf50;
 }
 
 /* Navigation Arrows */

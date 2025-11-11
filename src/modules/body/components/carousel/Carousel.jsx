@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCarouselNavigation } from '../../hooks/useCarouselNavigation';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 import { useAnswerValidation } from '../../hooks/useAnswerValidation';
@@ -15,6 +15,7 @@ import '../../../../styles/prism.css'
  */
 const Carousel = ({ slides, testName, diff, showingAnswers }) => {
     const { completeTest } = useTestRedux();
+    const [isTestCompleted, setIsTestCompleted] = useState(false);
 
     const {
         activeIndex,
@@ -77,11 +78,8 @@ const Carousel = ({ slides, testName, diff, showingAnswers }) => {
         // Валидируем ответы
         const results = validateAnswers();
 
-        // Меняем цвет таймера
-        const timerElement = document.getElementsByClassName('timer')[0];
-        if (timerElement) {
-            timerElement.style.color = '#4caf50';
-        }
+        // Меняем класс таймера
+        setIsTestCompleted(true);
 
         // Формируем результат для Redux
         const result = {
@@ -120,7 +118,7 @@ const Carousel = ({ slides, testName, diff, showingAnswers }) => {
             />
 
             {/* Таймер */}
-            <p className='timer' hidden={true}>
+            <p className={`timer ${isTestCompleted ? 'timer--completed' : ''}`} hidden={true}>
                 <span id='timer'>20:00</span>
             </p>
 
