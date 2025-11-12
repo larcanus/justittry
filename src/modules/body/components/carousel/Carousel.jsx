@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCarouselNavigation } from '../../hooks/useCarouselNavigation';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 import { useAnswerValidation } from '../../hooks/useAnswerValidation';
@@ -14,7 +14,7 @@ import '../../../../styles/prism.css'
 /**
  * Главный компонент карусели с вопросами теста
  */
-const Carousel = ({ slides, testName, diff, showingAnswers, duration }) => {
+const Carousel = ({ slides, testName, diff, showingAnswers, duration, finishTestRef }) => {
     const { completeTest } = useTestRedux();
     const [isTestCompleted, setIsTestCompleted] = useState(false);
 
@@ -95,6 +95,13 @@ const Carousel = ({ slides, testName, diff, showingAnswers, duration }) => {
             }
         });
     };
+
+    // Привязываем функцию завершения к ref
+    useEffect(() => {
+        if (finishTestRef) {
+            finishTestRef.current = handleFinish;
+        }
+    }, [finishTestRef, handleFinish]);
 
     return (
         <div className='carousel' id='carousel' ref={swipeRef}>

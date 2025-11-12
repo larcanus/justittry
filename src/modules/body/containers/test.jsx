@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import Carousel from '../components/carousel/Carousel';
 import TestResult from '../components/test/TestResult';
@@ -28,21 +28,24 @@ const Test = ({
 }) => {
     const [showingAnswers, setShowingAnswers] = useState(false);
 
+    // Ref для функции завершения теста
+    const finishTestRef = useRef(null);
+
     // Проверяем debug режим и получаем кастомную длительность
     const isDebugMode = testConfig?.debug?.enabled || false;
     const debugDuration = testConfig?.debug?.duration || null;
 
     const handleTimeUp = () => {
-        const finishButton = document.getElementById('btnFinal')?.['0'];
-
-        if (finishButton) {
-            finishButton.click();
+        // Вызываем функцию завершения напрямую через ref
+        if (finishTestRef.current) {
+            finishTestRef.current();
         }
     };
 
     const { elapsedTime, isRunning, stopTimer, resetTimer } = useTestTimer(
         timerEnabled,
         handleTimeUp,
+        debugDuration
     );
 
     useEffect(() => {
@@ -80,8 +83,9 @@ const Test = ({
             if (timerID?.timerID) {
                 clearInterval(timerID.timerID);
             }
-        }; // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isDebugMode]); // Intentionally run only on mount - test initialization
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Intentionally run only on mount - test initialization
 
     if (!testConfig) {
         return null;
@@ -116,6 +120,7 @@ const Test = ({
                             descTest={testDescription}
                             showingAnswers={showingAnswers}
                             duration={isDebugMode ? debugDuration : TEST_DURATION}
+                            finishTestRef={finishTestRef}
                         />
                     </div>
                     <div className='test__result' hidden={true}>
