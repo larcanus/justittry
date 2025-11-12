@@ -1,3 +1,5 @@
+import { TEST_MAX_ERRORS_DEVELOPER, TEST_MAX_ERRORS_STUDENT } from "../../../common/constants";
+
 /**
  * Определяет уровень сложности по строке
  * @param {string} difficultyString - Строка сложности
@@ -7,27 +9,27 @@ export const getDifficultyInfo = (difficultyString) => {
     if (!difficultyString) {
         return {
             level: 'Student',
-            maxErrors: 5,
+            maxErrors: TEST_MAX_ERRORS_STUDENT,
         };
     }
 
     if (difficultyString.includes('jun')) {
         return {
             level: 'Student',
-            maxErrors: 5,
+            maxErrors: TEST_MAX_ERRORS_STUDENT,
         };
     }
 
     if (difficultyString.includes('mid')) {
         return {
             level: 'Developer',
-            maxErrors: 3,
+            maxErrors: TEST_MAX_ERRORS_DEVELOPER,
         };
     }
 
     return {
         level: 'Student',
-        maxErrors: 5,
+        maxErrors: TEST_MAX_ERRORS_STUDENT,
     };
 };
 
@@ -48,8 +50,8 @@ export const calculateTestResults = (answers) => {
     }
 
     const errorCount = totalCount - correctCount;
-    const percentage = totalCount > 0 
-        ? Math.round((correctCount / totalCount) * 100) 
+    const percentage = totalCount > 0
+        ? Math.round((correctCount / totalCount) * 100)
         : 0;
 
     return {

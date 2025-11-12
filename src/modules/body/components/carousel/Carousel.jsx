@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useCarouselNavigation } from '../../hooks/useCarouselNavigation';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 import { useAnswerValidation } from '../../hooks/useAnswerValidation';
@@ -14,7 +14,7 @@ import '../../../../styles/prism.css'
 /**
  * Главный компонент карусели с вопросами теста
  */
-const Carousel = ({ slides, testName, diff, showingAnswers }) => {
+const Carousel = ({ slides, testName, diff, showingAnswers, duration }) => {
     const { completeTest } = useTestRedux();
     const [isTestCompleted, setIsTestCompleted] = useState(false);
 
@@ -109,7 +109,7 @@ const Carousel = ({ slides, testName, diff, showingAnswers }) => {
 
             {/* Таймер */}
             <p className={`timer ${isTestCompleted ? 'timer--completed' : ''}`} hidden={true}>
-                <span id='timer'>20:00</span>
+                <span id='timer'>{duration}</span>
             </p>
 
             {/* Слайды с вопросами */}

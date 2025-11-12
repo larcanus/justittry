@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from "react-router-dom";
 import Carousel from '../components/carousel/Carousel';
 import TestResult from '../components/test/TestResult';
 import { useTestTimer } from '../hooks/useTestTimer';
+
 import {
     getTestConfig,
     getTestResult,
@@ -14,6 +14,7 @@ import {
     isTimerEnabled,
     getTimerID
 } from '../selectors/testSelectors';
+import { TEST_DURATION } from "../../../common/constants";
 
 const Test = ({
     testConfig,
@@ -26,10 +27,13 @@ const Test = ({
     timerID
 }) => {
     const [showingAnswers, setShowingAnswers] = useState(false);
-    const history = useHistory();
+
+    // Проверяем debug режим и получаем кастомную длительность
+    const isDebugMode = testConfig?.debug?.enabled || false;
+    const debugDuration = testConfig?.debug?.duration || null;
 
     const handleTimeUp = () => {
-        const finishButton = document.getElementById('btnFinal')['0'];
+        const finishButton = document.getElementById('btnFinal')?.['0'];
 
         if (finishButton) {
             finishButton.click();
@@ -38,7 +42,7 @@ const Test = ({
 
     const { elapsedTime, isRunning, stopTimer, resetTimer } = useTestTimer(
         timerEnabled,
-        handleTimeUp
+        handleTimeUp,
     );
 
     useEffect(() => {
@@ -58,6 +62,17 @@ const Test = ({
 
         window.scrollTo(0, 0);
 
+        // Debug info
+        if (isDebugMode) {
+            console.log('[Debug Test] Started with config:', {
+                test: testName,
+                difficulty,
+                questionCount: questions.length,
+                duration: debugDuration ? `${debugDuration} min` : 'default',
+                timerEnabled,
+            });
+        }
+
         return () => {
             resetTimer();
 
@@ -65,8 +80,8 @@ const Test = ({
             if (timerID?.timerID) {
                 clearInterval(timerID.timerID);
             }
-        };
-    }, [resetTimer, timerID]);
+        }; // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isDebugMode]); // Intentionally run only on mount - test initialization
 
     if (!testConfig) {
         return null;
@@ -74,6 +89,23 @@ const Test = ({
 
     return (
         <div className='test'>
+            {isDebugMode && (
+                <div style={{
+                    position: 'fixed',
+                    top: 10,
+                    right: 10,
+                    background: '#ff6b6b',
+                    color: 'white',
+                    padding: '5px 10px',
+                    borderRadius: '4px',
+                    fontSize: '12px',
+                    fontWeight: 'bold',
+                    zIndex: 9999,
+                }}>
+                    DEBUG MODE
+                </div>
+            )}
+
             <div className='test__content'>
                 <div className='test__wrapper'>
                     <div className='test__carousel'>
@@ -83,6 +115,7 @@ const Test = ({
                             testName={testName}
                             descTest={testDescription}
                             showingAnswers={showingAnswers}
+                            duration={isDebugMode ? debugDuration : TEST_DURATION}
                         />
                     </div>
                     <div className='test__result' hidden={true}>
@@ -109,7 +142,7 @@ const mapStateToProps = (state) => ({
     testName: getTestName(state),
     testDescription: getTestDescription(state),
     timerEnabled: isTimerEnabled(state),
-    timerID: getTimerID(state), // Legacy
+    timerID: getTimerID(state),
 });
 
 export default connect(mapStateToProps)(Test);

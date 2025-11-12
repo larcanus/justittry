@@ -3,10 +3,20 @@ import Navbar from './modules/header/containers/navbar';
 import Footdown from './modules/footer/components/footdown';
 import Maincomp from './modules/body/components/maincomp';
 import CheckTest from './modules/body/containers/checktest';
-import {Switch, Route} from 'react-router-dom';
-import React from 'react';
+import { Switch, Route, useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import debugApi from './modules/body/utils/debugApi';
+import { useStore } from "react-redux";
 
 function App() {
+    const history = useHistory();
+    const store = useStore();
+
+    useEffect(() => {
+        debugApi.initialize(store, history);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <div>
             <header className='header'>
