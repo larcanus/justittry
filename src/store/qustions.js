@@ -254,14 +254,14 @@ const Tests = {
                 num: '#24',
             },
             {
-                question: 'Что произойдет после выполенения этого кода?\n\n' +
+                question: 'Что произойдет после выполнения этого кода?\n\n' +
                     'const object = {\n' +
                     '\tname: \'objectName\',\n\n' +
                     '\tgetName(){\n' +
                     '\t\treturn this.name\n' +
                     '\t},\n' +
                     '}\n\n' +
-                    'console.log( obj?.getName?.() )',
+                    'console.log( object?.getName?.() )',
                 option: {
                     a1: 'в консоль выведет - \'objectName\'',
                     a2: 'в консоль выведет - \'object\'',
@@ -427,7 +427,7 @@ const Tests = {
                     a3: 'Ошибка - TypeError',
                     a4: 'Alert выведет - "function getNum()".',
                 },
-                answerOption: 'a1',
+                answerOption: 'a2',
                 answer: 'Строгий режим вводит ограничения по написанию кода.\n' +
                     'Например нельзя присваивать значения или обращаться к необъявленным переменным',
                 num: '#37',
@@ -749,9 +749,9 @@ const Tests = {
                     a3: `вывод: 0 1 2`,
                     a4: 'вывод: 0 0 0',
                 },
-                answerOption: 'a1',
-                answer: 'Следует обратить внимание на замыкание и объявление через var\n' +
-                    'Чтобы избежать этой ловушки, нужно ставить индекс через let',
+                answerOption: 'a2',
+                answer: 'Поскольку используется var, переменная i имеет функциональную область видимости и общую для всех замыканий.\n' +
+                    'К моменту вызова i === 2, поэтому оба вызова выведут 2.',
                 num: '#73',
             },
 
@@ -2694,14 +2694,14 @@ const Tests = {
                 num: '#24',
             },
             {
-                question: 'Что произойдет после выполенения этого кода?\n\n' +
+                question: 'Что произойдет после выполнения этого кода?\n\n' +
                     'const object = {\n' +
                     '\tname: \'objectName\',\n\n' +
                     '\tgetName(){\n' +
                     '\t\treturn this.name\n' +
                     '\t},\n' +
                     '}\n\n' +
-                    'console.log( obj?.getName?.() )',
+                    'console.log( object?.getName?.() )',
                 option: {
                     a1: 'в консоль выведет - \'objectName\'',
                     a2: 'в консоль выведет - \'object\'',
@@ -3146,14 +3146,14 @@ const Tests = {
                 num: '#24',
             },
             {
-                question: 'Что произойдет после выполенения этого кода?\n\n' +
+                question: 'Что произойдет после выполнения этого кода?\n\n' +
                     'const object = {\n' +
                     '\tname: \'objectName\',\n\n' +
                     '\tgetName(){\n' +
                     '\t\treturn this.name\n' +
                     '\t},\n' +
                     '}\n\n' +
-                    'console.log( obj?.getName?.() )',
+                    'console.log( object?.getName?.() )',
                 option: {
                     a1: 'в консоль выведет - \'objectName\'',
                     a2: 'в консоль выведет - \'object\'',
@@ -3490,7 +3490,7 @@ const Tests = {
                 },
                 answerOption: 'a4',
                 answer: 'Нельзя использовать break/continue справа от оператора „?“\n' +
-                    ' эти синтаксические конструкции не являются выражениями\n' +
+                    ' эти синтаксические конструкции являются инструкцией, а не выражениями\n' +
                     ' и не могут быть использованы с тернарным оператором ?. \n',
                 num: '#22',
             },
@@ -3529,14 +3529,14 @@ const Tests = {
                 num: '#24',
             },
             {
-                question: 'Что произойдет после выполенения этого кода?\n\n' +
+                question: 'Что произойдет после выполнения этого кода?\n\n' +
                     'const object = {\n' +
                     '\tname: \'objectName\',\n\n' +
                     '\tgetName(){\n' +
                     '\t\treturn this.name\n' +
                     '\t},\n' +
                     '}\n\n' +
-                    'console.log( obj?.getName?.() )',
+                    'console.log( object?.getName?.() )',
                 option: {
                     a1: 'в консоль выведет - \'objectName\'',
                     a2: 'в консоль выведет - \'object\'',
