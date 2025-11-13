@@ -864,7 +864,7 @@ const Tests = {
                     '\t\treturn this.name\n' +
                     '\t},\n' +
                     '}\n\n' +
-                    'console.log( obj?.getName?.() )',
+                    'console.log( object?.getName?.() )',
                 option: {
                     a1: 'ReferenceError',
                     a2: 'в консоль выведет - \'object\'',
@@ -1186,7 +1186,7 @@ const Tests = {
                 option: {
                     a1: `my-data-form`,
                     a2: `Content-Type: my-data-form/multipart`,
-                    a3: `Content-Type: form/multipart`,
+                    a3: `Content-Type: multipart/form-data`,
                     a4: `my-data-form: form/multipart`,
                 },
                 answerOption: 'a3',
@@ -1272,27 +1272,6 @@ const Tests = {
                     'а свойством его прототипа. Оператор delete не удаляет свойства прототипов объектов. \n' +
                     'У объекта top1 нет собственного свойства erty. ',
                 num: '#67',
-            },
-            {
-                question: 'Что выведет следующий код? \n\n' +
-                    'const Compary = {\n' +
-                    '  erty: \'sopart\'\n' +
-                    '}\n\n' +
-                    'const top1 = Object.create(Compary);\n' +
-                    'delete top1.erty;\n' +
-                    'console.log(top1.erty);',
-
-                option: {
-                    a1: `выбросит SyntaxError`,
-                    a2: `'sopart'`,
-                    a3: 'null',
-                    a4: 'undefined',
-                },
-                answerOption: 'a2',
-                answer: 'Этот код выведет sopart. Свойство erty является не свойством объекта top1, \n' +
-                    'а свойством его прототипа. Оператор delete не удаляет свойства прототипов объектов. \n' +
-                    'У объекта top1 нет собственного свойства erty. ',
-                num: '#70',
             },
         ],
     },
@@ -2234,7 +2213,7 @@ const Tests = {
                     '\t\treturn this.name\n' +
                     '\t},\n' +
                     '}\n\n' +
-                    'console.log( obj?.getName?.() )',
+                    'console.log( object?.getName?.() )',
                 option: {
                     a1: 'в консоль выведет - \'objectName\'',
                     a2: 'в консоль выведет - \'object\'',
