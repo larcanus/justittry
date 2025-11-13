@@ -857,7 +857,7 @@ const Tests = {
                 num: '#19',
             },
             {
-                question: 'Что произойдет после выполенения этого кода?\n\n' +
+                question: 'Что произойдет после выполнения этого кода?\n\n' +
                     'const object = {\n' +
                     '\tname: \'objectName\',\n\n' +
                     '\tgetName(){\n' +
@@ -2227,7 +2227,7 @@ const Tests = {
                 num: '#24',
             },
             {
-                question: 'Что произойдет после выполенения этого кода?\n\n' +
+                question: 'Что произойдет после выполнения этого кода?\n\n' +
                     'const object = {\n' +
                     '\tname: \'objectName\',\n\n' +
                     '\tgetName(){\n' +
