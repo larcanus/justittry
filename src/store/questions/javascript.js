@@ -821,6 +821,114 @@ const JavaScriptQuestions = {
             answerOption: 'a2',
             answer: 'Если свойство не записываемое (writable: false), присвоение игнорируется (в нестрогом режиме) или вызывает ошибку (в строгом).',
             num: '#78',
+        },
+        {
+            question: 'Что выведет консоль?\n' +
+                'console.log(1 + "2" + "2");',
+            option: {
+                a1: '122',
+                a2: '5',
+                a3: '"122"',
+                a4: 'TypeError',
+            },
+            answerOption: 'a1',
+            answer: 'При сложении числа и строки JavaScript приводит число к строке. ' +
+                'Сначала 1 + "2" → "12", затем "12" + "2" → "122".',
+            num: '#84',
+        },
+        {
+            question: 'Какой результат выполнения?\n' +
+                'console.log([] == ![]);',
+            option: {
+                a1: 'true',
+                a2: 'false',
+                a3: 'undefined',
+                a4: 'ReferenceError',
+            },
+            answerOption: 'a1',
+            answer: '[] приводится к 0, ![] → false → 0. Таким образом, 0 == 0 → true.',
+            num: '#85',
+        },
+        {
+            question: 'Что выведет код?\n' +
+                'let a = 1;\n' +
+                'let b = a++;\n' +
+                'console.log(b);',
+            option: {
+                a1: '1',
+                a2: '2',
+                a3: 'undefined',
+                a4: '0',
+            },
+            answerOption: 'a1',
+            answer: 'Постфиксный инкремент (a++) сначала возвращает текущее значение, ' +
+                'а затем увеличивает переменную. Поэтому b = 1.',
+            num: '#86',
+        },
+        {
+            question: 'Какой метод массива изменяет исходный массив?',
+            option: {
+                a1: 'map',
+                a2: 'filter',
+                a3: 'slice',
+                a4: 'splice',
+            },
+            answerOption: 'a4',
+            answer: 'Метод splice() изменяет содержимое массива, удаляя или заменяя ' +
+                'существующие элементы и/или добавляя новые.',
+            num: '#87',
+        },
+        {
+            question: 'Что выведет консоль?\n' +
+                'console.log(typeof function() {});',
+            option: {
+                a1: 'function',
+                a2: 'object',
+                a3: 'undefined',
+                a4: 'method',
+            },
+            answerOption: 'a1',
+            answer: 'Оператор typeof возвращает "function" для функций, хотя на самом деле ' +
+                'функции являются подтипом объектов.',
+            num: '#88',
+        },
+        {
+            question: 'Что выведет консоль?\n' +
+                'console.log(Boolean(0));',
+            option: {
+                a1: 'true',
+                a2: 'false',
+                a3: '0',
+                a4: 'null',
+            },
+            answerOption: 'a2',
+            answer: 'В JavaScript значение 0 является falsy, поэтому Boolean(0) возвращает false.',
+            num: '#94',
+        },
+        {
+            question: 'Какой результат выполнения?\n' +
+                'console.log("5" - 3);',
+            option: {
+                a1: '53',
+                a2: '2',
+                a3: 'NaN',
+                a4: '"53"',
+            },
+            answerOption: 'a2',
+            answer: 'При использовании оператора вычитания строка "5" приводится к числу, и выполняется 5 - 3 = 2.',
+            num: '#95',
+        },
+        {
+            question: 'Как правильно объявить функцию в JavaScript?',
+            option: {
+                a1: 'function myFunc() {}',
+                a2: 'func myFunc() {}',
+                a3: 'def myFunc() {}',
+                a4: 'myFunc() => {}',
+            },
+            answerOption: 'a1',
+            answer: 'Стандартный способ объявления функции — через ключевое слово function: function имя() {}.',
+            num: '#96',
         }
     ],
     mid: [
@@ -1414,6 +1522,130 @@ const JavaScriptQuestions = {
             answerOption: 'a3',
             answer: 'Event loop — это механизм, который следит за стеком вызовов и очередью задач, обеспечивая выполнение асинхронного кода в правильном порядке.',
             num: '#83',
+        },
+        {
+            question: 'Что выведет следующий код?\n' +
+                'console.log(0.1 + 0.2 == 0.3);',
+            option: {
+                a1: 'true',
+                a2: 'false',
+                a3: 'NaN',
+                a4: 'ReferenceError',
+            },
+            answerOption: 'a2',
+            answer: 'Из-за особенностей хранения чисел с плавающей точкой в двоичной системе, ' +
+                '0.1 + 0.2 не в точности равно 0.3. Это известная особенность IEEE 754.',
+            num: '#89',
+        },
+        {
+            question: 'Какой результат выполнения?\n' +
+                'const arr = [10, 12, 15, 21];\n' +
+                'for (let i in arr) {\n' +
+                '  setTimeout(() => console.log(i), 0);\n' +
+                '}',
+            option: {
+                a1: '10 12 15 21',
+                a2: '0 1 2 3',
+                a3: '21 21 21 21',
+                a4: 'ReferenceError',
+            },
+            answerOption: 'a2',
+            answer: 'for...in перебирает ключи (индексы) массива как строки, но здесь они логируются как есть. ' +
+                'Поскольку i объявлен с let, создаётся новая привязка для каждой итерации — вывод: "0", "1", "2", "3".',
+            num: '#90',
+        },
+        {
+            question: 'Что выведет код?\n' +
+                'const obj = { a: 1 };\n' +
+                'const copy = Object.assign({}, obj);\n' +
+                'obj.a = 2;\n' +
+                'console.log(copy.a);',
+            option: {
+                a1: '1',
+                a2: '2',
+                a3: 'undefined',
+                a4: 'ReferenceError',
+            },
+            answerOption: 'a1',
+            answer: 'Object.assign() выполняет поверхностное копирование. После копирования изменения ' +
+                'в исходном объекте не влияют на копию.',
+            num: '#91',
+        },
+        {
+            question: 'Что произойдет при выполнении?\n' +
+                'JSON.parse(\'{"name": "John", "age": undefined}\');',
+            option: {
+                a1: '{"name": "John", "age": undefined}',
+                a2: '{"name": "John"}',
+                a3: 'SyntaxError',
+                a4: 'ReferenceError',
+            },
+            answerOption: 'a3',
+            answer: 'Значение undefined не является допустимым в формате JSON, ' +
+                'поэтому JSON.parse выбросит SyntaxError.',
+            num: '#92',
+        },
+        {
+            question: 'Какой результат выполнения?\n' +
+                'console.log(({} + {}).toString());',
+            option: {
+                a1: '[object Object][object Object]',
+                a2: 'NaN',
+                a3: '{}{}',
+                a4: 'TypeError',
+            },
+            answerOption: 'a1',
+            answer: 'При сложении двух объектов каждый преобразуется в строку "[object Object]", ' +
+                'и результатом будет конкатенация этих строк.',
+            num: '#93',
+        },
+        {
+            question: 'Какой встроенный интерфейс в браузере позволяет работать с историей переходов?',
+            option: {
+                a1: 'Location',
+                a2: 'History',
+                a3: 'Navigator',
+                a4: 'Document',
+            },
+            answerOption: 'a2',
+            answer: 'Интерфейс History предоставляет доступ к истории сессии браузера и позволяет перемещаться по ней программно.',
+            num: '#97',
+        },
+        {
+            question: 'Какой интерфейс описывает объект, возвращаемый fetch()?',
+            option: {
+                a1: 'XMLHttpRequest',
+                a2: 'FetchResponse',
+                a3: 'Response',
+                a4: 'NetworkInterface',
+            },
+            answerOption: 'a3',
+            answer: 'Метод fetch() возвращает промис, который резолвится в объект типа Response — это часть Fetch API.',
+            num: '#98',
+        },
+        {
+            question: 'Какой интерфейс позволяет отслеживать изменения в DOM с помощью наблюдателя?',
+            option: {
+                a1: 'EventListener',
+                a2: 'DOMObserver',
+                a3: 'MutationObserver',
+                a4: 'ChangeDetector',
+            },
+            answerOption: 'a3',
+            answer: 'MutationObserver — это интерфейс, предоставляющий возможность наблюдать за изменениями в DOM-дереве (в атрибутах, тексте, структуре).',
+            num: '#99',
+        },
+        {
+            question: 'Какой из перечисленных интерфейсов не является частью Web APIs?',
+            option: {
+                a1: 'CanvasRenderingContext2D',
+                a2: 'ReadableStream',
+                a3: 'FunctionInterface',
+                a4: 'IntersectionObserver',
+            },
+            answerOption: 'a3',
+            answer: 'FunctionInterface — вымышленный термин. В JavaScript и Web APIs нет такого стандартного интерфейса.',
+            num: '#100',
         }
     ],
 };
