@@ -90,17 +90,18 @@ const TestResult = ({
     };
 
     return (
-        <div className='divResult'>
-            {/* Заголовок */}
-            <div className={`result-header ${passed ? 'success' : 'failed'}`}>
-                <img
-                    src={passed ? win : fail}
-                    alt={passed ? 'Congratulations!' : 'Failed!'}
-                    className='result-image'
-                />
-                <h2 className='result-title'>
-                    {passed ? 'Поздравляем! 🎉' : 'Попробуйте еще раз! 💪'}
-                </h2>
+        <div className={`divResult ${passed ? 'win' : 'fail'}`}>
+            <div className='result-header'>
+                <div className='result-image-container'>
+                    <img
+                        src={passed ? win : fail}
+                        alt={passed ? 'Congratulations!' : 'Failed!'}
+                        className='result-image'
+                    />
+                </div>
+                <h3 className='result-subtitle'>
+                    {passed ? 'Тест успешно пройден!' : 'Тест не пройден'}
+                </h3>
             </div>
 
             {/* Статистика */}
