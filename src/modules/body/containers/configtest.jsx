@@ -5,7 +5,7 @@ import { startTestConfig } from '../actions/startTest';
 import { dispatchResetResult } from '../actions/actionResult';
 import { useTestConfiguration } from '../hooks/useTestConfiguration';
 import { getCurrentTest, getTimerID } from '../selectors/testSelectors';
-import Tests from '../../../store/qustions';
+import Tests from '../../../store/questions/questionsBandle';
 import TestInfo from '../components/config/TestInfo';
 import DifficultySelector from '../components/config/DifficultySelector';
 import ConfigActions from '../components/config/ConfigActions';

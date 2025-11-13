@@ -2,7 +2,7 @@
  * Debug API для ручного тестирования
  * Позволяет запускать тесты с кастомными параметрами
  */
-import Tests from '../../../store/qustions';
+import Tests from '../../../store/questions/questionsBandle';
 import { START_TEST_CONFIG } from "../../../common/constants";
 
 /**
