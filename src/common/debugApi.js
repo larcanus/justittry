@@ -2,8 +2,8 @@
  * Debug API для ручного тестирования
  * Позволяет запускать тесты с кастомными параметрами
  */
-import Tests from '../../../store/questions/questionsBandle';
-import { START_TEST_CONFIG } from "../../../common/constants";
+import Tests from '../store/questions/questionsBandle';
+import { START_TEST_CONFIG } from "./constants";
 
 /**
  * Валидирует debug конфигурацию
@@ -40,22 +40,42 @@ const validateDebugConfig = (config) => {
 };
 
 /**
- * Получает вопросы по индексам
+ * Получает вопросы по их номерам (поле num)
  * @param {object} testData - Данные теста
  * @param {string} difficulty - Уровень сложности
- * @param {number[]} indices - Индексы вопросов
+ * @param {number[]} questionNums - Номера вопросов (значения поля num)
  * @returns {Array} Массив вопросов
  */
-const getQuestionsByIndices = (testData, difficulty, indices) => {
+const getQuestionsByIndices = (testData, difficulty, questionNums) => {
     const questions = testData[difficulty];
-
+    console.log('questions', questions)
     if (!questions || questions.length === 0) {
         throw new Error(`No questions found for difficulty: ${difficulty}`);
     }
 
-    return indices
-        .filter(index => index >= 0 && index < questions.length)
-        .map(index => questions[index]);
+    const foundQuestions = [];
+    const notFoundNums = [];
+
+    questionNums.forEach(num => {
+        const question = questions.find(q => q.num === `#${num}`);
+        if (question) {
+            foundQuestions.push(question);
+        } else {
+            notFoundNums.push(num);
+        }
+    });
+
+    if (notFoundNums.length > 0) {
+        console.warn(`[Debug API] Questions with num [${notFoundNums.join(', ')}] not found`);
+    }
+
+    if (foundQuestions.length === 0) {
+        throw new Error(`No questions found with specified nums: [${questionNums.join(', ')}]`);
+    }
+
+    console.log(`[Debug API] Found ${foundQuestions.length} questions by num:`, questionNums);
+
+    return foundQuestions;
 };
 
 /**
@@ -102,7 +122,7 @@ class DebugAPI {
      * @param {object} config - Параметры теста
      * @param {string} config.testName - Название теста (JavaScript, HTML, DART, PHP)
      * @param {string} config.difficulty - Сложность (jun, mid)
-     * @param {number[]} [config.questionIndices] - Индексы вопросов (опционально)
+     * @param {number[]} [config.questionIndices] - Номера вопросов (поле num) (опционально)
      * @param {string} [config.duration] - Длительность в минутах (опционально)
      * @param {boolean} [config.withoutTimer=false] - Без таймера
      * @returns {object} Конфигурация теста
@@ -131,7 +151,7 @@ class DebugAPI {
         // Получаем вопросы
         if (questionIndices && questionIndices.length > 0) {
             questions = getQuestionsByIndices(testData, difficulty, questionIndices);
-            console.log(`[Debug API] Using ${questions.length} specific questions:`, questionIndices);
+            console.log(`[Debug API] Using ${questions.length} specific questions with num:`, questionIndices);
         } else {
             // Используем все вопросы для данной сложности
             questions = testData[difficulty] || [];
@@ -278,7 +298,9 @@ class DebugAPI {
         }
 
         const maxQuestions = Math.min(questionCount, testData[difficulty].length);
-        const questionIndices = Array.from({ length: maxQuestions }, (_, i) => i);
+        const questionIndices = testData[difficulty]
+            .slice(0, maxQuestions)
+            .map(q => q.num);
 
         const config = this.createTestConfig({
             testName,
@@ -315,11 +337,11 @@ class DebugAPI {
        duration: '01:00',
    })
 
-3. Создать конфигурацию и запустить вручную:
+3. Создать конфигурацию и запустить вручную (по номерам вопросов):
    const config = debugApi.createTestConfig({
        testName: 'JavaScript',
        difficulty: 'mid',
-       questionIndices: [0, 5, 10, 15, 20, 25],
+       questionIndices: [3, 5, 76],  // Номера вопросов (поле num)
        duration: '02:00'
    })
    debugApi.startTest(config)
@@ -343,24 +365,24 @@ class DebugAPI {
 debugApi.enable()
 debugApi.quickStart('DART')
 
-// Кастомный тест с конкретными вопросами
+// Кастомный тест с конкретными вопросами по их номерам (num)
+debugApi.enable()
+const config = debugApi.createTestConfig({
+    testName: 'PHP',
+    difficulty: 'jun',
+    questionIndices: [3, 5, 76],  // Вопросы с num = 3, 5, 76
+    duration: '01:00',
+    withoutTimer: false
+})
+debugApi.startTest(config)
+
+// Полный контроль
 debugApi.enable()
 debugApi.quickStart('JavaScript', {
     difficulty: 'mid',
     questionCount: 10,
     duration: '03:00',
 })
-
-// Полный контроль
-debugApi.enable()
-const config = debugApi.createTestConfig({
-    testName: 'PHP',
-    difficulty: 'jun',
-    questionIndices: [0, 1, 2, 3, 4, 5],
-    duration: '01:00',
-    withoutTimer: false
-})
-debugApi.startTest(config)
 
 Доступные тесты:
 ${this.getAvailableTests().join(', ')}

@@ -5,7 +5,7 @@ import Maincomp from './modules/body/components/maincomp';
 import CheckTest from './modules/body/containers/checktest';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import React, { useEffect } from 'react';
-import debugApi from './modules/body/utils/debugApi';
+import debugApi from './common/debugApi';
 import { useStore } from "react-redux";
 
 function App() {
