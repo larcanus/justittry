@@ -2,7 +2,7 @@ import React from 'react';
 import ConfigTest from '../containers/configtest';
 import {connect} from "react-redux";
 
-const Maincomp = ({y}) => {
+const Maincomp = ({}) => {
     return (
         <div className='divMain'>
             <ConfigTest/>

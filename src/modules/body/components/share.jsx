@@ -21,7 +21,7 @@ class Share extends Component {
             '"': '&quot;',
             "'": '&#039;'
         };
-        return text.replace(/[&<>"']/g, m => map[m]);
+        return text?.replace(/[&<>"']/g, m => map[m]);
     }
 
     /**
@@ -29,14 +29,14 @@ class Share extends Component {
      */
     buildShareUrl() {
         const baseUrl = 'https://justittry.ru';
-        const { testName, result } = this.props;
+        const { testName } = this.props;
 
-        // Добавляем UTM-метки для отслеживания источника трафика
+        // URLSearchParams сам заботится об экранировании спецсимволов
         const utmParams = new URLSearchParams({
             utm_source: 'social',
             utm_medium: 'share',
             utm_campaign: 'test_results',
-            utm_content: this.escapeHtml(testName)
+            utm_content: testName || ''
         });
 
         return `${baseUrl}?${utmParams.toString()}`;
