@@ -421,11 +421,12 @@ jun: [
                 a1: 'final list = [1, 2, 3];',
                 a2: 'const list = [1, 2, 3];',
                 a3: 'var list = List.unmodifiable([1, 2, 3]);',
-                a4: 'Все вышеперечисленные',
+                a4: 'Варианты a2 и a3',
             },
-            answerOption: 'a3',
-            answer: 'Только List.unmodifiable() гарантирует\n' +
-                'неизменяемость при любом объявлении.',
+            answerOption: 'a4',
+            answer: 'const создаёт compile-time константу (полностью неизменяемый),\n' +
+                'List.unmodifiable() — runtime неизменяемый список.\n' +
+                'final делает неизменяемой только ссылку, но не содержимое.',
             num: '#25',
         },
         {
@@ -539,13 +540,13 @@ jun: [
                 'print([1, 2, 3].where((x) => x > 1).runtimeType);',
             option: {
                 a1: 'List<int>',
-                a2: '_WhereIterable<int>',
+                a2: 'WhereIterable<int> (или внутренний тип)',
                 a3: 'Iterable<dynamic>',
                 a4: 'FilteredList',
             },
             answerOption: 'a2',
-            answer: 'where() возвращает ленивый\n' +
-                'внутренний Iterable (обычно _WhereIterable).',
+            answer: 'where() возвращает ленивый Iterable\n' +
+                '(внутренний тип реализации, например WhereIterable).',
             num: '#34',
         },
         {
@@ -587,7 +588,8 @@ jun: [
             },
             answerOption: 'a1',
             answer: 'const-литералы с одинаковым значением\n' +
-                'ссылаются на один объект (canonicalized).',
+                'ссылаются на один объект (canonicalized).\n' +
+                'Это работает и для records в Dart 3.0+.',
             num: '#37',
         },
         {
