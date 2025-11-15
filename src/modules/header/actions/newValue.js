@@ -8,7 +8,7 @@ export default function newValue(test) {
             break;
         case 'dart-test-logo' : test = 'DART 3';
             break;
-        case 'php-test-logo' : test = 'PHP';
+        case 'php-test-logo' : test = 'PHP 8';
             break;
         case REMOVE_TEST : test = '';
             break;
