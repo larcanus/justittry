@@ -447,7 +447,7 @@ jun: [
             answerOption: 'a2',
             answer: 'Оператор ?? возвращает правый операнд,\n' +
                 'если левый равен null.',
-            num: '#21',
+            num: '#26',
         },
         {
             question: 'Как объявить функцию, возвращающую Future<int>?',
@@ -459,7 +459,7 @@ jun: [
             },
             answerOption: 'a2',
             answer: 'Правильный синтаксис: Future<T> func() async.',
-            num: '#22',
+            num: '#27',
         },
         {
             question: 'Что делает оператор ??= ?',
@@ -471,7 +471,7 @@ jun: [
             },
             answerOption: 'a2',
             answer: 'x ??= value эквивалентно: if (x == null) x = value.',
-            num: '#23',
+            num: '#28',
         },
         {
             question: 'Какой тип у выражения [1, 2, 3].map((x) => x * 2)?',
@@ -484,7 +484,7 @@ jun: [
             answerOption: 'a2',
             answer: 'Метод map() возвращает ленивый Iterable,\n' +
                 'а не List.',
-            num: '#24',
+            num: '#29',
         },
         {
             question: 'Как создать неизменяемый список во время выполнения?',
@@ -498,7 +498,7 @@ jun: [
             answer: 'const создаёт compile-time константу (полностью неизменяемый),\n' +
                 'List.unmodifiable() — runtime неизменяемый список.\n' +
                 'final делает неизменяемой только ссылку, но не содержимое.',
-            num: '#25',
+            num: '#30',
         },
         {
             question: 'Что выведет код?\n\n' +
@@ -513,7 +513,7 @@ jun: [
             answerOption: 'a2',
             answer: 'Future.delayed() добавляет задачу в очередь\n' +
                 'событий, поэтому B выводится первым.',
-            num: '#26',
+            num: '#31',
         },
         {
             question: 'Какой результат выполнения?\n\n' +
@@ -527,7 +527,7 @@ jun: [
             },
             answerOption: 'a1',
             answer: 'Все функции в Dart — подтипы Function.',
-            num: '#27',
+            num: '#32',
         },
         {
             question: 'Что такое mixin в Dart?',
@@ -540,7 +540,7 @@ jun: [
             answerOption: 'a3',
             answer: 'Mixin — это способ повторного\n' +
                 'использования кода между классами.',
-            num: '#28',
+            num: '#33',
         },
         {
             question: 'Как правильно объявить extension для String?',
@@ -552,7 +552,7 @@ jun: [
             },
             answerOption: 'a1',
             answer: 'Правильный синтаксис: extension [Name] on Type { ... }',
-            num: '#29',
+            num: '#34',
         },
         {
             question: 'Что делает Stream.periodic?',
@@ -565,7 +565,7 @@ jun: [
             answerOption: 'a2',
             answer: 'Stream.periodic(Duration, callback)\n' +
                 'генерирует события с интервалом.',
-            num: '#30',
+            num: '#35',
         },
         {
             question: 'Как передать данные в Isolate?',
@@ -578,7 +578,7 @@ jun: [
             answerOption: 'a2',
             answer: 'Isolates не делят память. Обмен —\n' +
                 'только через SendPort/ReceivePort.',
-            num: '#31',
+            num: '#36',
         },
         {
             question: 'Что такое required в именованных параметрах?',
@@ -591,7 +591,7 @@ jun: [
             answerOption: 'a3',
             answer: 'required делает именованный параметр\n' +
                 'обязательным к передаче.',
-            num: '#32',
+            num: '#37',
         },
         {
             question: 'Какой тип у переменной?\n\n' +
@@ -604,7 +604,7 @@ jun: [
             },
             answerOption: 'a3',
             answer: 'Явное указание <int> задаёт тип списка.',
-            num: '#33',
+            num: '#38',
         },
         {
             question: 'Что выведет?\n\n' +
@@ -618,7 +618,7 @@ jun: [
             answerOption: 'a2',
             answer: 'where() возвращает ленивый Iterable\n' +
                 '(внутренний тип реализации, например WhereIterable).',
-            num: '#34',
+            num: '#39',
         },
         {
             question: 'Какой конструктор вызывается первым при наследовании?',
@@ -632,7 +632,7 @@ jun: [
             answer: 'Сначала инициализируется родительский класс,\n' +
                 'затем — потомок.\n' +
             'Тело конструктора родительского класса выполняется до тела конструктора дочернего класса.',
-            num: '#35',
+            num: '#40',
         },
         {
             question: 'Что означает void Function()? callback?',
@@ -645,7 +645,7 @@ jun: [
             answerOption: 'a1',
             answer: 'void Function()? — опциональная функция,\n' +
                 'возвращающая void и не принимающая аргументов.',
-            num: '#36',
+            num: '#41',
         },
         {
             question: 'Какой результат?\n\n' +
@@ -662,7 +662,7 @@ jun: [
             answer: 'const-литералы с одинаковым значением\n' +
                 'ссылаются на один объект (canonicalized).\n' +
                 'Это работает и для records в Dart 3.0+.',
-            num: '#37',
+            num: '#42',
         },
         {
             question: 'Как обработать ошибку в async-функции?',
@@ -675,7 +675,7 @@ jun: [
             answerOption: 'a3',
             answer: 'Можно использовать как try/catch,\n' +
                 'так и catchError/onError.',
-            num: '#38',
+            num: '#43',
         },
         {
             question: 'Что делает оператор ?.',
@@ -688,7 +688,7 @@ jun: [
             answerOption: 'a2',
             answer: 'x?.method() вызовет method(),\n' +
                 'только если x не null.',
-            num: '#39',
+            num: '#44',
         },
         {
             question: 'Какой тип у выражения?\n\n' +
@@ -702,7 +702,7 @@ jun: [
             },
             answerOption: 'a3',
             answer: 'Dart выводит тип T как int из аргумента 42.',
-            num: '#40',
+            num: '#45',
         },
         {
             question: 'Что выведет этот код?\n\n' +
@@ -717,7 +717,7 @@ jun: [
             answerOption: 'a1',
             answer: 'Dart 3.0+ поддерживает именованные поля в records.\n' +
                 'Поля доступны как свойства.',
-            num: '#41',
+            num: '#46',
         },
         {
             question: 'Какой результат выполнения?\n\n' +
@@ -737,7 +737,7 @@ jun: [
             answer: 'await for требует, чтобы функция была async.\n' +
                 'main() должна быть объявлена как Future<void> main() async.\n' +
                 'Без этого — ошибка компиляции.',
-            num: '#42',
+            num: '#47',
         },
         {
             question: 'Что делает этот паттерн (Dart 3.0+)?\n\n' +
@@ -755,7 +755,7 @@ jun: [
             answer: 'Dart 3.0+ поддерживает pattern matching для records.\n' +
                 'case (int x, int y) сопоставляет record из двух int,\n' +
                 'извлекает значения в переменные x и y (destructuring).',
-            num: '#43',
+            num: '#48',
         },
         {
             question: 'Как правильно ограничить обобщённый тип T, чтобы он был подтипом Comparable?',
@@ -768,7 +768,7 @@ jun: [
             answerOption: 'a1',
             answer: 'В Dart используется extends для ограничения дженериков:\n' +
                 'T extends Comparable<T>.',
-            num: '#44',
+            num: '#49',
         },
         {
             question: 'Что такое extension type (Dart 3.3+)?',
@@ -783,7 +783,7 @@ jun: [
                 'оборачивающие существующие, без runtime накладных расходов.\n' +
                 'Пример: extension type UserId(int id) {} создаёт тип UserId,\n' +
                 'который нельзя случайно перепутать с обычным int.',
-            num: '#45',
+            num: '#50',
         },
     ],
 };
