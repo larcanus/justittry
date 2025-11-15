@@ -545,10 +545,10 @@ const PHPQuestions = {
 				a3: 'Ничего (исключение)',
 				a4: 'OK + исключение',
 			},
-			answerOption: 'a3',
-			answer: 'never означает, что функция никогда не завершится\n' +
-				'нормально (всегда бросает исключение или уходит в exit).\n' +
-				'Код после вызова не выполнится.',
+			answerOption: 'a4',
+			answer: 'Сначала выполнится echo "OK", затем вызов test().\n' +
+				'never означает, что функция не завершится нормально.\n' +
+				'Будет выведено "OK", затем брошено исключение.',
 			num: '#29',
 		},
 		{
@@ -569,10 +569,10 @@ const PHPQuestions = {
 				a3: 'Ошибка типизации',
 				a4: 'null',
 			},
-			answerOption: 'a2',
-			answer: 'self возвращается как текущий экземпляр класса.\n' +
-				'Поскольку $b — объект B, метод вернёт B.\n' +
-				'self ведёт себя как late static binding для возврата.',
+			answerOption: 'a3',
+			answer: 'self в возвращаемом типе означает точно класс A.\n' +
+				'Метод test() в классе B вернёт объект B, что нарушает\n' +
+				'контракт. Будет Fatal error о несовместимости типов.',
 			num: '#30',
 		},
 		{
@@ -588,7 +588,7 @@ const PHPQuestions = {
 				a4: 'null',
 			},
 			answerOption: 'a1',
-			answer: 'fn() — стрелочная (анонимная) функция (PHP 7.4+).\n' +
+			answer: 'fn() - стрелочная (анонимная) функция (PHP 7.4+).\n' +
 				'Короткий синтаксис для однострочных замыканий.\n' +
 				'Возвращает 5 * 2 = 10.',
 			num: '#31',
@@ -610,7 +610,7 @@ const PHPQuestions = {
 			},
 			answerOption: 'a4',
 			answer: 'match возвращает значение, а не выполняет код.\n' +
-				'echo внутри match — синтаксическая ошибка.\n' +
+				'echo внутри match - синтаксическая ошибка.\n' +
 				'Нужно: echo match(...) { ... };',
 			num: '#32',
 		},
@@ -623,10 +623,10 @@ const PHPQuestions = {
 				a3: 'Traversable',
 				a4: 'Countable',
 			},
-			answerOption: 'a3',
-			answer: 'Traversable — базовый интерфейс для итерации.\n' +
-				'Напрямую его реализовать нельзя — нужно использовать\n' +
-				'Iterator или IteratorAggregate.',
+			answerOption: 'a2',
+			answer: 'Iterator - интерфейс для итерации в foreach.\n' +
+				'Traversable нельзя реализовать напрямую.\n' +
+				'Нужно использовать Iterator или IteratorAggregate.',
 			num: '#33',
 		},
 		{
@@ -651,8 +651,8 @@ const PHPQuestions = {
 			num: '#34',
 		},
 		{
-			question: 'Какой атрибут используется для сериализации\n' +
-				'свойств в PHP 8.2+?',
+			question: 'Какой атрибут используется для разрешения\n' +
+				'динамических свойств в PHP 8.2+?',
 			option: {
 				a1: '#[Serialize]',
 				a2: '#[Serialized]',
@@ -660,9 +660,9 @@ const PHPQuestions = {
 				a4: '#[IgnoreSerialization]',
 			},
 			answerOption: 'a3',
-			answer: '#[AllowDynamicProperties] разрешает динамические свойства\n' +
-				'в классах без __get/__set (по умолчанию запрещены с PHP 8.2).\n' +
-				'Для сериализации это может быть критично.',
+			answer: '#[AllowDynamicProperties] разрешает динамические\n' +
+				'свойства в классах (по умолчанию запрещены с PHP 8.2).\n' +
+				'Без него создание свойств вне __construct вызовет ошибку.',
 			num: '#35',
 		},
 		{
@@ -681,7 +681,7 @@ const PHPQuestions = {
 			},
 			answerOption: 'a1',
 			answer: 'array_map применяет callback ко всем элементам.\n' +
-				'$x ** 2 — возведение в квадрат.\n' +
+				'$x ** 2 - возведение в квадрат.\n' +
 				'Результат: [1, 4, 9].',
 			num: '#36',
 		},
@@ -697,7 +697,7 @@ const PHPQuestions = {
 			answerOption: 'a3',
 			answer: 'protected делает метод доступным только в классе\n' +
 				'и его наследниках.\n' +
-				'private — только внутри класса, public — везде.',
+				'private - только внутри класса, public - везде.',
 			num: '#37',
 		},
 		{
@@ -718,9 +718,9 @@ const PHPQuestions = {
 				a4: 'Fatal error',
 			},
 			answerOption: 'a2',
-			answer: 'Error и Exception — разные ветви иерархии.\n' +
+			answer: 'Error и Exception - разные ветви иерархии.\n' +
 				'Error не наследует Exception (начиная с PHP 7).\n' +
-				'Первый catch не сработает, второй — да.',
+				'Первый catch не сработает, второй - да.',
 			num: '#38',
 		},
 		{
@@ -737,8 +737,8 @@ const PHPQuestions = {
 			option: {
 				a1: 'missing: email',
 				a2: 'null',
-				c3: 'Notice',
-				d4: 'Ошибка',
+				a3: 'Notice',
+				a4: 'Ошибка',
 			},
 			answerOption: 'a1',
 			answer: '__get вызывается при обращении к несуществующему\n' +
@@ -761,9 +761,9 @@ const PHPQuestions = {
 				a4: 'Ошибка',
 			},
 			answerOption: 'a1',
-			answer: 'SplQueue реализует очередь FIFO (первым пришёл —\n' +
+			answer: 'SplQueue реализует очередь FIFO (первым пришёл -\n' +
 				'первым ушёл). enqueue() добавляет, dequeue() извлекает\n' +
-				'первый элемент — "A".',
+				'первый элемент - "A".',
 			num: '#40',
 		},
 		{
@@ -777,8 +777,8 @@ const PHPQuestions = {
 			},
 			answerOption: 'a2',
 			answer: 'JsonSerializable требует метод jsonSerialize(),\n' +
-				'который вызывается json_encode() для кастомной сериализации.\n' +
-				'Стандартный способ контролировать JSON-вывод.',
+				'который вызывается json_encode() для кастомной\n' +
+				'сериализации. Стандартный способ контролировать JSON.',
 			num: '#41',
 		},
 		{
@@ -802,7 +802,7 @@ const PHPQuestions = {
 			answerOption: 'a1',
 			answer: 'Атрибуты без рефлексии не влияют на выполнение.\n' +
 				'Код просто определяет класс и функцию.\n' +
-				'Выведется "OK", если echo есть (в примере — да).',
+				'Выведется "OK".',
 			num: '#42',
 		},
 		{
@@ -847,7 +847,7 @@ const PHPQuestions = {
 				a4: 'call_user_func()',
 			},
 			answerOption: 'a3',
-			answer: 'create_function() устарел и удалён. Его замена —\n' +
+			answer: 'create_function() устарел и удалён. Его замена -\n' +
 				'анонимные функции: function() или fn().\n' +
 				'Они безопасны, быстры и читаемы.',
 			num: '#45',
@@ -870,8 +870,8 @@ const PHPQuestions = {
 				a4: 'null',
 			},
 			answerOption: 'a2',
-			answer: 'static::class использует позднее статическое связывание.\n' +
-				'Выведет класс, откуда вызван метод — B.\n' +
+			answer: 'static::class использует позднее статическое\n' +
+				'связывание. Выведет класс, откуда вызван метод - B.\n' +
 				'self::class вывел бы A.',
 			num: '#46',
 		},
@@ -884,8 +884,8 @@ const PHPQuestions = {
 				a4: 'PSR-7',
 			},
 			answerOption: 'a2',
-			answer: 'PSR-4 определяет стандарт автозагрузки через namespace\n' +
-				'и структуру каталогов.\n' +
+			answer: 'PSR-4 определяет стандарт автозагрузки через\n' +
+				'namespace и структуру каталогов.\n' +
 				'Используется Composer (autoload).',
 			num: '#47',
 		},
@@ -956,7 +956,7 @@ const PHPQuestions = {
 				a4: 'Threads',
 			},
 			answerOption: 'a2',
-			answer: 'Fibers (PHP 8.1) — легковесные кооперативные потоки.\n' +
+			answer: 'Fibers (PHP 8.1) - легковесные кооперативные потоки.\n' +
 				'Позволяют приостанавливать и возобновлять выполнение.\n' +
 				'База для асинхронных библиотек (например, ReactPHP).',
 			num: '#51',
@@ -978,10 +978,10 @@ const PHPQuestions = {
 				a3: 'Пусто',
 				a4: 'Fatal error',
 			},
-			answerOption: 'a1',
-			answer: 'В PHP допустимо опускать тип в реализации метода,\n' +
-				'если родительский тип совместим (LSP).\n' +
-				'Код работает и выведет "Test".',
+			answerOption: 'a2',
+			answer: 'В PHP 8.0+ строгая проверка типов в реализации.\n' +
+				'Метод log() должен иметь тип string в параметре.\n' +
+				'Отсутствие типа нарушает контракт - Fatal error.',
 			num: '#52',
 		},
 	],
