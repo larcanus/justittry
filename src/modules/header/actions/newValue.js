@@ -2,15 +2,15 @@ import {CHOICE_TEST,REMOVE_TEST} from '../../../common/constants';
 
 export default function newValue(test) {
     switch (test) {
-        case 'js-test-logo'  : test =  'Тест на знание языка JavaScript';
+        case 'js-test-logo'  : test =  'JavaScript';
             break;
-        case 'html-test-logo' : test = 'Тест на знание языка HTML';
+        case 'html-test-logo' : test = 'HTML';
             break;
-        case 'dart-test-logo' : test = 'Тест на знание языка DART';
+        case 'dart-test-logo' : test = 'DART 3';
             break;
-        case 'php-test-logo' : test = 'Тест на знание языка PHP';
+        case 'php-test-logo' : test = 'PHP';
             break;
-        case REMOVE_TEST : test = 'Выберите тест';
+        case REMOVE_TEST : test = '';
             break;
     }
 

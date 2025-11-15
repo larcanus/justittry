@@ -5,7 +5,7 @@ import HTMLQuestions from './html.js';
 
 const Tests = {
     'JavaScript': JavaScriptQuestions,
-    'DART': DartQuestions,
+    'DART 3': DartQuestions,
     'PHP': PHPQuestions,
     'HTML': HTMLQuestions
 };

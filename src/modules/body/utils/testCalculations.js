@@ -80,5 +80,5 @@ export const isTestPassed = (errorCount, maxErrors) => {
  */
 export const extractTestName = (fullTestName) => {
     if (!fullTestName) return '';
-    return fullTestName.substring(21);
+    return fullTestName;
 };

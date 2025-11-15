@@ -6,12 +6,12 @@
  */
 const generateUniqueRandomNumbers = (count, max) => {
     const numbers = new Set();
-    
+
     while (numbers.size < count) {
         const randomNum = Math.floor(Math.random() * max);
         numbers.add(randomNum);
     }
-    
+
     return Array.from(numbers);
 };
 
@@ -28,7 +28,7 @@ export const generateRandomQuestions = (testData, difficulty, questionCount = 20
     }
 
     const questions = testData[difficulty];
-    
+
     if (!questions || questions.length === 0) {
         console.error('Вопросы не найдены для выбранной сложности');
         return [];
@@ -36,7 +36,7 @@ export const generateRandomQuestions = (testData, difficulty, questionCount = 20
 
     const maxQuestions = Math.min(questionCount, questions.length);
     const randomIndices = generateUniqueRandomNumbers(maxQuestions, questions.length);
-    
+
     return randomIndices.map(index => questions[index]);
 };
 
@@ -47,5 +47,5 @@ export const generateRandomQuestions = (testData, difficulty, questionCount = 20
  */
 export const extractShortTestName = (fullTestName) => {
     if (!fullTestName) return '';
-    return fullTestName.substring(21);
+    return fullTestName;
 };

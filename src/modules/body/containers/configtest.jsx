@@ -73,6 +73,8 @@ const Configtest = ({
 
     console.log('Configtest validationErrors:', validationErrors);
 
+    const headerTestName = currentTest ? `Тест на знание языка ${currentTest}` : 'Выберите тест';
+
     return (
         <div className='test-config'>
             <TestInfo />
@@ -80,7 +82,7 @@ const Configtest = ({
             <div className='test-config__panel'>
                 <div className='test-config__header'>
                     <p className='test-config__header-title'>
-                        <b>{currentTest}</b>
+                        <b>{headerTestName}</b>
                     </p>
                 </div>
 
