@@ -494,7 +494,497 @@ const PHPQuestions = {
 			num: '#26',
 		},
 	],
-	mid: [],
+	mid: [
+		{
+			question: 'Что выведет код?\n\n' +
+				'<?php\n' +
+				'enum Status: string {\n' +
+				'    case Active = "active";\n' +
+				'    case Inactive = "inactive";\n' +
+				'}\n' +
+				'echo Status::Active->value;\n' +
+				'?>',
+			option: {
+				a1: 'active',
+				a2: 'Active',
+				a3: 'Status::Active',
+				a4: 'Ошибка',
+			},
+			answerOption: 'a1',
+			answer: 'Backed enum с типом string хранит значение в ->value.\n' +
+				'Status::Active->value возвращает "active".\n' +
+				'Доступен с PHP 8.1.',
+			num: '#27',
+		},
+		{
+			question: 'Как правильно объявить строгую типизацию файла?',
+			option: {
+				a1: 'use strict_types=1;',
+				a2: 'declare(strict_types=1);',
+				a3: 'strict_types(1);',
+				a4: 'set_strict_types(true);',
+			},
+			answerOption: 'a2',
+			answer: 'Строгая типизация включается директивой\n' +
+				'declare(strict_types=1) в начале файла.\n' +
+				'Должна быть первой строкой после <?php.',
+			num: '#28',
+		},
+		{
+			question: 'Что выведет код?\n\n' +
+				'<?php\n' +
+				'function test(): never {\n' +
+				'    throw new Exception("Error");\n' +
+				'}\n' +
+				'echo "OK";\n' +
+				'test();\n' +
+				'?>',
+			option: {
+				a1: 'OK',
+				a2: 'Ошибка',
+				a3: 'Ничего (исключение)',
+				a4: 'OK + исключение',
+			},
+			answerOption: 'a3',
+			answer: 'never означает, что функция никогда не завершится\n' +
+				'нормально (всегда бросает исключение или уходит в exit).\n' +
+				'Код после вызова не выполнится.',
+			num: '#29',
+		},
+		{
+			question: 'Какой результат?\n\n' +
+				'<?php\n' +
+				'class A {\n' +
+				'    public function test(): self {\n' +
+				'        return $this;\n' +
+				'    }\n' +
+				'}\n' +
+				'class B extends A {}\n' +
+				'$b = new B();\n' +
+				'var_dump($b->test());\n' +
+				'?>',
+			option: {
+				a1: 'object(A)',
+				a2: 'object(B)',
+				a3: 'Ошибка типизации',
+				a4: 'null',
+			},
+			answerOption: 'a2',
+			answer: 'self возвращается как текущий экземпляр класса.\n' +
+				'Поскольку $b — объект B, метод вернёт B.\n' +
+				'self ведёт себя как late static binding для возврата.',
+			num: '#30',
+		},
+		{
+			question: 'Что делает код?\n\n' +
+				'<?php\n' +
+				'$fn = fn($x) => $x * 2;\n' +
+				'echo $fn(5);\n' +
+				'?>',
+			option: {
+				a1: '10',
+				a2: '5',
+				a3: 'Ошибка синтаксиса',
+				a4: 'null',
+			},
+			answerOption: 'a1',
+			answer: 'fn() — стрелочная (анонимная) функция (PHP 7.4+).\n' +
+				'Короткий синтаксис для однострочных замыканий.\n' +
+				'Возвращает 5 * 2 = 10.',
+			num: '#31',
+		},
+		{
+			question: 'Что выведет код?\n\n' +
+				'<?php\n' +
+				'match (2) {\n' +
+				'    1 => echo "A",\n' +
+				'    2 => echo "B",\n' +
+				'    default => echo "C",\n' +
+				'};\n' +
+				'?>',
+			option: {
+				a1: 'A',
+				a2: 'B',
+				a3: 'C',
+				a4: 'Parse error',
+			},
+			answerOption: 'a4',
+			answer: 'match возвращает значение, а не выполняет код.\n' +
+				'echo внутри match — синтаксическая ошибка.\n' +
+				'Нужно: echo match(...) { ... };',
+			num: '#32',
+		},
+		{
+			question: 'Какой интерфейс нужно реализовать,\n' +
+				'чтобы объект можно было использовать в foreach?',
+			option: {
+				a1: 'ArrayAccess',
+				a2: 'Iterator',
+				a3: 'Traversable',
+				a4: 'Countable',
+			},
+			answerOption: 'a3',
+			answer: 'Traversable — базовый интерфейс для итерации.\n' +
+				'Напрямую его реализовать нельзя — нужно использовать\n' +
+				'Iterator или IteratorAggregate.',
+			num: '#33',
+		},
+		{
+			question: 'Что выведет код?\n\n' +
+				'<?php\n' +
+				'final class User {\n' +
+				'    public function __construct(private string $name) {}\n' +
+				'    public function getName(): string { return $this->name; }\n' +
+				'}\n' +
+				'class Admin extends User {}\n' +
+				'?>',
+			option: {
+				a1: 'Ничего',
+				a2: 'Fatal error',
+				a3: 'Warning',
+				a4: 'Parse error',
+			},
+			answerOption: 'a2',
+			answer: 'final-классы нельзя наследовать.\n' +
+				'Попытка extends User вызовет Fatal error.\n' +
+				'final запрещает расширение класса.',
+			num: '#34',
+		},
+		{
+			question: 'Какой атрибут используется для сериализации\n' +
+				'свойств в PHP 8.2+?',
+			option: {
+				a1: '#[Serialize]',
+				a2: '#[Serialized]',
+				a3: '#[AllowDynamicProperties]',
+				a4: '#[IgnoreSerialization]',
+			},
+			answerOption: 'a3',
+			answer: '#[AllowDynamicProperties] разрешает динамические свойства\n' +
+				'в классах без __get/__set (по умолчанию запрещены с PHP 8.2).\n' +
+				'Для сериализации это может быть критично.',
+			num: '#35',
+		},
+		{
+			question: 'Что выведет код?\n\n' +
+				'<?php\n' +
+				'function test(array $data): array {\n' +
+				'    return array_map(fn($x) => $x ** 2, $data);\n' +
+				'}\n' +
+				'print_r(test([1, 2, 3]));\n' +
+				'?>',
+			option: {
+				a1: '[1, 4, 9]',
+				a2: '[1, 2, 3]',
+				a3: '[2, 4, 6]',
+				a4: 'Ошибка',
+			},
+			answerOption: 'a1',
+			answer: 'array_map применяет callback ко всем элементам.\n' +
+				'$x ** 2 — возведение в квадрат.\n' +
+				'Результат: [1, 4, 9].',
+			num: '#36',
+		},
+		{
+			question: 'Как объявить метод, который может быть вызван\n' +
+				'только из наследников?',
+			option: {
+				a1: 'public',
+				a2: 'private',
+				a3: 'protected',
+				a4: 'internal',
+			},
+			answerOption: 'a3',
+			answer: 'protected делает метод доступным только в классе\n' +
+				'и его наследниках.\n' +
+				'private — только внутри класса, public — везде.',
+			num: '#37',
+		},
+		{
+			question: 'Что выведет код?\n\n' +
+				'<?php\n' +
+				'try {\n' +
+				'    throw new Error("Oops");\n' +
+				'} catch (Exception $e) {\n' +
+				'    echo "Exception";\n' +
+				'} catch (Error $e) {\n' +
+				'    echo "Error";\n' +
+				'}\n' +
+				'?>',
+			option: {
+				a1: 'Exception',
+				a2: 'Error',
+				a3: 'Ничего',
+				a4: 'Fatal error',
+			},
+			answerOption: 'a2',
+			answer: 'Error и Exception — разные ветви иерархии.\n' +
+				'Error не наследует Exception (начиная с PHP 7).\n' +
+				'Первый catch не сработает, второй — да.',
+			num: '#38',
+		},
+		{
+			question: 'Какой результат выполнения?\n\n' +
+				'<?php\n' +
+				'class Container {\n' +
+				'    public function __get($name) {\n' +
+				'        return "missing: $name";\n' +
+				'    }\n' +
+				'}\n' +
+				'$c = new Container();\n' +
+				'echo $c->email;\n' +
+				'?>',
+			option: {
+				a1: 'missing: email',
+				a2: 'null',
+				c3: 'Notice',
+				d4: 'Ошибка',
+			},
+			answerOption: 'a1',
+			answer: '__get вызывается при обращении к несуществующему\n' +
+				'публичному свойству.\n' +
+				'Возвращает "missing: email".',
+			num: '#39',
+		},
+		{
+			question: 'Что делает код?\n\n' +
+				'<?php\n' +
+				'$queue = new SplQueue();\n' +
+				'$queue->enqueue("A");\n' +
+				'$queue->enqueue("B");\n' +
+				'echo $queue->dequeue();\n' +
+				'?>',
+			option: {
+				a1: 'A',
+				a2: 'B',
+				a3: 'AB',
+				a4: 'Ошибка',
+			},
+			answerOption: 'a1',
+			answer: 'SplQueue реализует очередь FIFO (первым пришёл —\n' +
+				'первым ушёл). enqueue() добавляет, dequeue() извлекает\n' +
+				'первый элемент — "A".',
+			num: '#40',
+		},
+		{
+			question: 'Какой интерфейс обязывает реализовать метод\n' +
+				'jsonSerialize()?',
+			option: {
+				a1: 'Jsonable',
+				a2: 'JsonSerializable',
+				a3: 'Serializable',
+				a4: 'Arrayable',
+			},
+			answerOption: 'a2',
+			answer: 'JsonSerializable требует метод jsonSerialize(),\n' +
+				'который вызывается json_encode() для кастомной сериализации.\n' +
+				'Стандартный способ контролировать JSON-вывод.',
+			num: '#41',
+		},
+		{
+			question: 'Что выведет код?\n\n' +
+				'<?php\n' +
+				'#[Attribute]\n' +
+				'class Route {\n' +
+				'    public function __construct(public string $path) {}\n' +
+				'}\n' +
+				'#[Route("/api/users")]\n' +
+				'function getUsers() {}\n' +
+				'reflection... (не используется)\n' +
+				'echo "OK";\n' +
+				'?>',
+			option: {
+				a1: 'OK',
+				a2: 'Ошибка',
+				a3: 'Пусто',
+				a4: 'Fatal error',
+			},
+			answerOption: 'a1',
+			answer: 'Атрибуты без рефлексии не влияют на выполнение.\n' +
+				'Код просто определяет класс и функцию.\n' +
+				'Выведется "OK", если echo есть (в примере — да).',
+			num: '#42',
+		},
+		{
+			question: 'Какой тип возврата у функции,\n' +
+				'не возвращающей значение?',
+			option: {
+				a1: 'void',
+				a2: 'null',
+				a3: 'mixed',
+				a4: 'ничего не указывать',
+			},
+			answerOption: 'a1',
+			answer: 'void указывает, что функция ничего не возвращает.\n' +
+				'Попытка вернуть значение вызовет ошибку.\n' +
+				'Это помогает при строгой типизации.',
+			num: '#43',
+		},
+		{
+			question: 'Что выведет код?\n\n' +
+				'<?php\n' +
+				'$x = "3.14";\n' +
+				'echo (int)$x;\n' +
+				'?>',
+			option: {
+				a1: '3',
+				a2: '3.14',
+				a3: '0',
+				a4: 'Ошибка',
+			},
+			answerOption: 'a1',
+			answer: 'Приведение строки к int отбрасывает дробную часть.\n' +
+				'PHP читает число до первого нецифрового символа.\n' +
+				'(int)"3.14" → 3.',
+			num: '#44',
+		},
+		{
+			question: 'Какой механизм заменяет create_function()?',
+			option: {
+				a1: 'eval()',
+				a2: 'Closure::fromCallable()',
+				a3: 'fn() и function()',
+				a4: 'call_user_func()',
+			},
+			answerOption: 'a3',
+			answer: 'create_function() устарел и удалён. Его замена —\n' +
+				'анонимные функции: function() или fn().\n' +
+				'Они безопасны, быстры и читаемы.',
+			num: '#45',
+		},
+		{
+			question: 'Что выведет код?\n\n' +
+				'<?php\n' +
+				'class A {\n' +
+				'    public static function who() {\n' +
+				'        echo static::class;\n' +
+				'    }\n' +
+				'}\n' +
+				'class B extends A {}\n' +
+				'B::who();\n' +
+				'?>',
+			option: {
+				a1: 'A',
+				a2: 'B',
+				a3: 'Ошибка',
+				a4: 'null',
+			},
+			answerOption: 'a2',
+			answer: 'static::class использует позднее статическое связывание.\n' +
+				'Выведет класс, откуда вызван метод — B.\n' +
+				'self::class вывел бы A.',
+			num: '#46',
+		},
+		{
+			question: 'Какой PSR описывает автозагрузку классов?',
+			option: {
+				a1: 'PSR-1',
+				a2: 'PSR-4',
+				a3: 'PSR-12',
+				a4: 'PSR-7',
+			},
+			answerOption: 'a2',
+			answer: 'PSR-4 определяет стандарт автозагрузки через namespace\n' +
+				'и структуру каталогов.\n' +
+				'Используется Composer (autoload).',
+			num: '#47',
+		},
+		{
+			question: 'Что выведет код?\n\n' +
+				'<?php\n' +
+				'function gen() {\n' +
+				'    yield from [1, 2];\n' +
+				'    yield from [3];\n' +
+				'}\n' +
+				'echo implode("", iterator_to_array(gen()));\n' +
+				'?>',
+			option: {
+				a1: '123',
+				a2: '12',
+				a3: '3',
+				a4: 'Ошибка',
+			},
+			answerOption: 'a1',
+			answer: 'yield from делегирует генерацию другому итератору.\n' +
+				'Генератор вернёт 1, 2, 3.\n' +
+				'implode объединит в строку "123".',
+			num: '#48',
+		},
+		{
+			question: 'Какой тип ошибки вызывает деление на ноль\n' +
+				'с целыми числами в PHP 8+?',
+			option: {
+				a1: 'Warning',
+				a2: 'DivisionByZeroError',
+				a3: 'ArithmeticError',
+				a4: 'TypeError',
+			},
+			answerOption: 'a2',
+			answer: 'Начиная с PHP 8, деление на ноль выбрасывает\n' +
+				'DivisionByZeroError (наследник Error).\n' +
+				'Раньше было Warning.',
+			num: '#49',
+		},
+		{
+			question: 'Что выведет код?\n\n' +
+				'<?php\n' +
+				'$a = 10;\n' +
+				'$b = &$a;\n' +
+				'$c = $b;\n' +
+				'$a = 20;\n' +
+				'echo $c;\n' +
+				'?>',
+			option: {
+				a1: '10',
+				a2: '20',
+				a3: 'null',
+				a4: 'Ошибка',
+			},
+			answerOption: 'a1',
+			answer: '$c = $b копирует значение (10), а не ссылку.\n' +
+				'После этого $a меняется на 20, но $c остаётся 10.\n' +
+				'Ссылка есть только между $a и $b.',
+			num: '#50',
+		},
+		{
+			question: 'Какой механизм позволяет выполнять\n' +
+				'асинхронный код в PHP 8.1+?',
+			option: {
+				a1: 'async/await',
+				a2: 'Fibers',
+				a3: 'Promises',
+				a4: 'Threads',
+			},
+			answerOption: 'a2',
+			answer: 'Fibers (PHP 8.1) — легковесные кооперативные потоки.\n' +
+				'Позволяют приостанавливать и возобновлять выполнение.\n' +
+				'База для асинхронных библиотек (например, ReactPHP).',
+			num: '#51',
+		},
+		{
+			question: 'Что выведет код?\n\n' +
+				'<?php\n' +
+				'interface Logger {\n' +
+				'    public function log(string $msg): void;\n' +
+				'}\n' +
+				'class FileLogger implements Logger {\n' +
+				'    public function log($msg) { echo $msg; }\n' +
+				'}\n' +
+				'(new FileLogger())->log("Test");\n' +
+				'?>',
+			option: {
+				a1: 'Test',
+				a2: 'Ошибка типизации',
+				a3: 'Пусто',
+				a4: 'Fatal error',
+			},
+			answerOption: 'a1',
+			answer: 'В PHP допустимо опускать тип в реализации метода,\n' +
+				'если родительский тип совместим (LSP).\n' +
+				'Код работает и выведет "Test".',
+			num: '#52',
+		},
+	],
 };
 
 export default PHPQuestions;
