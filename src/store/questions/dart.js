@@ -393,7 +393,7 @@ const DartQuestions = {
                 a3: 'var list = List.unmodifiable([1, 2, 3]);',
                 a4: 'Все вышеперечисленные',
             },
-            answerOption: 'c3',
+            answerOption: 'a3',
             answer: 'Только List.unmodifiable() гарантирует\n' +
                 'неизменяемость при любом объявлении.',
             num: '#25',
