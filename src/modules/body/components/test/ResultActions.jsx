@@ -11,14 +11,12 @@ const ResultActions = ({ onShowAnswers, onRetry }) => {
                     className='result-actions__btn result-actions__btn--secondary'
                     onClick={onShowAnswers}
                 >
-                    <span className='result-actions__icon'>📖</span>
                     <span className='result-actions__text'>Посмотреть ответы</span>
                 </button>
                 <button
                     className='result-actions__btn result-actions__btn--primary'
                     onClick={onRetry}
                 >
-                    <span className='result-actions__icon'>🔄</span>
                     <span className='result-actions__text'>Пройти еще раз</span>
                 </button>
             </div>

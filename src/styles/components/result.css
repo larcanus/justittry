@@ -157,10 +157,6 @@
     box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
 }
 
-.result-actions__icon {
-    font-size: 18px;
-}
-
 .result-actions__text {
     position: relative;
     z-index: 1;
