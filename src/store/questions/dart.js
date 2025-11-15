@@ -361,6 +361,77 @@ jun: [
             num: '#20',
 
         },
+        {
+            question: 'Какой результат выполнения?\n\n' +
+                'var name = \'Dart\';\n' +
+                'print(\'Hello $name!\');',
+            option: {
+                a1: 'Hello $name!',
+                a2: 'Hello Dart!',
+                a3: 'Ошибка: интерполяция не поддерживается',
+                a4: 'Hello {name}!',
+            },
+            answerOption: 'a2',
+            answer: 'Dart поддерживает строковую интерполяцию через $ или ${}.',
+            num: '#21',
+        },
+        {
+            question: 'Какой тип будет у переменной?\n\n' +
+                'var value = 42;',
+            option: {
+                a1: 'dynamic',
+                a2: 'num',
+                a3: 'int',
+                a4: 'Object',
+            },
+            answerOption: 'a3',
+            answer: 'Dart выводит тип int из литерала 42 при использовании var.',
+            num: '#22',
+        },
+        {
+            question: 'Какой результат?\n\n' +
+                'List<int> numbers = [];\n' +
+                'numbers.add(1);\n' +
+                'print(numbers.length);',
+            option: {
+                a1: '0',
+                a2: '1',
+                a3: 'Ошибка: нельзя добавлять в пустой список',
+                a4: 'null',
+            },
+            answerOption: 'a2',
+            answer: 'Пустой список можно изменять, если он не const и не unmodifiable.',
+            num: '#23',
+        },
+        {
+            question: 'Как правильно проверить, что nullable строка не null и не пустая?\n\n' +
+                'String? str = getValue();',
+            option: {
+                a1: 'if (str != null && str.isNotEmpty)',
+                a2: 'if (str.isNotEmpty)',
+                a3: 'if (str != "")',
+                a4: 'if (str != false)',
+            },
+            answerOption: 'a1',
+            answer: 'Для nullable типов (String?) сначала проверяем на null,\n' +
+                'затем на пустоту.\n' +
+                'Для non-nullable (String) достаточно str.isNotEmpty.',
+            num: '#24',
+        },
+        {
+            question: 'Что такое records в Dart 3.0+?',
+            option: {
+                a1: 'Новые классы для работы с базами данных',
+                a2: 'Способ группировать несколько значений разных типов без создания класса',
+                a3: 'Аналог Map с фиксированным набором ключей',
+                a4: 'Тип для хранения бинарных данных',
+            },
+            answerOption: 'a2',
+            answer: 'Records — легковесные структуры данных.\n' +
+                'Позиционные: var person = (\'Alice\', 30); // (String, int)\n' +
+                'Именованные: var person = (name: \'Alice\', age: 30);',
+            num: '#25',
+        },
     ],
     mid: [
         {
@@ -632,6 +703,87 @@ jun: [
             answerOption: 'a3',
             answer: 'Dart выводит тип T как int из аргумента 42.',
             num: '#40',
+        },
+        {
+            question: 'Что выведет этот код?\n\n' +
+                'var record = (name: \'Dart\', version: 3.0);\n' +
+                'print(record.name);',
+            option: {
+                a1: 'Dart',
+                a2: 'Ошибка: records не поддерживают именованные поля',
+                a3: 'null',
+                a4: '(name: \'Dart\', version: 3.0)',
+            },
+            answerOption: 'a1',
+            answer: 'Dart 3.0+ поддерживает именованные поля в records.\n' +
+                'Поля доступны как свойства.',
+            num: '#41',
+        },
+        {
+            question: 'Какой результат выполнения?\n\n' +
+                'void main() {\n' +
+                '  Stream<int> stream = Stream.fromIterable([1, 2]);\n' +
+                '  await for (var n in stream) {\n' +
+                '    print(n);\n' +
+                '  }\n' +
+                '}',
+            option: {
+                a1: '1\\n2',
+                a2: '2\\n1',
+                a3: 'Ошибка: await for нельзя использовать вне async',
+                a4: 'Ничего не выведет',
+            },
+            answerOption: 'a3',
+            answer: 'await for требует, чтобы функция была async.\n' +
+                'main() должна быть объявлена как Future<void> main() async.\n' +
+                'Без этого — ошибка компиляции.',
+            num: '#42',
+        },
+        {
+            question: 'Что делает этот паттерн (Dart 3.0+)?\n\n' +
+                'switch (value) {\n' +
+                '  case (int x, int y): print(\'Point: $x, $y\');\n' +
+                '  default: print(\'Unknown\');\n' +
+                '}',
+            option: {
+                a1: 'Проверяет, что value — это record из двух int',
+                a2: 'Распаковывает List<int> длиной 2',
+                a3: 'Сравнивает два целых числа',
+                a4: 'Это синтаксическая ошибка',
+            },
+            answerOption: 'a1',
+            answer: 'Dart 3.0+ поддерживает pattern matching для records.\n' +
+                'case (int x, int y) сопоставляет record из двух int,\n' +
+                'извлекает значения в переменные x и y (destructuring).',
+            num: '#43',
+        },
+        {
+            question: 'Как правильно ограничить обобщённый тип T, чтобы он был подтипом Comparable?',
+            option: {
+                a1: 'void sort<T extends Comparable<T>>(List<T> list)',
+                a2: 'void sort<T implements Comparable>(List<T> list)',
+                a3: 'void sort<Comparable T>(List<T> list)',
+                a4: 'void sort<T where T : Comparable>(List<T> list)',
+            },
+            answerOption: 'a1',
+            answer: 'В Dart используется extends для ограничения дженериков:\n' +
+                'T extends Comparable<T>.',
+            num: '#44',
+        },
+        {
+            question: 'Что такое extension type (Dart 3.3+)?',
+            option: {
+                a1: 'Новый способ наследования классов',
+                a2: 'Аналог typedef для функций',
+                a3: 'Тип-обёртка с zero-cost abstraction, создающая новый тип без runtime overhead',
+                a4: 'Способ ускорить компиляцию',
+            },
+            answerOption: 'a3',
+            answer: 'Extension types позволяют создавать новые типы,\n' +
+                'оборачивающие существующие, без runtime накладных расходов.\n' +
+                'Пример: extension type UserId(int id) {} создаёт тип UserId,\n' +
+                'который нельзя случайно перепутать с обычным int.',
+            num: '#45',
         },
     ],
 };
