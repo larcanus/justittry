@@ -974,9 +974,9 @@ const PHPQuestions = {
 				'?>',
 			option: {
 				a1: 'Test',
-				a2: 'Ошибка типизации',
+				a2: 'Fatal error: несовместимость типов',
 				a3: 'Пусто',
-				a4: 'Fatal error',
+				a4: 'Fatal error: контракт',
 			},
 			answerOption: 'a2',
 			answer: 'В PHP 8.0+ строгая проверка типов в реализации.\n' +
