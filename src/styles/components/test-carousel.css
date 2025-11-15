@@ -149,6 +149,7 @@
     z-index: 100;
     transition: all var(--transition-normal, 0.3s ease);
     text-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+    margin-right: calc(1.1em + 8px);
 }
 
 .timer::before {
@@ -315,11 +316,16 @@
         margin: var(--spacing-sm, 8px) 0;
         padding: var(--spacing-xs, 6px);
         top: 5px;
+        gap: 8px;
+        margin-right: calc(1.1em + 8px);
     }
 
     .timer::before {
         font-size: 1.1em;
-        margin-right: 8px;
+    }
+
+    .timer::after {
+        width: 1.1em;
     }
 
     /* Mobile arrow styles */
@@ -433,10 +439,16 @@
         margin: var(--spacing-xs, 4px) 0;
         padding: var(--spacing-xs, 4px);
         top: 3px;
+        gap: 6px;
+        margin-right: calc(1.1em + 6px);
     }
 
     .timer::before {
-        margin-right: 6px;
+        font-size: 1.1em;
+    }
+
+    .timer::after {
+        width: 1.1em;
     }
 
     /* Arrow adjustments for smaller screens */
@@ -515,6 +527,7 @@
 
     .timer {
         font-size: 0.85rem;
+        margin-right: calc(-1.1em - 6px);
     }
 
     .carousel__arrow {
