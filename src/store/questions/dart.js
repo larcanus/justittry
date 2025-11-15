@@ -334,335 +334,271 @@ const DartQuestions = {
     ],
     mid: [
         {
-            question: 'Какие из перечисленных символов НЕ используются для комментариев в Dart?',
+            question: 'Что выведет следующий код?\n\n' +
+                'String? name;\n' +
+                'print(name ?? "Guest");',
             option: {
-                a1: '/',
-                a2: '//',
-                a3: '<--!',
-                a4: '/**',
+                a1: 'null',
+                a2: 'Guest',
+                a3: 'Ошибка компиляции',
+                a4: 'name',
             },
-            answerOption: 'a3',
-            answer: 'Dart поддерживает однострочные комментарии - //,\n' +
-                ' многострочные комментарии - /* */\n' +
-                'и комментарии к документации.. - /// ',
+            answerOption: 'a2',
+            answer: 'Оператор ?? возвращает правый операнд,\n' +
+                'если левый равен null.',
             num: '#21',
         },
         {
-            question: 'Какие из представленных вариантов\n выведут значение в терминал, если есть только dart:core?',
+            question: 'Как объявить функцию, возвращающую Future<int>?',
             option: {
-                a1: 'print_r("Hello")',
-                a2: 'print("Hello")',
-                a3: 'dart.console("Hello")',
-                a4: 'echo "Hello"',
+                a1: 'int async myFunc()',
+                a2: 'Future<int> myFunc() async',
+                a3: 'async Future<int> myFunc()',
+                a4: 'Future myFunc<int>()',
             },
             answerOption: 'a2',
-            answer: 'В dart:core есть только void print(), хотя еще можно использовать\nstderr.writeln() и stdout.writeln() из dart:io',
+            answer: 'Правильный синтаксис: Future<T> func() async.',
             num: '#22',
         },
         {
-            question: 'Сколько числовых типов и их видов есть в dart?',
+            question: 'Что делает оператор ??= ?',
             option: {
-                a1: '2 type (number и digit)\n4 flavors (int, double, bigint, smallint)',
-                a2: '2 type (number и bigint)\n4 flavors (int, double, digit, smallint)',
-                a3: '1 type (number) 2 flavors (int, smallint)',
-                a4: '1 type (number) 2 flavors (int, double)',
+                a1: 'Присваивает значение, если переменная не null',
+                a2: 'Присваивает значение, если переменная null',
+                a3: 'Сравнивает два значения на равенство',
+                a4: 'Выполняет побитовое ИЛИ',
             },
-            answerOption: 'a4',
-            answer: 'Number в Dart бывают двух видов: \n int = Целочисленные значения не более 64 бит' +
-                '\n double = 64-битные (двойной точности) числа с плавающей запятой, как указано в стандарте IEEE 754.',
+            answerOption: 'a2',
+            answer: 'x ??= value эквивалентно: if (x == null) x = value.',
             num: '#23',
         },
         {
-            question: 'С помощью какого символа или слова возможно указать,\n что идентификатор является приватным\n и не будет доступен вне библиотеки?\n',
+            question: 'Какой тип у выражения [1, 2, 3].map((x) => x * 2)?',
             option: {
-                a1: 'private',
-                a2: 'protected',
-                a3: '#',
-                a4: '_',
+                a1: 'List<int>',
+                a2: 'Iterable<int>',
+                a3: 'Stream<int>',
+                a4: 'Map<int, int>',
             },
-            answerOption: 'a4',
-            answer: 'В отличие от других языков, в Dart нет ключевых слов public, protected и private.\n' +
-                'Если идентификатор начинается с символа подчеркивания ( _ ),\n' +
-                'он является закрытым для своей библиотеки.',
+            answerOption: 'a2',
+            answer: 'Метод map() возвращает ленивый Iterable,\n' +
+                'а не List.',
             num: '#24',
-
         },
         {
-            question: 'Какие кавычки вы НЕ можете использовать для создания строки?',
+            question: 'Как создать список, который нельзя изменять?',
             option: {
-                a1: '``',
-                a2: `''`,
-                a3: `""`,
-                a4: `'''`,
+                a1: 'final list = [1, 2, 3];',
+                a2: 'const list = [1, 2, 3];',
+                a3: 'var list = List.unmodifiable([1, 2, 3]);',
+                a4: 'Все вышеперечисленные',
             },
-            answerOption: 'a1',
-            answer: 'Строка Dart ( String объект) содержит последовательность кодовых единиц UTF-16.\n ' +
-                'Вы можете использовать одинарные или двойные кавычки для создания строки.\n ' +
-                'Или создать многострочную строку: использовать тройную кавычку с одинарными или двойными кавычками',
+            answerOption: 'c3',
+            answer: 'Только List.unmodifiable() гарантирует\n' +
+                'неизменяемость при любом объявлении.',
             num: '#25',
         },
         {
-            question: 'Что выведет print()?\n\n' +
-                '\nList things = [2, null, 3, 4, 5];' +
-                '\nList more = [1, ...things.where((thing) => thing != 3)];' +
-                '\nprint(more);',
+            question: 'Что выведет код?\n\n' +
+                'Future.delayed(Duration.zero, () => print("A"));\n' +
+                'print("B");',
             option: {
-                a1: '[1, 2, null, 4, 5]',
-                a2: '[1, null, 3, 4, 5]',
-                a3: '[1, null, 2, 4, 5]',
-                a4: 'Error',
+                a1: 'A затем B',
+                a2: 'B затем A',
+                a3: 'Только B',
+                a4: 'Ошибка',
             },
-            answerOption: 'a1',
-            answer: 'Ни обычное распространение - ..., ни распространение с нулевым значением - ...? \n ' +
-                'не влияют на нулевые значения внутри распространяемой последовательности',
+            answerOption: 'a2',
+            answer: 'Future.delayed() добавляет задачу в очередь\n' +
+                'событий, поэтому B выводится первым.',
             num: '#26',
         },
         {
-            question: 'Какой варианты создания коллекции вызовет ошибку?\n\n' +
-                '1. var numberList = [ 1, 2, 3, if( null == null) 4]\n' +
-                '2. var numberList = [ 1, 2, for( var i in infinityList) 4]\n' +
-                '3. var numberList = [ 1, 2, 3, while( number_list.length < 0 ) 4]\n' +
-                '4. var numberList = [ 1, 2, 3, if( double.infinity == double.infinity ) 4]\n',
+            question: 'Какой результат выполнения?\n\n' +
+                'int Function(int) doubler = (x) => x * 2;\n' +
+                'print(doubler is Function);',
             option: {
-                a1: '1',
-                a2: '2',
-                a3: '3',
-                a4: '4',
+                a1: 'true',
+                a2: 'false',
+                a3: 'Ошибка типизации',
+                a4: 'null',
             },
-            answerOption: 'a3',
-            answer: 'Dart имеет коллекции if и for, которые можно использовать для создания коллекций \n с использованием условий ( if ) и повторения ( for ). \n',
+            answerOption: 'a1',
+            answer: 'Все функции в Dart — подтипы Function.',
             num: '#27',
         },
         {
-            question: 'Что выведет print()?\n\n' +
-                '\nList anotherList = [ 1, 1 ];' +
-                '\nList simpleList = [ \n' +
-                '       1, if( double.nan == double.infinity) 2, 3,\n' +
-                '       for( var i in anotherList) 4, 5 ' +
-                '\n ];\n' +
-                '\n' +
-                'print( simpleList )',
-
+            question: 'Что такое mixin в Dart?',
             option: {
-                a1: '[1, 3, 4, 4, 5]',
-                a2: '[1, 2, 3, 5]',
-                a3: '[1, 2, 3, 4, 5]',
-                a4: '[1, 3, 4, 5]',
+                a1: 'Интерфейс без реализации',
+                a2: 'Класс, который можно наследовать только один раз',
+                a3: 'Повторно используемый фрагмент реализации',
+                a4: 'Алиас для typedef',
             },
-            answerOption: 'a1',
-            answer: 'При верном условии if, определяется указаное за ним значение.\n Коллекция for() определяет указанное после неё значение\n количеством ее итераций',
+            answerOption: 'a3',
+            answer: 'Mixin — это способ повторного\n' +
+                'использования кода между классами.',
             num: '#28',
         },
         {
-            question: 'Какое обявление переменной с использованием \nмодификатора late вызовет ошибку?\n\n',
-
+            question: 'Как правильно объявить extension для String?',
             option: {
-                a1: 'late final variable;',
-                a2: 'late var variable;',
-                a3: 'late String variable;',
-                a4: 'late variable;',
+                a1: 'extension on String { bool get isLong => length > 10; }',
+                a2: 'extension String { bool isLong() => this.length > 10; }',
+                a3: 'extend String { bool get isLong => length > 10; }',
+                a4: 'extension(String) { bool isLong => length > 10; }',
             },
-            answerOption: 'a4',
-            answer: 'late - модификатор, а не декларативный способ объявления переменной.\n' +
-                ' Если вы уверены, что переменная установлена ​​до ее использования,\n' +
-                'но Dart не согласен, вы можете исправить ошибку, пометив переменную как late',
+            answerOption: 'a1',
+            answer: 'Правильный синтаксис: extension [Name] on Type { ... }',
             num: '#29',
         },
         {
-            question: 'В чем отличие объявление переменной с помощью сonst от final?\n\n',
+            question: 'Что делает Stream.periodic?',
             option: {
-                a1: 'final переменная может быть установлена ​​только один раз;\nconst переменная является константой времени компиляции',
-                a2: 'final переменная может быть установлена дважды;\nconst переменная является константой времени компиляции',
-                a3: 'Нет отличий, кроме того, что к final можно применить late,\nа const нет',
-                a4: 'Нет отличий, кроме того, что const можно применить для создания конструкторов,\nа final нет',
+                a1: 'Создаёт конечный поток с задержкой',
+                a2: 'Создаёт бесконечный поток с интервалом',
+                a3: 'Преобразует Future в Stream',
+                a4: 'Запускает изолят с периодичностью',
             },
-            answerOption: 'a1',
-            answer: 'final переменная может быть установлена ​​только один раз;\n' +
-                'const переменная является константой времени компиляции.\n' +
-                'Вы также можете использовать const для создания постоянных значений,\n' +
-                'а также для объявления конструкторов, создающих постоянные значения.\n' +
-                'Любая переменная может иметь const (постоянное) значение.',
+            answerOption: 'a2',
+            answer: 'Stream.periodic(Duration, callback)\n' +
+                'генерирует события с интервалом.',
             num: '#30',
         },
         {
-            question: 'Что произойдет при компиляции?\n\n' +
-                'late final variable;\n' +
-                '\n' +
-                'void main() {\n' +
-                '  final variable = const { \n' +
-                '    \'arr\' : [ 1, 2, 3,], \n' +
-                '   };\n' +
-                '  variable[\'arr\'] = [ 0, 0 ,0 ];\n' +
-                ' }',
+            question: 'Как передать данные в Isolate?',
             option: {
-                a1: 'ошибка Uncaught Error - Cannot modify unmodifiable Map',
-                a2: 'ошибка Error: Expected an identifier, but got two - final',
-                a3: 'ошибка Error: The == isn\'t a user-definable operator.',
-                a4: 'ничего не произойдет',
+                a1: 'Через глобальные переменные',
+                a2: 'Через SendPort и ReceivePort',
+                a3: 'Через Future.send()',
+                a4: 'Напрямую через аргументы функции',
             },
-            answerOption: 'a1',
-            answer: ' Хотя final объект нельзя изменить, его поля можно изменить.\n' +
-                'Для сравнения, const объект и его поля нельзя изменить: они неизменяемы.',
+            answerOption: 'a2',
+            answer: 'Isolates не делят память. Обмен —\n' +
+                'только через SendPort/ReceivePort.',
             num: '#31',
         },
         {
-            question: 'Какое объявление вызовет ошибку?\n\n' +
-                '1. late dynamic symbol = #test;\n' +
-                '2. final Symbol symbol = #test;\n' +
-                '3. Object symbol = #test;\n' +
-                '4. var symbol = const #test;\n',
+            question: 'Что такое required в именованных параметрах?',
             option: {
-                a1: '1',
-                a2: '2',
-                a3: '3',
-                a4: '4',
+                a1: 'Устаревшее ключевое слово',
+                a2: 'Аннотация для опциональных параметров',
+                a3: 'Ключевое слово, делающее параметр обязательным',
+                a4: 'Синоним для final',
             },
-            answerOption: 'a4',
-            answer: 'Символьные литералы уже являются константами времени компиляции.',
+            answerOption: 'a3',
+            answer: 'required делает именованный параметр\n' +
+                'обязательным к передаче.',
             num: '#32',
         },
         {
-            question: 'Что произойдет?\n\n' +
-                'class YourCoolClass {\n' +
-                '  String call(String a, String b, String c) => \'$a $b $c!\';\n' +
-                '}\n' +
-                '\n' +
-                'var ycc = YourCoolClass();\n' +
-                'var out = ycc(\'Hi\', \'there,\', \'gang\');\n' +
-                '\n' +
-                'void main() => print(out);',
+            question: 'Какой тип у переменной?\n\n' +
+                'var items = <int>[1, 2];',
             option: {
-                a1: 'произойдет вывод "Closure \'main_ycc_call\'"',
-                a2: 'произойдет вывод "Hi there, gang!"',
-                a3: 'произойдет ошибка',
-                a4: 'произойдет вывод "$a $b $c!"',
+                a1: 'dynamic',
+                a2: 'List<dynamic>',
+                a3: 'List<int>',
+                a4: 'Iterable<int>',
             },
-            answerOption: 'a2',
-            answer: 'Чтобы экземпляр вашего класса Dart можно было вызывать как функцию,\nреализуйте call() метод.',
+            answerOption: 'a3',
+            answer: 'Явное указание <int> задаёт тип списка.',
             num: '#33',
         },
         {
-            question: 'Какие виды параметров существуют в Dart?\n\n',
+            question: 'Что выведет?\n\n' +
+                'print([1, 2, 3].where((x) => x > 1).runtimeType);',
             option: {
-                a1: 'именованные, позиционные, запрашиваемые ( required )',
-                a2: 'позиционные, именованные, необязательные позиционные, запрашиваемые ( required )',
-                a3: 'позиционные, именованные, необязательные позиционные',
-                a4: 'именованные, позиционные',
+                a1: 'List<int>',
+                a2: '_WhereIterable<int>',
+                a3: 'Iterable<dynamic>',
+                a4: 'FilteredList',
             },
-            answerOption: 'a3',
-            answer: 'Функция может иметь любое количество требуемых позиционных параметров.\n' +
-                'За ними могут следовать либо именованные параметры,\n' +
-                'либо необязательные позиционные параметры (но не оба).',
+            answerOption: 'a2',
+            answer: 'where() возвращает ленивый\n' +
+                'внутренний Iterable (обычно _WhereIterable).',
             num: '#34',
         },
         {
-            question: 'Каких префиксов/постфиксов не существует в Dart?\n\n' +
-                '1. -var\n' +
-                '2. --var\n' +
-                '3. var++\n' +
-                '4. var+\n',
+            question: 'Какой конструктор вызывается первым при наследовании?',
             option: {
-                a1: '1',
-                a2: '2',
-                a3: '3',
-                a4: '4',
+                a1: 'Потомка',
+                a2: 'Родителя',
+                a3: 'Миксина',
+                a4: 'Все одновременно',
             },
-            answerOption: 'a4',
-            answer: 'унарный постфикс: expr++  expr--  ()  []  ?[]  .  ?.  !\n' +
-                'унарный префикс: -expr  !expr  ~expr  ++expr  --expr  await expr',
+            answerOption: 'a2',
+            answer: 'Сначала инициализируется родительский класс,\n' +
+                'затем — потомок.',
             num: '#35',
         },
         {
-            question: 'Каких операторов присваивания не существует в Dart?\n\n' +
-                '1. |=\n' +
-                '2. &&=\n' +
-                '3. ~/=\n' +
-                '4. ^=\n',
+            question: 'Что означает void Function()? callback?',
             option: {
-                a1: '1',
-                a2: '2',
-                a3: '3',
-                a4: '4',
+                a1: 'callback — необязательная функция без параметров и возврата',
+                a2: 'callback — обязательная функция с параметром',
+                a3: 'Это синтаксическая ошибка',
+                a4: 'callback — Future<void>',
             },
-            answerOption: 'a2',
-            answer: '=	*=	%=	>>>=  ^=  += /=	 <<= &=	 |=  -=  ~/=  >>=\n',
+            answerOption: 'a1',
+            answer: 'void Function()? — опциональная функция,\n' +
+                'возвращающая void и не принимающая аргументов.',
             num: '#36',
         },
         {
-            question: 'Какое объявление функции ошибочно?\n\n' +
-                '1. int timesTwo({ required int x }) {}\n' +
-                '2. int timesFour(int x) => timesTwo(x: timesTwo(x : x));\n' +
-                '3. Function(int a, int b) sum = (int a, int b) {};\n' +
-                '4. var sum = Function(int a, int b) => a + b;\n',
+            question: 'Какой результат?\n\n' +
+                'final a = const [1];\n' +
+                'final b = const [1];\n' +
+                'print(identical(a, b));',
             option: {
-                a1: '1',
-                a2: '2',
-                a3: '3',
-                a4: '4',
+                a1: 'true',
+                a2: 'false',
+                a3: 'Ошибка',
+                a4: 'null',
             },
-            answerOption: 'a4',
-            answer: 'Правильный вариант в 4 случае был бы: var sum = (int a, int b) => a + b;\n' +
-                'В варианте 3 используется объявление через Closure',
+            answerOption: 'a1',
+            answer: 'const-литералы с одинаковым значением\n' +
+                'ссылаются на один объект (canonicalized).',
             num: '#37',
         },
         {
-            question: 'Что произойдет при выполнении?\n\n' +
-                'var callbacks = [];\n' +
-                'for (var i = 0; i < 2; i++) {\n' +
-                '  callbacks.add(() => print(i));\n' +
-                '}\n' +
-                'callbacks.forEach((c) => c());',
+            question: 'Как обработать ошибку в async-функции?',
             option: {
-                a1: 'вывод: 1 2',
-                a2: 'вывод: 0 1 2',
-                a3: 'вывод: 2 2',
-                a4: 'вывод: 0 0 0',
+                a1: 'try/catch внутри async',
+                a2: 'onError у Future',
+                a3: 'Все варианты верны',
+                a4: 'Только через then().catchError()',
             },
-            answerOption: 'a1',
-            answer: 'Замыкания внутри for циклов Dart захватывают значение индекса, \n' +
-                'избегая распространенной ловушки, встречающейся в JavaScript.',
+            answerOption: 'a3',
+            answer: 'Можно использовать как try/catch,\n' +
+                'так и catchError/onError.',
             num: '#38',
-
         },
         {
-            question: 'Какое утверждение НЕ верно в отношении Iterable?',
+            question: 'Что делает оператор ?. ?',
             option: {
-                a1: 'Вы можете создать не более одного итератора из одного и того же файла Iterable.\n',
-                a2: 'Все методы, которые возвращает Iterable(например, map и where ) ленивы,\n' +
-                    'они будут повторять оригинал каждый раз, когда повторяется возвращаемый итерируемый объект',
-                a3: 'Можно перебирать элементы Iterable с помощью конструкции цикла for-in,\n' +
-                    'которая за кулисами использует геттер.\n',
-                a4: 'Классы List и Set  оба являются Iterable, как и большинство классов в dart:collection библиотеке.\n',
+                a1: 'Принудительно распаковывает nullable',
+                a2: 'Вызывает метод, если объект не null',
+                a3: 'Сравнивает два nullable-значения',
+                a4: 'Присваивает значение при null',
             },
-            answerOption: 'a1',
-            answer: 'Вы можете создать более одного итератора из одного и того же файла Iterable.\n' +
-                'Каждый раз iterator при чтении возвращает новый итератор, и разные итераторы могут\n' +
-                'выполняться независимо друг от друга, каждый из которых дает доступ ко всем элементам\n' +
-                'итерируемого объекта.',
+            answerOption: 'a2',
+            answer: 'x?.method() вызовет method(),\n' +
+                'только если x не null.',
             num: '#39',
-
         },
         {
-            question: 'Какое утверждение НЕ верно для этого кода?\n\n' +
-                'try {...\n' +
-                '} on OutOfLlamasException {...\n' +
-                '} on Exception catch (e) {...\n' +
-                '} catch (e, s) {\n' +
-                '  rethrow;' +
-                '}',
+            question: 'Какой тип у выражения?\n\n' +
+                'T id<T>(T value) => value;\n' +
+                'var x = id(42);',
             option: {
-                a1: 'on - служит для обработки кода, который может генерировать более одного типа исключений',
-                a2: 'У catch() возможны два параметра. ' +
-                    '\nПервое — это выброшенное исключение,' +
-                    '\nа второе — трассировка стека ( StackTrace объект).',
-                a3: 'rethrow - для частичной обработки исключения, позволяет ему распространяться далее',
-                a4: 'Exception - тип в обработке ветки catch() прерывает дальнейшее выполние',
+                a1: 'dynamic',
+                a2: 'Object',
+                a3: 'int',
+                a4: 'T',
             },
-            answerOption: 'a4',
-            answer: 'Первое предложение catch, соответствующее типу выброшенного объекта, обрабатывает исключение.\n' +
-                'Тип не влияет на обработку',
+            answerOption: 'a3',
+            answer: 'Dart выводит тип T как int из аргумента 42.',
             num: '#40',
-
         },
     ],
 };
