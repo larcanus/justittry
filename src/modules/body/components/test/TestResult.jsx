@@ -121,7 +121,7 @@ const TestResult = ({
             />
 
             {/* AI Совет */}
-            <AIAdviceButton testData={result?.answerFullData} />
+            <AIAdviceButton testData={result?.answerFullData} testName={testName} stats={stats}/>
 
             {/* Шаринг */}
             <div className='result-share'>

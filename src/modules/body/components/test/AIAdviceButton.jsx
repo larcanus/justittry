@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 /**
  * Компонент для получения AI-совета по результатам теста
  */
-const AIAdviceButton = ({testData}) =>
+const AIAdviceButton = ({testData, testName, stats}) =>
 {
 	const [loading, setLoading] = useState(false);
 	const [advice, setAdvice] = useState(null);
@@ -25,6 +25,13 @@ const AIAdviceButton = ({testData}) =>
 		};
 	}, []);
 
+	const prePrompt = `Проанализируй результаты теста по ${testName}. Обрати внимание на:` +
+		'1. Вопросы с статусом "incorrect" - где пользователь ошибся\n' +
+		'2. Вопросы с статусом "skipped" - что пользователь пропустил  \n' +
+		'3. Вопросы с difficulty="easy" но статусом "incorrect" - базовые пробелы\n' +
+		'4. Дай рекомендации по темам для изучения с ссылками на документацию' +
+		'5. Не используй наименования статусов в ответе, замени на: верно, неверно, пропущен';
+
 	/**
 	 * Агрегирует данные теста для отправки на сервер
 	 */
@@ -34,10 +41,15 @@ const AIAdviceButton = ({testData}) =>
 			console.warn('testResultData отсутствует');
 			return null;
 		}
-
-		console.log('Агрегированные данные:', testData);
-		return testData;
+		const preparedData = {
+			prePrompt,
+			stats,
+			questions:testData,
+		}
+		console.log('Агрегированные данные:', preparedData);
+		return preparedData;
 	};
+
 
 	/**
 	 * Отправляет запрос на сервер для получения AI-совета
