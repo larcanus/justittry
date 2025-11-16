@@ -163,6 +163,190 @@
     z-index: 1;
 }
 
+/* AI Advice Section */
+.ai-advice {
+    margin: 40px 0;
+    padding-top: 30px;
+    border-top: 2px solid #e9ecef;
+}
+
+.ai-advice__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 16px 30px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.ai-advice__button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.ai-advice__button:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.ai-advice__button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+}
+
+.ai-advice__button:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.ai-advice__button-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.ai-advice__button-icon svg {
+    animation: aiPulse 2s ease-in-out infinite;
+}
+
+@keyframes aiPulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+}
+
+.ai-advice__button-text {
+    position: relative;
+    z-index: 1;
+}
+
+/* AI Loader */
+.ai-advice__loader {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.ai-advice__loader-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+    animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.ai-advice__loader-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.ai-advice__loader-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+    0%, 80%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    40% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* AI Response Block */
+.ai-advice__response {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ai-advice__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.ai-advice__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.ai-advice__title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.ai-advice__content {
+    padding: 10px 0;
+}
+
+.ai-advice__text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #495057;
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.ai-advice__text--error {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #dc3545;
+    margin: 0;
+}
+
 /* Result Share */
 .result-share {
     margin-top: 30px;
@@ -216,6 +400,35 @@
         gap: 5px;
         text-align: center;
     }
+
+    .ai-advice {
+        margin: 30px 0;
+        padding-top: 20px;
+    }
+
+    .ai-advice__button {
+        max-width: 100%;
+        padding: 14px 20px;
+        font-size: 15px;
+    }
+
+    .ai-advice__response {
+        padding: 20px;
+    }
+
+    .ai-advice__header {
+        margin-bottom: 15px;
+        padding-bottom: 12px;
+    }
+
+    .ai-advice__title {
+        font-size: 16px;
+    }
+
+    .ai-advice__text,
+    .ai-advice__text--error {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -240,5 +453,19 @@
     .result-actions__btn {
         padding: 10px 16px;
         font-size: 14px;
+    }
+
+    .ai-advice__button {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    .ai-advice__response {
+        padding: 15px;
+    }
+
+    .ai-advice__icon {
+        width: 32px;
+        height: 32px;
     }
 }
