@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 /**
  * Компонент для получения AI-совета по результатам теста
  */
-const AIAdviceButton = ({testData, testName, stats}) =>
+const AIAdviceButton = ({ testData, testName, stats }) =>
 {
 	const [loading, setLoading] = useState(false);
 	const [advice, setAdvice] = useState(null);
@@ -15,36 +15,48 @@ const AIAdviceButton = ({testData, testName, stats}) =>
 	const abortControllerRef = useRef(null);
 
 	// Cleanup при размонтировании
-	useEffect(() => {
-		return () => {
+	useEffect(() =>
+	{
+		return () =>
+		{
 			isMountedRef.current = false;
 			// Отменяем запрос, если он выполняется
-			if (abortControllerRef.current) {
+			if (abortControllerRef.current)
+			{
 				abortControllerRef.current.abort();
 			}
 		};
 	}, []);
 
-	const prePrompt = `Проанализируй результаты теста по ${testName}. Обрати внимание на:` +
-		'1. Вопросы с статусом "incorrect" - где пользователь ошибся\n' +
-		'2. Вопросы с статусом "skipped" - что пользователь пропустил  \n' +
-		'3. Вопросы с difficulty="easy" но статусом "incorrect" - базовые пробелы\n' +
-		'4. Дай рекомендации по темам для изучения с ссылками на документацию' +
-		'5. Не используй наименования статусов в ответе, замени на: верно, неверно, пропущен';
+	const prePrompt = `Проанализируй результаты теста по ${ testName } и предоставь развернутую аналитику. 
+
+Основные аспекты для анализа:
+1. Вопросы, где пользователь ответил неверно - выяви системные ошибки и misconceptions
+2. Пропущенные вопросы - определи темы, которые вызывают неуверенность
+3. Базовые вопросы (difficulty="easy"), ответленные неверно - укажи на фундаментальные пробелы
+4. Дай конкретные рекомендации по темам для изучения с ссылками на официальную документацию
+5. Предложи план улучшения знаний, сгруппированный по приоритетам
+
+Важные требования:
+- Не используй термины "incorrect", "skipped" в финальном ответе, заменяй на: верно/неверно/пропущен
+- Группируй рекомендации по темам, а не по отдельным вопросам
+- Указывай конкретные разделы документации для каждой проблемной темы
+- Оцени общий уровень подготовки и дай реалистичные рекомендации`;
 
 	/**
 	 * Агрегирует данные теста для отправки на сервер
 	 */
 	const aggregateTestData = () =>
 	{
-		if (!testData) {
+		if (!testData)
+		{
 			console.warn('testResultData отсутствует');
 			return null;
 		}
 		const preparedData = {
 			prePrompt,
 			stats,
-			questions:testData,
+			questions: testData,
 		}
 		console.log('Агрегированные данные:', preparedData);
 		return preparedData;
@@ -57,7 +69,8 @@ const AIAdviceButton = ({testData, testName, stats}) =>
 	const fetchAIAdvice = async () =>
 	{
 		// Отменяем предыдущий запрос, если он есть
-		if (abortControllerRef.current) {
+		if (abortControllerRef.current)
+		{
 			abortControllerRef.current.abort();
 		}
 
@@ -71,7 +84,8 @@ const AIAdviceButton = ({testData, testName, stats}) =>
 		{
 			const payload = aggregateTestData();
 
-			if (!payload) {
+			if (!payload)
+			{
 				throw new Error('Нет данных для отправки');
 			}
 
@@ -84,7 +98,7 @@ const AIAdviceButton = ({testData, testName, stats}) =>
 					model: "deepseek-coder",
 					messages: [{
 						role: 'user',
-						content: `Проанализируй результаты теста: ${JSON.stringify(payload)}`
+						content: `Проанализируй результаты теста: ${ JSON.stringify(payload) }`
 					}],
 					userId: 'test-browser'
 				}),
@@ -100,13 +114,15 @@ const AIAdviceButton = ({testData, testName, stats}) =>
 			console.log('Ответ от DeepSeek:', data);
 
 			// Обновляем состояние только если компонент все еще смонтирован
-			if (isMountedRef.current) {
+			if (isMountedRef.current)
+			{
 				setAdvice(data?.content || data?.message || 'Что-то пошло не так :(');
 			}
 		} catch (err)
 		{
 			// Игнорируем ошибку отмены запроса
-			if (err.name === 'AbortError') {
+			if (err.name === 'AbortError')
+			{
 				console.log('Запрос был отменен');
 				return;
 			}
@@ -114,13 +130,15 @@ const AIAdviceButton = ({testData, testName, stats}) =>
 			console.error('Ошибка при получении совета:', err);
 
 			// Обновляем состояние только если компонент все еще смонтирован
-			if (isMountedRef.current) {
+			if (isMountedRef.current)
+			{
 				setError(err.message || 'Произошла ошибка при получении совета');
 			}
 		} finally
 		{
 			// Обновляем состояние только если компонент все еще смонтирован
-			if (isMountedRef.current) {
+			if (isMountedRef.current)
+			{
 				setLoading(false);
 			}
 		}
