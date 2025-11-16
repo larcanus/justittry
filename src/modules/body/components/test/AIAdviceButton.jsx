@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { parseMarkdown } from '../../../../common/utils';
 
 /**
@@ -54,13 +54,11 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 			console.warn('testResultData отсутствует');
 			return null;
 		}
-		const preparedData = {
+		return {
 			prePrompt,
 			stats,
 			questions: testData,
-		}
-		console.log('Агрегированные данные:', preparedData);
-		return preparedData;
+		};
 	};
 
 
@@ -89,8 +87,6 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 			{
 				throw new Error('Нет данных для отправки');
 			}
-
-			console.log('Отправляемый payload:', payload);
 
 			const response = await fetch('https://rulser-proxyai.store/deepseek', {
 				method: 'POST',
