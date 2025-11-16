@@ -29,7 +29,7 @@ const Carousel = ({ slides, testName, diff, showingAnswers, duration, finishTest
     const {
         showCorrectAnswers,
         validateAnswers,
-    } = useAnswerValidation(slides);
+    } = useAnswerValidation(slides, diff);
 
     const canNavigate = showingAnswers || !showCorrectAnswers;
 
@@ -76,6 +76,7 @@ const Carousel = ({ slides, testName, diff, showingAnswers, duration, finishTest
             test: testName,
             diffical: diff,
             answers: results.answers,
+            answerFullData: results.answerFullData,
         };
 
         // Используем thunk action для завершения теста

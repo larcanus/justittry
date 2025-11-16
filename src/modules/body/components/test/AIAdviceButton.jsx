@@ -1,29 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 /**
  * Компонент для получения AI-совета по результатам теста
  */
-const AIAdviceButton = ({ testData }) =>
+const AIAdviceButton = ({testData}) =>
 {
 	const [loading, setLoading] = useState(false);
 	const [advice, setAdvice] = useState(null);
 	const [error, setError] = useState(null);
+
+	// Флаг для отслеживания монтирования компонента
+	const isMountedRef = useRef(true);
+	// Контроллер для отмены запроса
+	const abortControllerRef = useRef(null);
+
+	// Cleanup при размонтировании
+	useEffect(() => {
+		return () => {
+			isMountedRef.current = false;
+			// Отменяем запрос, если он выполняется
+			if (abortControllerRef.current) {
+				abortControllerRef.current.abort();
+			}
+		};
+	}, []);
 
 	/**
 	 * Агрегирует данные теста для отправки на сервер
 	 */
 	const aggregateTestData = () =>
 	{
-		// TODO: Реализовать полную агрегацию данных
-		return {
-			testName: testData.testName,
-			difficulty: testData.difficulty,
-			score: testData.percentage,
-			correctAnswers: testData.correctCount,
-			totalQuestions: testData.totalCount,
-			elapsedTime: testData.elapsedTime,
-			passed: testData.passed
-		};
+		if (!testData) {
+			console.warn('testResultData отсутствует');
+			return null;
+		}
+
+		console.log('Агрегированные данные:', testData);
+		return testData;
 	};
 
 	/**
@@ -31,21 +44,39 @@ const AIAdviceButton = ({ testData }) =>
 	 */
 	const fetchAIAdvice = async () =>
 	{
+		// Отменяем предыдущий запрос, если он есть
+		if (abortControllerRef.current) {
+			abortControllerRef.current.abort();
+		}
+
+		// Создаем новый контроллер для текущего запроса
+		abortControllerRef.current = new AbortController();
+
 		setLoading(true);
 		setError(null);
 
 		try
 		{
 			const payload = aggregateTestData();
-			console.log('payload', payload)
+
+			if (!payload) {
+				throw new Error('Нет данных для отправки');
+			}
+
+			console.log('Отправляемый payload:', payload);
+
 			const response = await fetch('https://rulser-proxyai.store/deepseek', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					model: "deepseek-coder",
-					messages: [{ role: 'user', content: 'Привет! Кто ты?' }],
+					messages: [{
+						role: 'user',
+						content: `Проанализируй результаты теста: ${JSON.stringify(payload)}`
+					}],
 					userId: 'test-browser'
-				})
+				}),
+				signal: abortControllerRef.current.signal
 			});
 
 			if (!response.ok)
@@ -55,13 +86,31 @@ const AIAdviceButton = ({ testData }) =>
 
 			const data = await response.json();
 			console.log('Ответ от DeepSeek:', data);
-			setAdvice(data?.content || data?.message || 'Что-то пошло не так :(');
+
+			// Обновляем состояние только если компонент все еще смонтирован
+			if (isMountedRef.current) {
+				setAdvice(data?.content || data?.message || 'Что-то пошло не так :(');
+			}
 		} catch (err)
 		{
-			setError(err.message || 'Произошла ошибка при получении совета');
+			// Игнорируем ошибку отмены запроса
+			if (err.name === 'AbortError') {
+				console.log('Запрос был отменен');
+				return;
+			}
+
+			console.error('Ошибка при получении совета:', err);
+
+			// Обновляем состояние только если компонент все еще смонтирован
+			if (isMountedRef.current) {
+				setError(err.message || 'Произошла ошибка при получении совета');
+			}
 		} finally
 		{
-			setLoading(false);
+			// Обновляем состояние только если компонент все еще смонтирован
+			if (isMountedRef.current) {
+				setLoading(false);
+			}
 		}
 	};
 
@@ -113,7 +162,7 @@ const AIAdviceButton = ({ testData }) =>
 			<button
 				className='ai-advice__button'
 				onClick={ handleClick }
-				disabled={ loading }
+				disabled={ loading || !testData }
 			>
 				<div className='ai-advice__button-icon'>
 					<svg width="20" height="20" viewBox="0 0 24 24" fill="none">

@@ -90,18 +90,6 @@ const TestResult = ({
         history.push('/');
     };
 
-    // Подготовка данных для AI-компонента
-    const aiTestData = {
-        testName,
-        difficulty: difficultyInfo.level,
-        percentage: stats.percentage,
-        correctCount: stats.correctCount,
-        totalCount: stats.totalCount,
-        elapsedTime,
-        passed,
-        result,
-    };
-    console.log('aiTestData',aiTestData)
     return (
         <div className={`divResult ${passed ? 'win' : 'fail'}`}>
             <div className='result-header'>
@@ -133,7 +121,7 @@ const TestResult = ({
             />
 
             {/* AI Совет */}
-            <AIAdviceButton testData={aiTestData} />
+            <AIAdviceButton testData={result?.answerFullData} />
 
             {/* Шаринг */}
             <div className='result-share'>
