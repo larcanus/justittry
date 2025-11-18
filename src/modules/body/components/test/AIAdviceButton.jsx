@@ -227,7 +227,7 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 		};
 	}, []);
 
-	const prePrompt = `Проанализируй результаты теста по ${ testName } и предоставь развернутую аналитику. 
+	const prompt = `Проанализируй результаты теста по ${ testName } и предоставь развернутую аналитику. 
 
 Основные аспекты для анализа:
 1. Вопросы, где пользователь ответил неверно - выяви системные ошибки и misconceptions
@@ -253,12 +253,11 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 			return null;
 		}
 		return {
-			prePrompt,
+			prompt,
 			stats,
 			questions: testData,
 		};
 	};
-
 
 	/**
 	 * Отправляет запрос на сервер для получения AI-совета
@@ -293,7 +292,7 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 			const bodyData = {
 				messages: [{
 					role: 'user',
-					content: `Проанализируй результаты теста: ${ JSON.stringify(payload) }`
+					content: payload,
 				}],
 				// Уникальный идентификатор браузера
 				userId: fingerprint,
@@ -307,12 +306,10 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 					// Контекст теста
 					testName: testName,
 					testStats: {
-						total: stats?.total || 0,
-						correct: stats?.correct || 0,
-						incorrect: stats?.incorrect || 0,
-						skipped: stats?.skipped || 0,
-						accuracy: stats?.total > 0 ?
-							Math.round((stats.correct / stats.total) * 100) : 0
+						total: stats?.totalCount || 0,
+						correct: stats?.correctCount || 0,
+						incorrect: stats?.errorCount || 0,
+						percentage: stats?.percentage || 0,
 					},
 
 					// Информация о браузере
@@ -323,7 +320,6 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 
 					// Источник запроса
 					source: 'test-results-page',
-					component: 'AIAdviceButton'
 				}
 			};
 			console.log('bodyData', bodyData)
