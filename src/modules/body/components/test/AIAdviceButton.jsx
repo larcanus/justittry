@@ -292,7 +292,7 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 			const bodyData = {
 				messages: [{
 					role: 'user',
-					content: payload,
+					content: JSON.stringify(payload)
 				}],
 				// Уникальный идентификатор браузера
 				userId: fingerprint,
@@ -332,11 +332,13 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 
 			if (!response.ok)
 			{
-				throw new Error('Не удалось получить совет от AI');
+				const errorData = await response.json().catch(() => null);
+				console.error('❌ Ошибка сервера:', errorData);
+				throw new Error(errorData?.message || errorData?.error || 'Не удалось получить совет от AI');
 			}
 
 			const data = await response.json();
-			console.log('Ответ от DeepSeek:', data);
+			console.log('✅ Ответ от DeepSeek:', data);
 
 			// Обновляем состояние только если компонент все еще смонтирован
 			if (isMountedRef.current)
@@ -348,11 +350,14 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 			// Игнорируем ошибку отмены запроса
 			if (err.name === 'AbortError')
 			{
-				console.log('Запрос был отменен');
+				console.log('⚠️ Запрос был отменен');
 				return;
 			}
 
-			console.error('Ошибка при получении совета:', err);
+			console.error('❌ Ошибка при получении совета:', err);
+			console.error('- Name:', err.name);
+			console.error('- Message:', err.message);
+			console.error('- Stack:', err.stack);
 
 			// Обновляем состояние только если компонент все еще смонтирован
 			if (isMountedRef.current)
