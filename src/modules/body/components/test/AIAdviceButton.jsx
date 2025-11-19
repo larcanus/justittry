@@ -9,6 +9,7 @@ import { fetchAIAdvice } from '../../../../common/utils/aiApiUtils';
 const AIAdviceButton = ({ testData, testName, stats }) =>
 {
 	const [loading, setLoading] = useState(false);
+	const [streaming, setStreaming] = useState(false);
 	const [advice, setAdvice] = useState(null);
 	const [error, setError] = useState(null);
 
@@ -35,6 +36,16 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 	}, []);
 
 	/**
+	 * Обработчик получения streaming чанка
+	 */
+	const handleStreamChunk = (chunk) =>
+	{
+		if (!isMountedRef.current) return;
+
+		setAdvice(prevAdvice => (prevAdvice || '') + chunk);
+	};
+
+	/**
 	 * Отправляет запрос на сервер для получения AI-совета
 	 */
 	const handleFetchAIAdvice = async () =>
@@ -49,21 +60,28 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 		abortControllerRef.current = new AbortController();
 
 		setLoading(true);
+		setStreaming(true);
 		setError(null);
+		setAdvice(''); // Очищаем предыдущий ответ
 
 		try
 		{
+			console.log('🚀 Starting AI advice request with streaming...');
+
 			const result = await fetchAIAdvice(
 				testData,
 				stats,
 				testName,
-				abortControllerRef.current.signal
+				abortControllerRef.current.signal,
+				handleStreamChunk // Передаем callback для streaming
 			);
 
 			// Обновляем состояние только если компонент все еще смонтирован
 			if (isMountedRef.current)
 			{
-				setAdvice(result);
+				// result уже содержит полный текст, но мы его уже накопили через handleStreamChunk
+				console.log('✅ AI advice received, total length:', result.length);
+				setStreaming(false);
 			}
 		} catch (err)
 		{
@@ -83,6 +101,7 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 			if (isMountedRef.current)
 			{
 				setError(err.message || 'Произошла ошибка при получении совета');
+				setStreaming(false);
 			}
 		} finally
 		{
@@ -124,13 +143,19 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 						</div>
 						<span className='ai-advice__title'>
                             { error ? 'Ошибка' : 'Совет от AI' }
+							{ streaming && <span className='ai-advice__streaming-indicator'> • Получение...</span> }
                         </span>
 					</div>
 					<div className='ai-advice__content'>
 						{ error ? (
 							<p className='ai-advice__text--error'>{ error }</p>
 						) : (
-							parseMarkdown(advice)
+							<>
+								{ parseMarkdown(advice) }
+								{ streaming && (
+									<span className='ai-advice__cursor'>▊</span>
+								) }
+							</>
 						) }
 					</div>
 				</div>

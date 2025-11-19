@@ -8,8 +8,9 @@ import { collectBrowserMetadata } from './browserUtils';
 /**
  * Создает промпт для AI-анализа результатов теста
  */
-export const createTestAnalysisPrompt = (testName) => {
-	return `Проанализируй результаты теста по ${testName} и предоставь развернутую аналитику. 
+export const createTestAnalysisPrompt = (testName) =>
+{
+	return `Проанализируй результаты теста по ${ testName } и предоставь развернутую аналитику. 
 
 Основные аспекты для анализа:
 1. Вопросы, где пользователь ответил неверно - выяви системные ошибки и misconceptions
@@ -28,8 +29,10 @@ export const createTestAnalysisPrompt = (testName) => {
 /**
  * Агрегирует данные теста для отправки на сервер
  */
-export const aggregateTestData = (testData, stats, prompt) => {
-	if (!testData) {
+export const aggregateTestData = (testData, stats, prompt) =>
+{
+	if (!testData)
+	{
 		console.warn('testResultData отсутствует');
 		return null;
 	}
@@ -43,10 +46,12 @@ export const aggregateTestData = (testData, stats, prompt) => {
 /**
  * Создает payload для отправки на AI API
  */
-export const createAIRequestPayload = (testData, stats, testName, prompt) => {
+export const createAIRequestPayload = (testData, stats, testName, prompt, streaming = true) =>
+{
 	const payload = aggregateTestData(testData, stats, prompt);
 
-	if (!payload) {
+	if (!payload)
+	{
 		throw new Error('Нет данных для отправки');
 	}
 
@@ -60,6 +65,8 @@ export const createAIRequestPayload = (testData, stats, testName, prompt) => {
 			role: 'user',
 			content: JSON.stringify(payload)
 		}],
+		// Включаем streaming
+		stream: streaming,
 		// Уникальный идентификатор браузера
 		userId: fingerprint,
 		// Дополнительные метаданные для аналитики
@@ -91,13 +98,114 @@ export const createAIRequestPayload = (testData, stats, testName, prompt) => {
 };
 
 /**
- * Отправляет запрос на AI API
+ * Обрабатывает streaming ответ от AI API
+ * @param {Response} response - Fetch Response объект
+ * @param {Function} onChunk - Callback для обработки каждого чанка (content) => void
+ * @param {AbortSignal} abortSignal - Сигнал для отмены запроса
+ * @returns {Promise<string>} - Полный текст ответа
  */
-export const fetchAIAdvice = async (testData, stats, testName, abortSignal) => {
-	const prompt = createTestAnalysisPrompt(testName);
-	const bodyData = createAIRequestPayload(testData, stats, testName, prompt);
+export const processStreamingResponse = async (response, onChunk, abortSignal) =>
+{
+	const reader = response.body.getReader();
+	const decoder = new TextDecoder();
+	let fullContent = '';
+	let buffer = '';
 
-	console.log('bodyData', bodyData);
+	try
+	{
+		while (true)
+		{
+			// Проверяем отмену
+			if (abortSignal?.aborted)
+			{
+				reader.cancel();
+				throw new DOMException('Request aborted', 'AbortError');
+			}
+
+			const { done, value } = await reader.read();
+
+			if (done)
+			{
+				console.log('✅ Stream completed, total length:', fullContent.length);
+				break;
+			}
+
+			// Декодируем чанк
+			buffer += decoder.decode(value, { stream: true });
+
+			// Обрабатываем построчно (SSE формат)
+			const lines = buffer.split('\n');
+			buffer = lines.pop() || ''; // Сохраняем неполную строку
+
+			for (const line of lines)
+			{
+				const trimmedLine = line.trim();
+
+				if (!trimmedLine || trimmedLine.startsWith(':'))
+				{
+					continue; // Пропускаем пустые строки и комментарии
+				}
+
+				if (trimmedLine.startsWith('data: '))
+				{
+					const data = trimmedLine.slice(6);
+
+					if (data === '[DONE]')
+					{
+						console.log('📝 Stream finished with [DONE] marker');
+						return fullContent;
+					}
+
+					try
+					{
+						const parsed = JSON.parse(data);
+						const delta = parsed.choices?.[0]?.delta;
+						const content = delta?.content;
+
+						if (content)
+						{
+							fullContent += content;
+							// Вызываем callback для обновления UI
+							onChunk(content);
+						}
+					} catch (e)
+					{
+						console.warn('⚠️ Failed to parse SSE chunk:', e, 'data:', data);
+					}
+				}
+			}
+		}
+
+		return fullContent;
+	} catch (error)
+	{
+		if (error.name === 'AbortError')
+		{
+			console.log('⚠️ Stream reading aborted');
+		}
+		throw error;
+	} finally
+	{
+		reader.releaseLock();
+	}
+};
+
+/**
+ * Отправляет запрос на AI API с поддержкой streaming
+ * @param {Object} testData - Данные теста
+ * @param {Object} stats - Статистика теста
+ * @param {string} testName - Название теста
+ * @param {AbortSignal} abortSignal - Сигнал для отмены запроса
+ * @param {Function} onChunk - Callback для обработки streaming чанков
+ * @returns {Promise<string>} - Полный текст ответа
+ */
+export const fetchAIAdvice = async (testData, stats, testName, abortSignal, onChunk = null) =>
+{
+	const prompt = createTestAnalysisPrompt(testName);
+	const streaming = typeof onChunk === 'function';
+	const bodyData = createAIRequestPayload(testData, stats, testName, prompt, streaming);
+
+	console.log('🚀 Sending request to AI API, streaming:', streaming);
 
 	const response = await fetch('https://rulser-proxyai.store/deepseek', {
 		method: 'POST',
@@ -106,12 +214,21 @@ export const fetchAIAdvice = async (testData, stats, testName, abortSignal) => {
 		signal: abortSignal
 	});
 
-	if (!response.ok) {
+	if (!response.ok)
+	{
 		const errorData = await response.json().catch(() => null);
 		console.error('❌ Ошибка сервера:', errorData);
 		throw new Error(errorData?.message || errorData?.error || 'Не удалось получить совет от AI');
 	}
 
+	// Если streaming включен
+	if (streaming)
+	{
+		console.log('📡 Processing streaming response...');
+		return await processStreamingResponse(response, onChunk, abortSignal);
+	}
+
+	// Обычный non-streaming ответ (для обратной совместимости)
 	const data = await response.json();
 	console.log('✅ Ответ от DeepSeek:', data);
 
