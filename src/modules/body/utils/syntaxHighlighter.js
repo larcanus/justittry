@@ -3,12 +3,14 @@ import 'prismjs/components/prism-markup-templating';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-php';
 import 'prismjs/components/prism-dart';
+import 'prismjs/components/prism-python';
 
 const TEST_LANGUAGE_MAP = {
     'JavaScript': 'javascript',
     'HTML': 'javascript',
     'DART': 'dart',
     'PHP': 'php',
+    'Py 3': 'python',
 };
 
 /**
