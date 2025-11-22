@@ -34,12 +34,11 @@ class Logger {
     }
 
     /**
-     * Основной метод логирования
+     * Вызов нативного лога
      * @param {string} level
      * @param {Array} args - Аргументы для логирования
      */
-    log(level, ...args) {
-        // Проверяем debug режим
+    print(level, ...args) {
         if (!this.isDebugEnabled()) {
             return;
         }
@@ -49,6 +48,14 @@ class Logger {
                             level === 'WARN' ? 'warn' : 'log';
 
         console[consoleMethod](prefix, ...args);
+    }
+
+    /**
+     * Основной метод логирования
+     * @param {Array} args - Аргументы для логирования
+     */
+    log(...args) {
+        this.print('LOG', ...args);
     }
 
     /**
@@ -65,7 +72,7 @@ class Logger {
      * @param {Array} args - Аргументы
      */
     warn(...args) {
-        this.log('WARN', ...args);
+        this.print('WARN', ...args);
     }
 
     /**
@@ -73,7 +80,7 @@ class Logger {
      * @param {Array} args - Аргументы
      */
     info(...args) {
-        this.log('INFO', ...args);
+        this.print('INFO', ...args);
     }
 
     /**
@@ -81,7 +88,7 @@ class Logger {
      * @param {Array} args - Аргументы
      */
     debug(...args) {
-        this.log('DEBUG', ...args);
+        this.print('DEBUG', ...args);
     }
 
     /**

@@ -9,6 +9,7 @@ import Tests from '../../../store/questions/questionsBandle';
 import TestInfo from '../components/config/TestInfo';
 import DifficultySelector from '../components/config/DifficultySelector';
 import ConfigActions from '../components/config/ConfigActions';
+import logger from "../../../common/logger";
 
 /**
  * Компонент конфигурации теста
@@ -71,7 +72,7 @@ const Configtest = ({
         history.push('/test');
     };
 
-    console.log('Configtest validationErrors:', validationErrors);
+    logger.log('Configtest validationErrors:', validationErrors);
 
     const headerTestName = currentTest ? `Тест на знание языка ${currentTest}` : 'Выберите тест';
 

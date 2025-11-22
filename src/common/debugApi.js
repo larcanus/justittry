@@ -284,7 +284,7 @@ class DebugAPI {
             }, {}),
         };
 
-        logger.table('Debug API', info);
+        logger.table('Debug API table TestInfo:', info);
 
         return info;
     }
