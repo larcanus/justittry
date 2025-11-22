@@ -6,6 +6,7 @@ import js from '../../../common/images/js-logo.png';
 import dart from '../../../common/images/dart-logo.png';
 import html from '../../../common/images/html-logo.png';
 import php from '../../../common/images/php-logo.png';
+import py from '../../../common/images/py-logo.png';
 
 class Navbar extends Component {
     componentDidMount() {
@@ -80,6 +81,22 @@ class Navbar extends Component {
                         className='navbar__test-logo'
                         src={php}
                         alt='PHP Test'
+                    />
+                </label>
+
+                <input
+                    type='radio'
+                    id='radio-5'
+                    name='radio1'
+                    value='py-test-logo'
+                    className='navbar__radio'
+                    onChange={this.handleTestChoice}
+                />
+                <label htmlFor='radio-5' className='navbar__label'>
+                    <img
+                        className='navbar__test-logo'
+                        src={py}
+                        alt='PYTHON Test'
                     />
                 </label>
             </div>

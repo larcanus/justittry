@@ -10,6 +10,8 @@ export default function newValue(test) {
             break;
         case 'php-test-logo' : test = 'PHP 8';
             break;
+        case 'py-test-logo' : test = 'Py 3';
+            break;
         case REMOVE_TEST : test = '';
             break;
     }
