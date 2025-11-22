@@ -3,6 +3,7 @@
  */
 
 import { safeLocalStorage, safeSessionStorage } from './storageUtils';
+import logger from "../logger";
 
 /**
  * Генерирует уникальный fingerprint браузера
@@ -38,7 +39,7 @@ export const getBrowserFingerprint = () => {
 			fingerprint = 'fp_' + Math.abs(hash).toString(36) + '_' + Date.now().toString(36);
 			safeLocalStorage.setItem('browser_fingerprint', fingerprint);
 		} catch (e) {
-			console.warn('Ошибка создания fingerprint:', e);
+			logger.warn('Ошибка создания fingerprint:', e);
 			// Генерируем временный ID
 			fingerprint = 'temp_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 9);
 		}
@@ -66,7 +67,7 @@ export const getSessionInfo = () => {
 			pageViews: parseInt(safeSessionStorage.getItem('page_views') || '0') + 1
 		};
 	} catch (e) {
-		console.error('Ошибка получения информации о сессии:', e);
+		logger.error('Ошибка получения информации о сессии:', e);
 		// Возвращаем временные данные
 		return {
 			sessionId: 'temp_session_' + Date.now(),
@@ -84,6 +85,6 @@ export const incrementPageViews = () => {
 		const views = parseInt(safeSessionStorage.getItem('page_views') || '0');
 		safeSessionStorage.setItem('page_views', (views + 1).toString());
 	} catch (e) {
-		console.warn('Не удалось обновить счетчик просмотров:', e);
+		logger.warn('Не удалось обновить счетчик просмотров:', e);
 	}
 };

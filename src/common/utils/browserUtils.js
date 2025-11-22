@@ -2,6 +2,8 @@
  * Утилиты для сбора метаданных о браузере и устройстве
  */
 
+import logger from "../logger";
+
 /**
  * Собирает метаданные о браузере и устройстве
  */
@@ -22,7 +24,7 @@ export const collectBrowserMetadata = () => {
 			viewport: `${window.innerWidth || 0}x${window.innerHeight || 0}`
 		};
 	} catch (e) {
-		console.warn('Ошибка сбора метаданных браузера:', e);
+		logger.warn('Ошибка сбора метаданных браузера:', e);
 		return {
 			userAgent: 'unknown',
 			language: 'unknown',

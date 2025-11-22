@@ -9,7 +9,7 @@ import Tests from '../../../store/questions/questionsBandle';
 import TestInfo from '../components/config/TestInfo';
 import DifficultySelector from '../components/config/DifficultySelector';
 import ConfigActions from '../components/config/ConfigActions';
-import logger from "../../../common/logger";
+import logger from '../../../common/logger';
 
 /**
  * Компонент конфигурации теста

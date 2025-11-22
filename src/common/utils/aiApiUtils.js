@@ -4,6 +4,7 @@
 
 import { getBrowserFingerprint, getSessionInfo } from './sessionUtils';
 import { collectBrowserMetadata } from './browserUtils';
+import logger from "../logger";
 
 /**
  * Создает промпт для AI-анализа результатов теста
@@ -33,7 +34,7 @@ export const aggregateTestData = (testData, stats, prompt) =>
 {
 	if (!testData)
 	{
-		console.warn('testResultData отсутствует');
+		logger.warn('testResultData отсутствует');
 		return null;
 	}
 	return {
@@ -126,7 +127,7 @@ export const processStreamingResponse = async (response, onChunk, abortSignal) =
 
 			if (done)
 			{
-				console.log('✅ Stream completed, total length:', fullContent.length);
+				logger.log('✅ Stream completed, total length:', fullContent.length);
 				break;
 			}
 
@@ -152,7 +153,7 @@ export const processStreamingResponse = async (response, onChunk, abortSignal) =
 
 					if (data === '[DONE]')
 					{
-						console.log('📝 Stream finished with [DONE] marker');
+						logger.log('📝 Stream finished with [DONE] marker');
 						return fullContent;
 					}
 
@@ -170,7 +171,7 @@ export const processStreamingResponse = async (response, onChunk, abortSignal) =
 						}
 					} catch (e)
 					{
-						console.warn('⚠️ Failed to parse SSE chunk:', e, 'data:', data);
+						logger.warn('⚠️ Failed to parse SSE chunk:', e, 'data:', data);
 					}
 				}
 			}
@@ -181,7 +182,7 @@ export const processStreamingResponse = async (response, onChunk, abortSignal) =
 	{
 		if (error.name === 'AbortError')
 		{
-			console.log('⚠️ Stream reading aborted');
+			logger.log('⚠️ Stream reading aborted');
 		}
 		throw error;
 	} finally
@@ -205,7 +206,7 @@ export const fetchAIAdvice = async (testData, stats, testName, abortSignal, onCh
 	const streaming = typeof onChunk === 'function';
 	const bodyData = createAIRequestPayload(testData, stats, testName, prompt, streaming);
 
-	console.log('🚀 Sending request to AI API, streaming:', streaming);
+	logger.log('🚀 Sending request to AI API, streaming:', streaming);
 
 	const response = await fetch('https://rulser-proxyai.store/deepseek/justittry', {
 		method: 'POST',
@@ -217,20 +218,20 @@ export const fetchAIAdvice = async (testData, stats, testName, abortSignal, onCh
 	if (!response.ok)
 	{
 		const errorData = await response.json().catch(() => null);
-		console.error('❌ Ошибка сервера:', errorData);
+		logger.error('❌ Ошибка сервера:', errorData);
 		throw new Error(errorData?.message || errorData?.error || 'Не удалось получить совет от AI');
 	}
 
 	// Если streaming включен
 	if (streaming)
 	{
-		console.log('📡 Processing streaming response...');
+		logger.log('📡 Processing streaming response...');
 		return await processStreamingResponse(response, onChunk, abortSignal);
 	}
 
 	// Обычный non-streaming ответ (для обратной совместимости)
 	const data = await response.json();
-	console.log('✅ Ответ от DeepSeek:', data);
+	logger.log('✅ Ответ от DeepSeek:', data);
 
 	return data?.content || data?.message || 'Что-то пошло не так :(';
 };

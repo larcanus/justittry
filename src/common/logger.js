@@ -13,7 +13,7 @@ class Logger {
      */
     initialize(debugApi) {
         this.debugApi = debugApi;
-        console.log('[Logger] Initialized with debugApi');
+        logger.log('[Logger] Initialized with debugApi');
     }
 
     /**
