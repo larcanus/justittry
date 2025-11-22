@@ -10,6 +10,7 @@ import AnswerOptions from './AnswerOptions';
 import CorrectAnswer from './CorrectAnswer';
 import FinishButton from './FinishButton';
 import '../../../../styles/prism.css'
+import logger from '../../../../common/logger';
 
 /**
  * Главный компонент карусели с вопросами теста
@@ -91,7 +92,7 @@ const Carousel = ({ slides, testName, diff, showingAnswers, duration, finishTest
                 window.scrollTo(0, 0);
             },
             onError: (error) => {
-                console.error('Failed to submit test:', error);
+                logger.error('Failed to submit test:', error);
                 alert('Произошла ошибка при отправке результатов');
             }
         });

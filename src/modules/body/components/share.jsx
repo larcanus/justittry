@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import logger from '../../../common/logger';
 
 class Share extends Component {
     constructor(props) {
@@ -81,7 +82,7 @@ class Share extends Component {
                 isLoading: false,
                 error: 'Yandex.Share API недоступен'
             });
-            console.error('Yandex.Share API не загружен');
+            logger.error('Yandex.Share API не загружен');
             return;
         }
 
@@ -148,11 +149,11 @@ class Share extends Component {
                                 difficulty: difficulty
                             });
                         }
-                        console.log(`Поделились через: ${name}`);
+                        logger.log(`Поделились через: ${name}`);
                     },
                     onready: () => {
                         this.setState({ isLoading: false });
-                        console.log('Yandex.Share инициализирован');
+                        logger.log('Yandex.Share инициализирован');
                     }
                 }
             });
@@ -161,7 +162,7 @@ class Share extends Component {
                 isLoading: false,
                 error: 'Ошибка инициализации кнопок шаринга'
             });
-            console.error('Ошибка инициализации Yandex.Share:', error);
+            logger.error('Ошибка инициализации Yandex.Share:', error);
         }
     }
 

@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { encodeAnswer, encodeSlide } from '../../../common/answerEncoder';
+import logger from '../../../common/logger';
 
 /**
  * Хук для валидации ответов теста
@@ -88,7 +89,7 @@ export const useAnswerValidation = (slides, diff) => {
             results.answerFullData.push(encodeSlide(slideData));
         });
 
-        console.log('Valid results', results);
+        logger.log('Valid results', results);
         setValidationResults(results);
         setShowCorrectAnswers(true);
 

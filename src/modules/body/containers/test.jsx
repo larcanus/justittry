@@ -15,6 +15,7 @@ import {
     getTimerID
 } from '../selectors/testSelectors';
 import { TEST_DURATION } from "../../../common/constants";
+import logger from '../../../common/logger';
 
 const Test = ({
     testConfig,
@@ -67,7 +68,7 @@ const Test = ({
 
         // Debug info
         if (isDebugMode) {
-            console.log('[Debug Test] Started with config:', {
+            logger.log('[Debug Test] Started with config:', {
                 test: testName,
                 difficulty,
                 questionCount: questions.length,

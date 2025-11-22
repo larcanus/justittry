@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { parseMarkdown } from '../../../../common/utils/markdownUtils';
 import { incrementPageViews } from '../../../../common/utils/sessionUtils';
 import { fetchAIAdvice } from '../../../../common/utils/aiApiUtils';
+import logger from '../../../../common/logger';
 
 /**
  * Компонент для получения AI-совета по результатам теста
@@ -66,7 +67,7 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 
 		try
 		{
-			console.log('🚀 Starting AI advice request with streaming...');
+			logger.log('🚀 Starting AI advice request with streaming...');
 
 			const result = await fetchAIAdvice(
 				testData,
@@ -80,7 +81,7 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 			if (isMountedRef.current)
 			{
 				// result уже содержит полный текст, но мы его уже накопили через handleStreamChunk
-				console.log('✅ AI advice received, total length:', result.length);
+				logger.log('✅ AI advice received, total length:', result.length);
 				setStreaming(false);
 			}
 		} catch (err)
@@ -88,14 +89,14 @@ const AIAdviceButton = ({ testData, testName, stats }) =>
 			// Игнорируем ошибку отмены запроса
 			if (err.name === 'AbortError')
 			{
-				console.log('⚠️ Запрос был отменен');
+				logger.log('⚠️ Запрос был отменен');
 				return;
 			}
 
-			console.error('❌ Ошибка при получении совета:', err);
-			console.error('- Name:', err.name);
-			console.error('- Message:', err.message);
-			console.error('- Stack:', err.stack);
+			logger.error('❌ Ошибка при получении совета:', err);
+			logger.error('- Name:', err.name);
+			logger.error('- Message:', err.message);
+			logger.error('- Stack:', err.stack);
 
 			// Обновляем состояние только если компонент все еще смонтирован
 			if (isMountedRef.current)

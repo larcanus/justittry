@@ -4,6 +4,7 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-php';
 import 'prismjs/components/prism-dart';
 import 'prismjs/components/prism-python';
+import logger from '../../../common/logger';
 
 const TEST_LANGUAGE_MAP = {
     'JavaScript': 'javascript',
@@ -37,6 +38,6 @@ export const highlightSyntax = () => {
     try {
         Prism.highlightAll();
     } catch (error) {
-        console.warn('Prism highlighting error:', error);
+        logger.warn('Prism highlighting error:', error);
     }
 };

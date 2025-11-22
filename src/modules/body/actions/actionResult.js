@@ -1,4 +1,5 @@
 import { DISPATCH_TEST_RESULT, DISPATCH_RESET_RESULT } from '../../../common/constants';
+import logger from '../../../common/logger';
 
 /**
  * Отправка результата теста
@@ -36,7 +37,7 @@ export const finishTest = (result, options = {}) => (dispatch) => {
             onSuccess(result);
         }
     } catch (error) {
-        console.error('Error finishing test:', error);
+        logger.error('Error finishing test:', error);
 
         if (onError) {
             onError(error);

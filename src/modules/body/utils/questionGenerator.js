@@ -1,3 +1,5 @@
+import logger from '../../../common/logger';
+
 /**
  * Генерирует массив уникальных случайных чисел
  * @param {number} count - Количество чисел
@@ -30,7 +32,7 @@ export const generateRandomQuestions = (testData, difficulty, questionCount = 20
     const questions = testData[difficulty];
 
     if (!questions || questions.length === 0) {
-        console.error('Вопросы не найдены для выбранной сложности');
+        logger.error('Вопросы не найдены для выбранной сложности');
         return [];
     }
 
