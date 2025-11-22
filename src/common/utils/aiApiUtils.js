@@ -207,7 +207,7 @@ export const fetchAIAdvice = async (testData, stats, testName, abortSignal, onCh
 
 	console.log('🚀 Sending request to AI API, streaming:', streaming);
 
-	const response = await fetch('https://rulser-proxyai.store/deepseek', {
+	const response = await fetch('https://rulser-proxyai.store/deepseek/justittry', {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(bodyData),
