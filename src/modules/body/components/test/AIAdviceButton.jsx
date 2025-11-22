@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { parseMarkdown } from '../../../../common/utils';
+import { parseMarkdown } from '../../../../common/utils/markdownUtils';
 import { incrementPageViews } from '../../../../common/utils/sessionUtils';
 import { fetchAIAdvice } from '../../../../common/utils/aiApiUtils';
 

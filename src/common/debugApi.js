@@ -4,6 +4,7 @@
  */
 import Tests from '../store/questions/questionsBandle';
 import { START_TEST_CONFIG } from "./constants";
+import logger from './logger';
 
 /**
  * Валидирует debug конфигурацию
@@ -48,7 +49,8 @@ const validateDebugConfig = (config) => {
  */
 const getQuestionsByIndices = (testData, difficulty, questionNums) => {
     const questions = testData[difficulty];
-    console.log('questions', questions)
+    logger.debug('Debug API', 'Questions for difficulty:', { difficulty, count: questions?.length });
+
     if (!questions || questions.length === 0) {
         throw new Error(`No questions found for difficulty: ${difficulty}`);
     }
@@ -66,14 +68,14 @@ const getQuestionsByIndices = (testData, difficulty, questionNums) => {
     });
 
     if (notFoundNums.length > 0) {
-        console.warn(`[Debug API] Questions with num [${notFoundNums.join(', ')}] not found`);
+        logger.warn('Debug API', `Questions with num [${notFoundNums.join(', ')}] not found`);
     }
 
     if (foundQuestions.length === 0) {
         throw new Error(`No questions found with specified nums: [${questionNums.join(', ')}]`);
     }
 
-    console.log(`[Debug API] Found ${foundQuestions.length} questions by num:`, questionNums);
+    logger.info('Debug API', `Found ${foundQuestions.length} questions by num:`, questionNums);
 
     return foundQuestions;
 };
@@ -97,7 +99,8 @@ class DebugAPI {
     initialize(store, history) {
         this.store = store;
         this.history = history;
-        console.log('[Debug API] Initialized with store and history');
+        logger.initialize(this);
+        logger.info('Debug API', 'Initialized with store and history');
     }
 
     /**
@@ -105,7 +108,7 @@ class DebugAPI {
      */
     enable() {
         this.isDebugMode = true;
-        console.log('[Debug API] Enabled');
+        logger.info('Debug API Enabled');
     }
 
     /**
@@ -114,7 +117,7 @@ class DebugAPI {
     disable() {
         this.isDebugMode = false;
         this.debugConfig = null;
-        console.log('[Debug API] Disabled');
+        logger.info('Debug API Disabled');
     }
 
     /**
@@ -134,6 +137,7 @@ class DebugAPI {
 
         const validation = validateDebugConfig(config);
         if (!validation.isValid) {
+            logger.error('Debug API', 'Invalid config:', validation.errors);
             throw new Error(`Invalid config: ${validation.errors.join(', ')}`);
         }
 
@@ -151,11 +155,11 @@ class DebugAPI {
         // Получаем вопросы
         if (questionIndices && questionIndices.length > 0) {
             questions = getQuestionsByIndices(testData, difficulty, questionIndices);
-            console.log(`[Debug API] Using ${questions.length} specific questions with num:`, questionIndices);
+            logger.info('Debug API', `Using ${questions.length} specific questions with num:`, questionIndices);
         } else {
             // Используем все вопросы для данной сложности
             questions = testData[difficulty] || [];
-            console.log(`[Debug API] Using all ${questions.length} questions for ${difficulty}`);
+            logger.info('Debug API', `Using all ${questions.length} questions for ${difficulty}`);
         }
 
         if (questions.length === 0) {
@@ -182,12 +186,12 @@ class DebugAPI {
 
         this.debugConfig = debugConfig;
 
-        console.log('[Debug API] Test config created:', {
-            test: testName,
-            difficulty,
-            questionCount: questions.length,
-            duration: duration ? `${duration} min` : 'default',
-            withoutTimer,
+        logger.group('Debug API Test config created', () => {
+            logger.info('Debug API', 'Test:', testName);
+            logger.info('Debug API', 'Difficulty:', difficulty);
+            logger.info('Debug API', 'Question count:', questions.length);
+            logger.info('Debug API', 'Duration:', duration ? `${duration} min` : 'default');
+            logger.info('Debug API', 'Without timer:', withoutTimer);
         });
 
         return debugConfig;
@@ -200,7 +204,7 @@ class DebugAPI {
      */
     startTest(config = null) {
         if (!this.store || !this.history) {
-            console.error('[Debug API] Not initialized. Call debugApi.initialize(store, history) first');
+            logger.error('Debug API', 'Not initialized. Call debugApi.initialize(store, history) first');
             throw new Error('Debug API not initialized. Call initialize(store, history) first');
         }
 
@@ -211,23 +215,26 @@ class DebugAPI {
                 throw new Error('No test configuration available. Create config first using createTestConfig()');
             }
 
+            logger.time('Debug API', 'Test startup');
+
             // Отправляем конфигурацию в Redux
             this.store.dispatch({
                 type: START_TEST_CONFIG,
                 payload: testConfig,
             });
 
-            console.log('[Debug API] Test config dispatched to Redux');
+            logger.debug('Debug API', 'Test config dispatched to Redux');
 
             // Перенаправляем на страницу теста
             this.history.push('/test');
 
-            console.log('[Debug API] Navigated to /test');
-            console.log('[Debug API] Test started successfully!');
+            logger.debug('Debug API', 'Navigated to /test');
+            logger.timeEnd('Debug API', 'Test startup');
+            logger.info('Debug API', 'Test started successfully!');
 
             return true;
         } catch (error) {
-            console.error('[Debug API] Failed to start test:', error);
+            logger.error('Debug API', 'Failed to start test:', error);
             return false;
         }
     }
@@ -268,7 +275,7 @@ class DebugAPI {
             throw new Error(`Test "${testName}" not found`);
         }
 
-        return {
+        const info = {
             name: testName,
             difficulties: Object.keys(testData),
             questionCounts: Object.entries(testData).reduce((acc, [diff, questions]) => {
@@ -276,6 +283,10 @@ class DebugAPI {
                 return acc;
             }, {}),
         };
+
+        logger.table('Debug API', info);
+
+        return info;
     }
 
     /**
@@ -300,7 +311,7 @@ class DebugAPI {
         const maxQuestions = Math.min(questionCount, testData[difficulty].length);
         const questionIndices = testData[difficulty]
             .slice(0, maxQuestions)
-            .map(q => q.num);
+            .map(q => parseInt(q.num.replace('#', '')));
 
         const config = this.createTestConfig({
             testName,
