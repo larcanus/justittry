@@ -72,7 +72,7 @@ const Configtest = ({
         history.push('/test');
     };
 
-    logger.log('Configtest validationErrors:', validationErrors);
+    logger.log('Configtest validation errors:', validationErrors);
 
     const headerTestName = currentTest ? `Тест на знание языка ${currentTest}` : 'Выберите тест';
 

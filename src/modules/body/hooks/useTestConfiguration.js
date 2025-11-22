@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { generateRandomQuestions, extractShortTestName } from '../utils/questionGenerator';
 import { validateTestConfig } from '../utils/testConfigValidator';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
@@ -17,12 +17,25 @@ export const useTestConfiguration = (testData, currentTestName) => {
         test: null,
     });
 
+    // Отслеживаем предыдущее значение теста
+    const prevTestName = useRef(currentTestName);
+
     /**
      * Очищает ошибку валидации теста при изменении выбранного теста
+     * Оптимизировано: обновляем состояние только если есть ошибка
      */
     useEffect(() => {
-        if (currentTestName) {
-            setValidationErrors(prev => ({ ...prev, test: null }));
+        const testChanged = prevTestName.current !== currentTestName;
+        prevTestName.current = currentTestName;
+
+        if (testChanged && currentTestName) {
+            // Обновляем состояние только если есть ошибка теста
+            setValidationErrors(prev => {
+                if (prev.test !== null) {
+                    return { ...prev, test: null };
+                }
+                return prev; // Не вызываем ре-рендер если ошибки нет
+            });
         }
     }, [currentTestName]);
 
@@ -31,7 +44,12 @@ export const useTestConfiguration = (testData, currentTestName) => {
      */
     const handleDifficultyChange = useCallback((value) => {
         setDifficulty(value);
-        setValidationErrors(prev => ({ ...prev, difficulty: null }));
+        setValidationErrors(prev => {
+            if (prev.difficulty !== null) {
+                return { ...prev, difficulty: null };
+            }
+            return prev;
+        });
     }, []);
 
     /**
