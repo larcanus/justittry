@@ -31,7 +31,7 @@
     border: none;
     color: #467e91;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
     padding: 0;
     text-decoration: underline;
     transition: color 0.3s;
@@ -54,6 +54,9 @@
     }
 
     .author-info {
+        font-size: 12px;
+    }
+    .author-link {
         font-size: 12px;
     }
 }
