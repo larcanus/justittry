@@ -1,35 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import dataPackage from '../../../../package.json';
 
 const Footdown = () => {
     const versionApp = dataPackage.version;
-    const [showEmail, setShowEmail] = useState(false);
+    const authorWebsite = 'https://alexrulser.com/';
 
-    const toggleEmail = () => {
-        setShowEmail(!showEmail);
-    };
-
-    const getDisplayText = () => {
-        const baseText = `© 2024 | Author: AlexRulSer | v${versionApp}`;
-
-        if (showEmail) {
-            return `${baseText} | alex.rulser@gmail.com`;
-        }
-
-        return baseText;
+    const openAuthorWebsite = () => {
+        window.open(authorWebsite, '_blank', 'noopener,noreferrer');
     };
 
     return (
         <footer className="footer">
             <div className="footer-content">
                 <p className="author-info">
-                    {getDisplayText()}
+                    © 2025 | v{versionApp} | Author:
                     <button
-                        className="email-toggle"
-                        onClick={toggleEmail}
-                        aria-label={showEmail ? "Hide email" : "Show email"}
+                        className="author-link"
+                        onClick={openAuthorWebsite}
+                        aria-label="Перейти на сайт автора"
                     >
-                        {showEmail ? ' [Hide]' : ' [Contact]'}
+                        AlexRulSer
                     </button>
                 </p>
             </div>

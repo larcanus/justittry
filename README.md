@@ -26,20 +26,6 @@ Just IT Try — это платформа для проверки знаний �
 - **Роутинг:** React Router
 - **AI Integration:** OpenAI API
 
-## 🚀 Быстрый старт
-
-### Установка
-
-```bash
-# Клонировать репозиторий
-git clone https://github.com/yourusername/justittry.git
-
-# Перейти в директорию
-cd justittry
-
-# Установить зависимости
-npm install
-```
 
 ## 📁 Структура проекта
 
@@ -66,11 +52,3 @@ src/
 3. Закоммитьте изменения (`git commit -m 'Add some AmazingFeature'`)
 4. Запушьте ветку (`git push origin feature/AmazingFeature`)
 5. Откройте Pull Request
-
-## 📝 Лицензия
-
-Этот проект распространяется под лицензией MIT.
-
-
-⭐ Если проект был полезен, поставьте звезду на GitHub!
-```
