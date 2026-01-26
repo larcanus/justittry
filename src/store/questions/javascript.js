@@ -1,7 +1,7 @@
 const JavaScriptQuestions = {
     jun: [
         {
-            question: 'С помощью каких символов можно оставить комментарий \nразработчика  в JavaScrip?',
+            question: 'С помощью каких символов можно оставить комментарий \nразработчика  в JavaScript?',
             option: {
                 a1: '/',
                 a2: '//',
@@ -312,12 +312,10 @@ const JavaScriptQuestions = {
                 a1: 'TypeError',
                 a2: 'Пустая строка',
                 a3: 'Mike H. undefined.',
-                a4: '  undefined',
+                a4: 'undefined',
             },
             answerOption: 'a3',
-            answer: 'Деструктуризация: name и surname присваиваются из объекта.\n' +
-                'patronynic = undefined, но при обращении к patronynic[\'0\']\n' +
-                'получаем символ "u" из строки "undefined".',
+            answer: 'Деструктуризация: name и surname присваиваются из объекта.\n\n Обращение [\'0\'] из пустой строки вернет undefined',
             num: '#30',
         },
         {
@@ -463,11 +461,11 @@ const JavaScriptQuestions = {
                 'functionBar()\n' +
                 '\n' +
                 'function functionFoo(){\n' +
-                '    console.log(\'I am working.\')\n' +
+                '    console.log(\'I am working.\');\n' +
                 '}\n' +
                 'const functionBar = function(){\n' +
-                '    console.log(\'I work too!\')\n' +
-                '}?',
+                '    console.log(\'I work too!\');\n' +
+                '}',
             option: {
                 a1: 'консоль выведет сначала \'I am working.\', а потом \'I work too!\'',
                 a2: 'консоль выведет только \'I work too!\'',
@@ -756,8 +754,9 @@ const JavaScriptQuestions = {
                 a4: 'ReferenceError',
             },
             answerOption: 'a3',
-            answer: 'Переменная a поднимается (hoisted) в начало функции.\n' +
-                'На момент console.log(a) она объявлена, но не инициализирована → undefined.',
+            answer: 'Переменная a поднимается (hoisted) в начало функции как  var a;.\n' +
+   				'И перекрывает глобальную a = 5.\n' +
+                'На момент console.log(a) она объявлена, но не инициализирована = undefined.',
             num: '#76',
         },
         {
@@ -905,8 +904,8 @@ const JavaScriptQuestions = {
     mid: [
         {
             question: 'Что выведет консоль? \n\n' +
-                'const array = [ 1, 2, 3 ]\n' +
-                'const callback = x => x*2\n' +
+                'const array = [ 1, 2, 3 ];\n' +
+                'const callback = x => x*2;\n' +
                 '\n' +
                 'console.log( array.map(x => callback()) ); ',
 
@@ -1010,7 +1009,7 @@ const JavaScriptQuestions = {
                 '}\n\n' +
                 'console.log( object?.getName?.() )',
             option: {
-                a1: 'ReferenceError',
+				a1: 'в консоль выведет - \'objectName\'',
                 a2: 'в консоль выведет - \'object\'',
                 a3: 'TypeError',
                 a4: 'В коде ошибка',
